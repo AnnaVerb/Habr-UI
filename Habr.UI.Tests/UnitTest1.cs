@@ -11,6 +11,7 @@ namespace Habr.UI.Tests
         {
             Console.WriteLine("Test");
             Console.WriteLine("Test2");
+            Console.WriteLine("Test3");            
             Console.WriteLine("Test3.1");
         }
     }
