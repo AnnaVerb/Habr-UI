@@ -9,11 +9,8 @@ namespace Habr.UI.Tests
         [TestMethod]
         public void TestMethod1()
         {
-
             Console.WriteLine("Test");
             Console.WriteLine("Test2");
-
-
         }
     }
 }
