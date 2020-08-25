@@ -11,6 +11,7 @@ namespace Habr.UI.Tests.Pages
     public class HomePage
     {
         private IWebDriver Driver { get; set; }
+        private static readonly string MainAddress = "https://habr.com/ru/";
         public string Title
         {
             get
@@ -26,22 +27,15 @@ namespace Habr.UI.Tests.Pages
                 return Driver.FindElement(By.ClassName("logo"));
             }
         }
+
         public HomePage(IWebDriver driver)
         {
             Driver = driver;
-
         }
 
         public void GoHomePage()
         {
-            
-
-            Driver.Navigate().GoToUrl("https://habr.com/ru/");
-            ButtonLogo.Click();
-
+            Driver.Navigate().GoToUrl(MainAddress);            
         }
-
-
-
     }
 }
