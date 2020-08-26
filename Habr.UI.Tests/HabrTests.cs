@@ -1,16 +1,19 @@
-﻿using System;
-using System.IO;
-using System.Reflection;
-using System.Threading;
-using Habr.UI.Tests.Pages;
+﻿using Habr.UI.Tests.Pages;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Habr.UI.Tests
 {
     [TestClass]
-    public class PageHomeTests
+    public class HabrTests
     {
 
         IWebDriver Driver { get; set; }
@@ -22,10 +25,12 @@ namespace Habr.UI.Tests
             Driver.Manage().Window.Maximize();
         }
 
-        //private IWebDriver GetChromeDriver()
-        //{
-        //    throw new NotImplementedException();
-        //}
+        [TestCleanup]
+        public void CloseBrowser()
+        {
+            Driver.Close();
+        }
+
 
         private IWebDriver GetChromeDriver()
         {
@@ -36,15 +41,17 @@ namespace Habr.UI.Tests
             return new ChromeDriver(outputDirectory, new ChromeOptions());
         }
 
-
         [TestMethod]
-        public void Test_HomePage()
+        [ExpectedException(typeof(NoSuchElementException), "Login button is not presented on the page.")]
+        public void Login_Success()
         {
 
             HomePage page = new HomePage(Driver);
-            page.GoHomePage();
+            page.Login("annystudy@gmail.com", "d!6#AHW3uhq6*kL");
 
+            var button = page.ButtonLogin;
 
         }
+
     }
 }

@@ -56,9 +56,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HabrTests.cs" />
     <Compile Include="Pages\HomePage.cs" />
-    <Compile Include="PageHomeTests.cs" />
-    <Compile Include="ProfileTests.cs" />
+    <Compile Include="Pages\LoginPopUpPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
