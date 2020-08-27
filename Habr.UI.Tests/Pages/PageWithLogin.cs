@@ -9,9 +9,16 @@ namespace Habr.UI.Tests
 {
     public class PageWithLogin
     {
+        public PageWithLogin(IWebDriver driver)
+        {
+            Driver = driver;
+
+
+        }
+
         private IWebDriver Driver { get; set; }
 
-        public IWebElement ButtonGreen_UserMenu
+        public IWebElement ButtonGreen
         {
             get
             {
@@ -23,18 +30,76 @@ namespace Habr.UI.Tests
         {
             get
             {
-                return Driver.FindElement(By.XPath("/html/body/div[1]/div[2]/div/div/div[2]/a[1]"));
+                return Driver.FindElement(By.ClassName("btn btn_medium btn_navbar_tracker"));
             }
         }
 
-        public IWebElement ProfileMenu_ButtonLoginOut
+        public IWebElement ButtonLoginOut_UserMenu
         {
             get
             {
-                return Driver.FindElement(By.XPath("/html/body/div[1]/div[2]/div/div/div[2]/div/div/ul/li[7]/a"));
+                //By.XPath("/html/body/div[1]/div[2]/div/div/div[2]/div/div/ul/li[7]/a")
+                return Driver.FindElement(By.XPath());
             }
         }
 
+        public void ClickButtonLoginOut()
+        {
+            PageWithLogin pageLogin = new PageWithLogin(Driver);
+
+            pageLogin.ButtonGreen.Click();
+
+            ////scroll bar down
+
+            ////System.setProperty("webdriver.chrome.driver", "G://chromedriver.exe");
+            ////driver = new ChromeDriver();
+            ////JavascriptExecutor js = (JavascriptExecutor)driver;
+            ////Find element by link text and store in variable "Element"        		
+            ////WebElement Element = driver.findElement(By.linkText("Linux"));
+
+            ////This will scroll the page till the element is found		
+            ////js.executeScript("arguments[0].scrollIntoView();", Element); 2: 
+
+            //                       //To scroll down the web page by the visibility of the element.
+
+            //JavascriptExecutor js = (JavascriptExecutor)Driver;
+            //js.executeScript("arguments[0].scrollIntoView();", ButtonLoginOut_UserMenu);
+
+
+            //pageLogin.ButtonLoginOut_UserMenu.Click();
+
+            if (pageLogin.ButtonLoginOut_UserMenu.Displayed)
+            {
+                pageLogin.ButtonLoginOut_UserMenu.Click();
+            }
+            else
+            {
+                Driver.Close();
+            }
+
+           
+            Driver.Navigate().Refresh();
+
+        }
+                
+
+        public void CheckNotifications()
+        {
+            PageWithLogin pageLogin = new PageWithLogin(Driver);
+
+            pageLogin.ButtonNotifications.Click();
+            //Driver.FindElement(By.ClassName("page-header__title");
+
+        }
+
+
 
     }
+
+
+
+    internal class JavascriptExecutor
+    {
+    }
 }
+

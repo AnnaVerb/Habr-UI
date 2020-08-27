@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Habr.UI.Tests.Pages
 {
-    public class HomePage
+    public class PageHome
     {
         private IWebDriver Driver { get; set; }
         private static readonly string MainAddress = "https://habr.com/ru/";
@@ -36,7 +36,7 @@ namespace Habr.UI.Tests.Pages
             }
         }
 
-        public HomePage(IWebDriver driver)
+        public PageHome(IWebDriver driver)
         {
             Driver = driver;
         }
