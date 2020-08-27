@@ -43,13 +43,26 @@ namespace Habr.UI.Tests
 
         [TestMethod]
         [ExpectedException(typeof(NoSuchElementException), "Login button is not presented on the page.")]
-        public void Login_Success()
+        public void LoginInput_Success()
         {
 
             HomePage page = new HomePage(Driver);
             page.Login("annystudy@gmail.com", "d!6#AHW3uhq6*kL");
 
             var button = page.ButtonLogin;
+
+        }
+
+        [TestMethod]
+        public void LoginOut_Success()
+        {
+            //before Test use Login(string email, string password)
+
+            HomePage page = new HomePage(Driver);
+            //page.Login("annystudy@gmail.com", "d!6#AHW3uhq6*kL");
+            //var button = page.ButtonLogin;
+            page.
+
 
         }
 
