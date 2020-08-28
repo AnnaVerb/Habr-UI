@@ -39,7 +39,7 @@ namespace Habr.UI.Tests
             get
             {
                 //By.XPath("/html/body/div[1]/div[2]/div/div/div[2]/div/div/ul/li[7]/a")
-                return Driver.FindElement(By.XPath());
+                return Driver.FindElement(By.CssSelector("body > div.layout > div.layout__row.layout__row_navbar > div > div > div.main - navbar__section.main - navbar__section_right > div > div > ul > li:nth - child(7) > a"));
             }
         }
 
