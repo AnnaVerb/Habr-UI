@@ -59,7 +59,7 @@
     <Compile Include="HabrTests.cs" />
     <Compile Include="Pages\PageHome.cs" />
     <Compile Include="Pages\LoginPopUpPage.cs" />
-    <Compile Include="Pages\PageWithLogin.cs" />
+    <None Include="Pages\newcs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

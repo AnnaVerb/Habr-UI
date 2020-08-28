@@ -1,0 +1,25 @@
+﻿using Habr.UI.Tests.Pages;
+using OpenQA.Selenium;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Habr.UI.Tests
+{
+    public class PageWithLogin
+    {
+        public PageWithLogin(IWebDriver driver)
+        {
+            Driver = driver;
+
+
+        }
+        private IWebDriver Driver { get; set; }
+
+
+
+    }
+}
+
