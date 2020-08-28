@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using Habr.UI.Tests.Pages;
+using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,8 +16,8 @@ namespace Habr.UI.Tests
 
 
         }
-
         private IWebDriver Driver { get; set; }
+
 
         public IWebElement ButtonGreen
         {
@@ -30,18 +31,26 @@ namespace Habr.UI.Tests
         {
             get
             {
-                return Driver.FindElement(By.ClassName("btn btn_medium btn_navbar_tracker"));
+                return Driver.FindElement(By.ClassName("btn btn medium btn navbar tracker"));
             }
         }
-
         public IWebElement ButtonLoginOut_UserMenu
         {
             get
             {
                 //By.XPath("/html/body/div[1]/div[2]/div/div/div[2]/div/div/ul/li[7]/a")
-                return Driver.FindElement(By.CssSelector("body > div.layout > div.layout__row.layout__row_navbar > div > div > div.main - navbar__section.main - navbar__section_right > div > div > ul > li:nth - child(7) > a"));
+                //By.CssSelector("body > div.layout > div.layout__row.layout__row_navbar > div > div > div.main - navbar__section.main - navbar__section_right > div > div > ul > li:nth - child(7) > a"));
+                return Driver.FindElement(By.Name("Выйти"));
             }
         }
+        public IWebElement ButtonLogin
+        {
+            get
+            {
+                return Driver.FindElement(By.XPath("//*[@id='login']"));
+            }
+        }
+
 
         public void ClickButtonLoginOut()
         {
@@ -77,11 +86,10 @@ namespace Habr.UI.Tests
                 Driver.Close();
             }
 
-           
+
             Driver.Navigate().Refresh();
 
         }
-                
 
         public void CheckNotifications()
         {
@@ -91,6 +99,7 @@ namespace Habr.UI.Tests
             //Driver.FindElement(By.ClassName("page-header__title");
 
         }
+
 
 
 

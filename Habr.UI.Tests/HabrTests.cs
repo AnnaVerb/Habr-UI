@@ -33,7 +33,6 @@ namespace Habr.UI.Tests
             Driver.Close();
         }
 
-
         private IWebDriver GetChromeDriver()
         {
 
@@ -42,6 +41,8 @@ namespace Habr.UI.Tests
 
             return new ChromeDriver(outputDirectory, new ChromeOptions());
         }
+
+
 
         [TestMethod]
         [ExpectedException(typeof(NoSuchElementException), "Login button is not presented on the page.")]
@@ -62,7 +63,7 @@ namespace Habr.UI.Tests
             PageWithLogin pageLogin = new PageWithLogin(Driver);
             PageHome pageHome = new PageHome(Driver);
 
-            pageHome.Login("annystudy@gmail.com", "d!6#AHW3uhq6*kL");
+            PageWithLogin.Login("annystudy@gmail.com", "d!6#AHW3uhq6*kL");
             WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(5));
 
 
@@ -79,8 +80,7 @@ namespace Habr.UI.Tests
         public void CheckNotifications_Success()
         {
             PageWithLogin page = new PageWithLogin(Driver);
-
-            //PageWithLogin.;
+                        
 
             page.CheckNotifications();
             //Driver.FindElement(By.ClassName("page-header__title");

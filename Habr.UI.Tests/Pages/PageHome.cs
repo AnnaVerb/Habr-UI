@@ -36,6 +36,14 @@ namespace Habr.UI.Tests.Pages
             }
         }
 
+        ////public IWebElement ButtonLogin
+        //{
+        //    get
+        //    {
+        //        return Driver.FindElement(By.XPath("//*[@id='login']"));
+        //    }
+        //}
+
         public PageHome(IWebDriver driver)
         {
             Driver = driver;
@@ -43,17 +51,22 @@ namespace Habr.UI.Tests.Pages
 
         public void GoHomePage()
         {
-            Driver.Navigate().GoToUrl(MainAddress);            
+            Driver.Navigate().GoToUrl(MainAddress);
         }
 
         public void Login(string email, string password)
         {
             GoHomePage();
             ButtonLogin.Click();
-            LoginPopUpPage loginPopUpPage = new LoginPopUpPage(Driver);
-            loginPopUpPage.InputEmail.SendKeys(email);
-            loginPopUpPage.InputPassword.SendKeys(password);
-            loginPopUpPage.ButtonLogin.Click();
+
+            LoginPopUpPage page = new LoginPopUpPage(Driver);         
+                        
+            page.InputEmail.SendKeys(email);
+            page.InputPassword.SendKeys(password);
+            page.ClickButtonLoginPopupPage();
+            
         }
+
+
     }
 }

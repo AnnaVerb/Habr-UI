@@ -25,7 +25,7 @@ namespace Habr.UI.Tests.Pages
                 return Driver.FindElement(By.XPath("//*[@id='password_field']"));
             }
         }
-        public IWebElement ButtonLogin
+        public IWebElement ButtonLoginPopupPage
         {
             get
             {
@@ -37,6 +37,14 @@ namespace Habr.UI.Tests.Pages
         {
             Driver = driver;
         }
+
+        public void ClickButtonLoginPopupPage()
+        {
+            LoginPopUpPage page = new LoginPopUpPage(Driver);
+            page.ButtonLoginPopupPage.Click();
+                
+        }
+
 
 
 
