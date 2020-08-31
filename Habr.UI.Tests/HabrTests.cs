@@ -59,11 +59,9 @@ namespace Habr.UI.Tests
         [TestMethod]
         public void LoginOut_Success()
         {
-
             PageHome page = new PageHome(Driver);
 
             page.Login("annystudy@gmail.com", "d!6#AHW3uhq6*kL");
-
             page.LoginOutProcess();
 
             Assert.IsTrue(page.ButtonLogin.Displayed);
@@ -103,14 +101,9 @@ namespace Habr.UI.Tests
         public void CheckSeachFieldProcess_Success()
         {
             PageHome page = new PageHome(Driver);
-            page.SeachFieldProcess("Яндекс");
+            page.SeachFieldProcess("Яндекс");            
 
-            WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(5));
-
-            //Assert.IsTrue(page.ButtonLogin.Displayed);
-            //bool result = page.ButtonGreenUser.Selected;
-          
-
+            Assert.IsTrue(page.ElementTabsPublications.Enabled);
         }
     }
 }
