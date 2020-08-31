@@ -28,6 +28,22 @@ namespace Habr.UI.Tests.Pages
                 return Driver.FindElement(By.ClassName("logo"));
             }
         }
+
+        public IWebElement ButtonSearch
+        {
+            get
+            {
+                return Driver.FindElement(By.Id("search-form-btn"));
+            }
+        }
+
+        public IWebElement ElementSearchField
+        {
+            get
+            {
+                return Driver.FindElement(By.ClassName("search-field__input"));
+            }
+        }
         public IWebElement ButtonLogin
         {
             get
@@ -102,7 +118,7 @@ namespace Habr.UI.Tests.Pages
             else
             {
                 Driver.Close();
-            }          
+            }
 
         }
 

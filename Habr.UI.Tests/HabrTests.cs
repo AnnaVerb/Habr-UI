@@ -98,5 +98,17 @@ namespace Habr.UI.Tests
             Assert.IsTrue(result);
 
         }
+
+        [TestMethod]
+        public void CheckSeachField_Success()
+        {
+            PageHome page = new PageHome(Driver);
+            page.ButtonGreenUser.Click();
+
+            WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(5));
+            bool result = page.ButtonGreenUser.Selected;
+            Assert.IsTrue(result);
+
+        }
     }
 }
