@@ -28,7 +28,6 @@ namespace Habr.UI.Tests.Pages
                 return Driver.FindElement(By.ClassName("logo"));
             }
         }
-
         public IWebElement ButtonSearch
         {
             get
@@ -36,7 +35,6 @@ namespace Habr.UI.Tests.Pages
                 return Driver.FindElement(By.Id("search-form-btn"));
             }
         }
-
         public IWebElement ElementSearchField
         {
             get
@@ -51,6 +49,8 @@ namespace Habr.UI.Tests.Pages
                 return Driver.FindElement(By.XPath("//*[@id='login']"));
             }
         }
+
+
         public IWebElement ButtonGreenUser
         {
             get
@@ -82,10 +82,26 @@ namespace Habr.UI.Tests.Pages
             Driver = driver;
         }
 
+
         public void GoHomePage()
         {
             Driver.Navigate().GoToUrl(MainAddress);
         }
+
+
+        public void Login(string email, string password)
+        {
+            GoHomePage();
+            ButtonLogin.Click();
+
+            LoginPopUpPage page = new LoginPopUpPage(Driver);
+
+            page.InputEmail.SendKeys(email);
+            page.InputPassword.SendKeys(password);
+            page.ClickButtonLoginPopupPage();
+
+        }
+
         public void LoginOutProcess()
         {
             PageHome page = new PageHome(Driver);
@@ -122,6 +138,24 @@ namespace Habr.UI.Tests.Pages
 
         }
 
+        public void SeachFieldProcess(string text)
+        {
+            GoHomePage();
+            PageHome page = new PageHome(Driver);
+
+            page.ButtonSearch.Click();
+            page.ElementSearchField.SendKeys(text);
+
+            //page.ClickButtonLoginPopupPage();
+
+
+
+
+
+        }
+
+
+
         public void ClickNotifications()
         {
             PageHome page = new PageHome(Driver);
@@ -130,27 +164,14 @@ namespace Habr.UI.Tests.Pages
             //Driver.FindElement(By.ClassName("page-header__title");
 
         }
+
+
         public void ClickButtonGreenUser()
         {
             PageHome page = new PageHome(Driver);
             ButtonGreenUser.Click();
 
         }
-
-        public void Login(string email, string password)
-        {
-            GoHomePage();
-            ButtonLogin.Click();
-
-            LoginPopUpPage page = new LoginPopUpPage(Driver);
-
-            page.InputEmail.SendKeys(email);
-            page.InputPassword.SendKeys(password);
-            page.ClickButtonLoginPopupPage();
-
-        }
-
-
     }
 
 

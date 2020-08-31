@@ -100,14 +100,16 @@ namespace Habr.UI.Tests
         }
 
         [TestMethod]
-        public void CheckSeachField_Success()
+        public void CheckSeachFieldProcess_Success()
         {
             PageHome page = new PageHome(Driver);
-            page.ButtonGreenUser.Click();
+            page.SeachFieldProcess("Яндекс");
 
             WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(5));
-            bool result = page.ButtonGreenUser.Selected;
-            Assert.IsTrue(result);
+
+            //Assert.IsTrue(page.ButtonLogin.Displayed);
+            //bool result = page.ButtonGreenUser.Selected;
+          
 
         }
     }
