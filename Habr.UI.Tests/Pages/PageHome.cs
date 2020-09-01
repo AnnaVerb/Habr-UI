@@ -53,6 +53,17 @@ namespace Habr.UI.Tests.Pages
             }
         }
 
+        public IWebElement ButtonAddtoFavs
+        {
+            get
+            {
+
+                return Driver.FindElement(By.XPath("//*[@id='infopanel_post_511980']/li[2]/button"));
+            }
+        }
+
+
+
         public IWebElement ButtonLogin
         {
             get
@@ -139,7 +150,9 @@ namespace Habr.UI.Tests.Pages
 
             page.ButtonSearch.Click();
             page.SearchFieldForm.SendKeys(text);
+            WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(5));
             page.SearchFieldForm.SendKeys(Keys.Enter);
+            WebDriverWait wait2 = new WebDriverWait(Driver, TimeSpan.FromSeconds(5));
 
             //Actions builder = new Actions(Driver);
             //builder.SendKeys(Keys.Enter);
@@ -148,7 +161,20 @@ namespace Habr.UI.Tests.Pages
 
         }
 
+        public void PostsAddtoFavorite_Process(string text)
+        {
+            GoHomePage();
+            PageHome page = new PageHome(Driver);
 
+            SeachFieldProcess("https://habr.com/ru/company/yandex/blog/515544/");
+            page.ButtonAddtoFavs.Click();
+
+
+            //posts_add_to_favorite(this);
+            //https://habr.com/ru/company/yandex/blog/515544/
+            
+
+        }
 
         public void ClickNotifications()
         {
@@ -176,7 +202,13 @@ namespace Habr.UI.Tests.Pages
             ButtonGreenUser.Click();
 
         }
+
+
+
     }
+
+
+
 
 
 

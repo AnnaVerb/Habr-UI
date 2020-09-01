@@ -74,13 +74,15 @@ namespace Habr.UI.Tests
         {
             
             PageHome page = new PageHome(Driver);
+            page.GoHomePage();
+            page.Login("annystudy@gmail.com", "d!6#AHW3uhq6*kL");
 
             page.ClickNotifications();
             //Driver.FindElement(By.ClassName("page-header__title");
 
             WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(5));
 
-            //IWebElement result = wait.Until(driver => driver.FindElement(By.XPath("/html/body/div[1]/div[2]/div/div/div[2]/a[1]")));
+            IWebElement result = wait.Until(driver => driver.FindElement(By.XPath("/html/body/div[1]/div[2]/div/div/div[2]/a[1]")));
             Assert.IsTrue(page.ButtonNotifications.Displayed);
 
             //string ClassName = "page - header title";
@@ -100,11 +102,11 @@ namespace Habr.UI.Tests
         }
 
         [TestMethod]
-        public void CheckSeachFieldProcess_Success()
+        public void TestSeachFieldProcess_Success()
         {
             PageHome page = new PageHome(Driver);
-            page.SeachFieldProcess("Яндекс");            
-
+            page.SeachFieldProcess("Яндекс");
+            WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(5));
             Assert.IsTrue(page.ElementTabsPublications.Enabled);
         }
     }
