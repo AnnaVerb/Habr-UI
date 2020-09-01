@@ -37,6 +37,7 @@ namespace Habr.UI.Tests
             Driver = GetChromeDriver();// метод ГетХром вернет нам созданный браузер в свойство
             Driver.Manage().Window.Maximize();
             Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
+            
         }
 
         [TestCleanup]
@@ -71,6 +72,7 @@ namespace Habr.UI.Tests
         [TestMethod]
         public void CheckNotifications_Success()
         {
+            
             PageHome page = new PageHome(Driver);
 
             page.ClickNotifications();
@@ -78,7 +80,7 @@ namespace Habr.UI.Tests
 
             WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(5));
 
-            IWebElement result = wait.Until(driver => driver.FindElement(By.XPath("/html/body/div[1]/div[2]/div/div/div[2]/a[1]")));
+            //IWebElement result = wait.Until(driver => driver.FindElement(By.XPath("/html/body/div[1]/div[2]/div/div/div[2]/a[1]")));
             Assert.IsTrue(page.ButtonNotifications.Displayed);
 
             //string ClassName = "page - header title";

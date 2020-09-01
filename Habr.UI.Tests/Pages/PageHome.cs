@@ -41,7 +41,7 @@ namespace Habr.UI.Tests.Pages
         {
             get
             {
-                
+
                 return Driver.FindElement(By.XPath("/html/body/div[1]/div[2]/div/div/div[1]/form/label/input"));
             }
         }
@@ -144,7 +144,7 @@ namespace Habr.UI.Tests.Pages
             //Actions builder = new Actions(Driver);
             //builder.SendKeys(Keys.Enter);
 
-         
+
 
         }
 
@@ -153,9 +153,19 @@ namespace Habr.UI.Tests.Pages
         public void ClickNotifications()
         {
             PageHome page = new PageHome(Driver);
+            GoHomePage();
 
-            ButtonNotifications.Click();
-            //Driver.FindElement(By.ClassName("page-header__title");
+            if (ButtonNotifications.Displayed)
+            {
+                ButtonNotifications.Click();
+            }
+            else
+            {
+                Login("annystudy@gmail.com", "d!6#AHW3uhq6*kL");
+                ButtonNotifications.Click();
+            }
+            
+          
 
         }
 
