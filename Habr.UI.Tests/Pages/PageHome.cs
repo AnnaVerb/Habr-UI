@@ -1,18 +1,11 @@
 ﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Habr.UI.Tests.Pages
 {
-    public class PageHome
+    public class PageHome : BasePage
     {
-        private IWebDriver Driver { get; set; }
         private static readonly string MainAddress = "https://habr.com/ru/";
         public string Title
         {
@@ -22,21 +15,6 @@ namespace Habr.UI.Tests.Pages
             }
         }
 
-        public IWebElement ButtonLogo
-        {
-            get
-            {
-                return Driver.FindElement(By.ClassName("logo"));
-            }
-        }
-        public IWebElement ButtonSearch
-        {
-            get
-            {
-                //By.Id("search-form-btn/html/body/div[1]/div[2]/div/div/div[1]/form/button
-                return Driver.FindElement(By.XPath("/html/body/div[1]/div[2]/div/div/div[1]/form/button"));
-            }
-        }
         public IWebElement SearchFieldForm
         {
             get
@@ -52,8 +30,6 @@ namespace Habr.UI.Tests.Pages
                 return Driver.FindElement(By.XPath("/html/body/div[1]/div[3]/div/section/div[1]/div[1]/div/a[1]/h3"));
             }
         }
-
-
         public IWebElement ButtonBookmark
         {
             get
@@ -72,33 +48,6 @@ namespace Habr.UI.Tests.Pages
                 return Driver.FindElement(By.Id("post_515544"));
             }
         }
-
-
-        public IWebElement ButtonLogin
-        {
-            get
-            {
-                return Driver.FindElement(By.XPath("//*[@id='login']"));
-            }
-        }
-        public IWebElement ButtonGreenUser
-        {
-            get
-            {
-                //y.XPath("//*[@id='email_field']")); XPath("/html/body/div[1]/div[2]/div/div/div[2]/div/button"));
-
-                return Driver.FindElement(By.XPath("/html/body/div[1]/div[2]/div/div/div[2]/div/button"));
-
-            }
-        }
-        public IWebElement ButtonNotifications
-        {
-            get
-            {
-                return Driver.FindElement(By.XPath("/html/body/div[1]/div[2]/div/div/div[2]/a[1]"));
-            }
-        }
-
         public IWebElement ElementTrackerNotifications
         {
             get
@@ -106,7 +55,6 @@ namespace Habr.UI.Tests.Pages
                 return Driver.FindElement(By.XPath("/html/body/div[1]/div[3]/div/div/div[1]/div[1]/h1"));
             }
         }
-
         public IWebElement ButtonLoginOut_UserMenu
         {
             get
@@ -116,17 +64,13 @@ namespace Habr.UI.Tests.Pages
                 return Driver.FindElement(By.XPath("/html/body/div[1]/div[2]/div/div/div[2]/div/div/ul/li[7]/a"));
             }
         }
-        public PageHome(IWebDriver driver)
-        {
-            Driver = driver;
+        public PageHome(IWebDriver driver) : base(driver)
+        {            
         }
-
-
         public void GoHomePage()
         {
             Driver.Navigate().GoToUrl(MainAddress);
         }
-
         public void Login(string email, string password)
         {
             GoHomePage();
@@ -180,9 +124,10 @@ namespace Habr.UI.Tests.Pages
         public void PostsAddtoFavoriteProcess(string posttext)
         {
             PageHome page = new PageHome(Driver);
-            
+
             SeachFieldProcess(posttext);
             ButtonBookmark.Click();
+
 
             //posts_add_to_favorite(this);
 

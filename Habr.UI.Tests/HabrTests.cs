@@ -118,7 +118,7 @@ namespace Habr.UI.Tests
 
             //var post = "Как заставить код выполняться за одинаковое время? Способы от Яндекс.Контеста";
             
-            page.PostsAddtoFavoriteProcess(post);
+            page.PostsAddtoFavoriteProcess("");
 
                 
             Thread.Sleep(5000);
