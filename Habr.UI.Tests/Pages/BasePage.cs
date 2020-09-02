@@ -11,8 +11,14 @@ namespace Habr.UI.Tests.Pages
         }
         public IWebElement ButtonLogo => Driver.FindElement(By.ClassName("logo"));
         public IWebElement ButtonSearch => Driver.FindElement(By.XPath("/html/body/div[1]/div[2]/div/div/div[1]/form/button"));
-        public IWebElement ButtonLogin => Driver.FindElement(By.XPath("//*[@id='login']"));
-        public IWebElement ButtonGreenUser => Driver.FindElement(By.XPath("/html/body/div[1]/div[2]/div/div/div[2]/div/button"));
-        public IWebElement ButtonNotifications => Driver.FindElement(By.XPath("/html/body/div[1]/div[2]/div/div/div[2]/a[1]"));
+        public IWebElement SearchFieldForm
+        {
+            get
+            {
+
+                return Driver.FindElement(By.XPath("/html/body/div[1]/div[2]/div/div/div[1]/form/label/input"));
+            }
+        }
+      
     }
 }

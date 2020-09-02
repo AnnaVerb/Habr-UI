@@ -109,7 +109,7 @@ namespace Habr.UI.Tests
         }
 
         [TestMethod]
-        public void PostsAddtoFavoriteProcess_Success()
+        public void PostAddtoFavoriteProcess_Success()
         {
             PageHome page = new PageHome(Driver);
 
@@ -121,9 +121,27 @@ namespace Habr.UI.Tests
             page.PostsAddtoFavoriteProcess("");
 
                 
-            Thread.Sleep(5000);
-            Assert.AreEqual("remove", page.ButtonBookmark.Text);
+            //Thread.Sleep(5000);
+            //Assert.AreEqual("remove", page.ButtonBookmark.Text);
             
+        }
+
+        [TestMethod]
+        public void PostsAddtoFavoriteLinkProcess_Success()
+        {
+            PageHome page = new PageHome(Driver);
+
+            page.Login("annystudy@gmail.com", "d!6#AHW3uhq6*kL");
+            Driver.Navigate().GoToUrl("https://habr.com/ru/company/yandex/blog/515544/");
+
+            //var post = "Как заставить код выполняться за одинаковое время? Способы от Яндекс.Контеста";
+
+            page.PostsAddtoFavoriteProcess("");
+
+
+            //Thread.Sleep(5000);
+            //Assert.AreEqual("remove", page.ButtonBookmark.Text);
+
         }
 
     }

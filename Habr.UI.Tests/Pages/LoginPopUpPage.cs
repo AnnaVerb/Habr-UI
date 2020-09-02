@@ -37,15 +37,12 @@ namespace Habr.UI.Tests.Pages
         {
             Driver = driver;
         }
-
         public void ClickButtonLoginPopupPage()
         {
             LoginPopUpPage page = new LoginPopUpPage(Driver);
             page.ButtonLoginPopupPage.Click();
-                
+
         }
-
-
 
 
     }
