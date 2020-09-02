@@ -53,15 +53,25 @@ namespace Habr.UI.Tests.Pages
             }
         }
 
-        public IWebElement ButtonAddtoFavs
+
+        public IWebElement ButtonBookmark
         {
             get
             {
 
-                return Driver.FindElement(By.XPath("//*[@id='infopanel_post_511980']/li[2]/button"));
+                return Driver.FindElement(By.XPath("/html/body/div[1]/div[3]/div/section/div[1]/div[2]/ul/li[1]/article/footer/ul/li[2]/button"));
+                //By.TagName("onclick"));
+                //Xpath.("/html/body/div[1]/div[3]/div/section/div[1]/div[2]/ul/li[1]/article/footer/ul/li[2]/button")
             }
         }
+        public IWebElement ElementPost
+        {
+            get
+            {
 
+                return Driver.FindElement(By.Id("post_515544"));
+            }
+        }
 
 
         public IWebElement ButtonLogin
@@ -71,8 +81,6 @@ namespace Habr.UI.Tests.Pages
                 return Driver.FindElement(By.XPath("//*[@id='login']"));
             }
         }
-
-
         public IWebElement ButtonGreenUser
         {
             get
@@ -90,6 +98,15 @@ namespace Habr.UI.Tests.Pages
                 return Driver.FindElement(By.XPath("/html/body/div[1]/div[2]/div/div/div[2]/a[1]"));
             }
         }
+
+        public IWebElement ElementTrackerNotifications
+        {
+            get
+            {
+                return Driver.FindElement(By.XPath("/html/body/div[1]/div[3]/div/div/div[1]/div[1]/h1"));
+            }
+        }
+
         public IWebElement ButtonLoginOut_UserMenu
         {
             get
@@ -109,7 +126,6 @@ namespace Habr.UI.Tests.Pages
         {
             Driver.Navigate().GoToUrl(MainAddress);
         }
-
 
         public void Login(string email, string password)
         {
@@ -161,18 +177,14 @@ namespace Habr.UI.Tests.Pages
 
         }
 
-        public void PostsAddtoFavorite_Process(string text)
+        public void PostsAddtoFavoriteProcess(string posttext)
         {
-            GoHomePage();
             PageHome page = new PageHome(Driver);
-
-            SeachFieldProcess("https://habr.com/ru/company/yandex/blog/515544/");
-            page.ButtonAddtoFavs.Click();
-
+            
+            SeachFieldProcess(posttext);
+            ButtonBookmark.Click();
 
             //posts_add_to_favorite(this);
-            //https://habr.com/ru/company/yandex/blog/515544/
-            
 
         }
 
@@ -190,15 +202,15 @@ namespace Habr.UI.Tests.Pages
                 Login("annystudy@gmail.com", "d!6#AHW3uhq6*kL");
                 ButtonNotifications.Click();
             }
-            
-          
+
+
 
         }
-
 
         public void ClickButtonGreenUser()
         {
             PageHome page = new PageHome(Driver);
+            GoHomePage();
             ButtonGreenUser.Click();
 
         }

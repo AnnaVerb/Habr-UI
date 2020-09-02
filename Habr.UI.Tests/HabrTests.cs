@@ -37,7 +37,7 @@ namespace Habr.UI.Tests
             Driver = GetChromeDriver();// метод ГетХром вернет нам созданный браузер в свойство
             Driver.Manage().Window.Maximize();
             Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
-            
+
         }
 
         [TestCleanup]
@@ -49,7 +49,7 @@ namespace Habr.UI.Tests
 
         [TestMethod]
         [ExpectedException(typeof(NoSuchElementException), "Login button is not presented on the page.")]
-        public void LoginInput_Success()
+        public void LoginIn_Success()
         {
             PageHome page = new PageHome(Driver);
             page.Login("annystudy@gmail.com", "d!6#AHW3uhq6*kL");
@@ -70,44 +70,61 @@ namespace Habr.UI.Tests
         }
 
         [TestMethod]
-        public void CheckNotifications_Success()
+        public void CheckNotifications_Success()//поправить тест
         {
-            
             PageHome page = new PageHome(Driver);
-            page.GoHomePage();
+
             page.Login("annystudy@gmail.com", "d!6#AHW3uhq6*kL");
-
             page.ClickNotifications();
-            //Driver.FindElement(By.ClassName("page-header__title");
 
-            WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(5));
+            //IWebElement result = Driver.FindElement(By.XPath("/html/body/div[1]/div[2]/div/div/div[2]/a[1]"));
+            Thread.Sleep(5000);
 
-            IWebElement result = wait.Until(driver => driver.FindElement(By.XPath("/html/body/div[1]/div[2]/div/div/div[2]/a[1]")));
-            Assert.IsTrue(page.ButtonNotifications.Displayed);
+            Assert.IsTrue(page.ElementTrackerNotifications.Displayed);
 
-            //string ClassName = "page - header title";
-            //Assert.AreEqual("page - header title", ClassName);
         }
 
         [TestMethod]
         public void CheckButtonUser_Success()
         {
             PageHome page = new PageHome(Driver);
+            
+            page.Login("annystudy@gmail.com", "d!6#AHW3uhq6*kL");
             page.ButtonGreenUser.Click();
 
             WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(5));
-            bool result = page.ButtonGreenUser.Selected;
+            bool result = page.ButtonGreenUser.Displayed;
             Assert.IsTrue(result);
 
         }
 
         [TestMethod]
-        public void TestSeachFieldProcess_Success()
+        public void SeachFieldProcess_Success()
         {
             PageHome page = new PageHome(Driver);
             page.SeachFieldProcess("Яндекс");
+
             WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(5));
             Assert.IsTrue(page.ElementTabsPublications.Enabled);
         }
+
+        [TestMethod]
+        public void PostsAddtoFavoriteProcess_Success()
+        {
+            PageHome page = new PageHome(Driver);
+
+            page.Login("annystudy@gmail.com", "d!6#AHW3uhq6*kL");
+            Driver.Navigate().GoToUrl("https://habr.com/ru/company/yandex/blog/515544/");
+
+            //var post = "Как заставить код выполняться за одинаковое время? Способы от Яндекс.Контеста";
+            
+            page.PostsAddtoFavoriteProcess(post);
+
+                
+            Thread.Sleep(5000);
+            Assert.AreEqual("remove", page.ButtonBookmark.Text);
+            
+        }
+
     }
 }
