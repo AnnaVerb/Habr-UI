@@ -1,4 +1,6 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Interactions;
+using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,17 +11,11 @@ namespace Habr.UI.Tests.Pages
 {
     public class PostPage : BasePage
     {
-        public PostPage(IWebDriver driver): base(driver)
+        public PostPage(IWebDriver driver) : base(driver)
         {
 
         }
-
-        void test() {
-            
-            
-        }
-
-
+        private const string _defaultPostNumber = "502746";
 
         public IWebElement ElementTabsPublications
         {
@@ -46,19 +42,33 @@ namespace Habr.UI.Tests.Pages
                 return Driver.FindElement(By.Id("post_515544"));
             }
         }
-
-        public void PostsAddtoFavoriteProcess(string posttext)
+        public void PostAddtoFavoriteBySearch(string posttext)
         {
-            PageHome page = new PageHome(Driver);
-
             SeachFieldProcess(posttext);
             ButtonBookmark.Click();
 
-
             //posts_add_to_favorite(this);
+            //posts_add_to_favorite(this);
+            //page.SeachFieldProcess(posttext);
+            //page.ButtonSearch.Click();
+            //page.SearchFieldForm.SendKeys(text);
+        }
+        public void PostAddtoFavorite(string postNumber = _defaultPostNumber)
+        {
+            GoToPostPage(postNumber);
 
+            if (!IsLogedIn)
+            {
+                Login();
+            }
+
+            ButtonBookmark.Click();
         }
 
+        public void GoToPostPage(string postNumber = _defaultPostNumber)
+        {
+            Driver.Navigate().GoToUrl($"{MainAddress}post/{postNumber}/");
+        }
 
     }
-}   
+}

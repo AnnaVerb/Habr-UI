@@ -52,7 +52,8 @@ namespace Habr.UI.Tests
         public void LoginIn_Success()
         {
             PageHome page = new PageHome(Driver);
-            page.Login("annystudy@gmail.com", "d!6#AHW3uhq6*kL");
+            page.GoHomePage();
+            page.Login();
             var button = page.ButtonLogin;
 
         }
@@ -61,8 +62,8 @@ namespace Habr.UI.Tests
         public void LoginOut_Success()
         {
             PageHome page = new PageHome(Driver);
-
-            page.Login("annystudy@gmail.com", "d!6#AHW3uhq6*kL");
+            page.GoHomePage();
+            page.Login();
             page.LoginOutProcess();
 
             Assert.IsTrue(page.ButtonLogin.Displayed);
@@ -73,8 +74,8 @@ namespace Habr.UI.Tests
         public void CheckNotifications_Success()//поправить тест
         {
             PageHome page = new PageHome(Driver);
-
-            page.Login("annystudy@gmail.com", "d!6#AHW3uhq6*kL");
+            page.GoHomePage();
+            page.Login();
             page.ClickNotifications();
 
             //IWebElement result = Driver.FindElement(By.XPath("/html/body/div[1]/div[2]/div/div/div[2]/a[1]"));
@@ -88,8 +89,8 @@ namespace Habr.UI.Tests
         public void CheckButtonUser_Success()
         {
             PageHome page = new PageHome(Driver);
-            
-            page.Login("annystudy@gmail.com", "d!6#AHW3uhq6*kL");
+            page.GoHomePage();
+            page.Login();
             page.ButtonGreenUser.Click();
 
             WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(5));
@@ -101,47 +102,50 @@ namespace Habr.UI.Tests
         [TestMethod]
         public void SeachFieldProcess_Success()
         {
-            PageHome page = new PageHome(Driver);
+            PostPage page = new PostPage(Driver);
+            page.GoToPostPage();
             page.SeachFieldProcess("Яндекс");
-
-            WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(5));
+            
             Assert.IsTrue(page.ElementTabsPublications.Enabled);
         }
 
         [TestMethod]
-        public void PostAddtoFavoriteProcess_Success()
+        public void PostAddtoFavorite_Success()
         {
-            PageHome page = new PageHome(Driver);
-
-            page.Login("annystudy@gmail.com", "d!6#AHW3uhq6*kL");
-            Driver.Navigate().GoToUrl("https://habr.com/ru/company/yandex/blog/515544/");
+            PostPage page = new PostPage(Driver);
+           
+            page.PostAddtoFavorite("517414");         
+            
+            
+            ////Driver.Navigate().GoToUrl("https://habr.com/ru/company/yandex/blog/515544/");
+            //page.SeachFieldProcess(post);
 
             //var post = "Как заставить код выполняться за одинаковое время? Способы от Яндекс.Контеста";
-            
-            page.PostsAddtoFavoriteProcess("");
 
-                
-            //Thread.Sleep(5000);
-            //Assert.AreEqual("remove", page.ButtonBookmark.Text);
-            
+            ////page.PostsAddtoFavoriteProcess("");
+            ////ButtonBookmark.Click();
+
+            ////Thread.Sleep(5000);
+            ////Assert.AreEqual("remove", page.ButtonBookmark.Text);
+
         }
 
         [TestMethod]
-        public void PostsAddtoFavoriteLinkProcess_Success()
+        public void PostsAddtoFavoriteByLink_Success()
         {
-            PageHome page = new PageHome(Driver);
 
-            page.Login("annystudy@gmail.com", "d!6#AHW3uhq6*kL");
-            Driver.Navigate().GoToUrl("https://habr.com/ru/company/yandex/blog/515544/");
+            PostPage page = new PostPage(Driver);
+            page.GoToPostPage("515544");
+            page.Login();
 
-            //var post = "Как заставить код выполняться за одинаковое время? Способы от Яндекс.Контеста";
+            //Driver.Navigate().GoToUrl("https://habr.com/ru/company/yandex/blog/515544/");
+            //string link = "https://habr.com/ru/company/yandex/blog/515544/";
 
-            page.PostsAddtoFavoriteProcess("");
+            //page.PostAddtoFavoriteByLink(link);
+            
+            Assert.AreEqual("remove", page.ButtonBookmark.Text);
 
-
-            //Thread.Sleep(5000);
-            //Assert.AreEqual("remove", page.ButtonBookmark.Text);
-
+            //page.ButtonBookmark.Click();
         }
 
     }
