@@ -105,45 +105,44 @@ namespace Habr.UI.Tests
             PostPage page = new PostPage(Driver);
             page.GoToPostPage();
             page.SeachFieldProcess("Яндекс");
-            
+
             Assert.IsTrue(page.ElementTabsPublications.Enabled);
         }
 
         [TestMethod]
-        public void PostAddtoFavorite_Success()
+        public void PostAddtoFavoriteBySearch_Success()
         {
             PostPage page = new PostPage(Driver);
-           
-            page.PostAddtoFavorite("517414");         
             
-            
+            var post = "Как заставить код выполняться за одинаковое время? Способы от Яндекс.Контеста";
+            page.PostAddtoFavoriteBySearch(post);
+            Thread.Sleep(5000);
+            page.ButtonBookmark.Click();
+
+
+            ////Assert.AreEqual("remove", page.ButtonBookmark.Text);
             ////Driver.Navigate().GoToUrl("https://habr.com/ru/company/yandex/blog/515544/");
             //page.SeachFieldProcess(post);
 
-            //var post = "Как заставить код выполняться за одинаковое время? Способы от Яндекс.Контеста";
 
-            ////page.PostsAddtoFavoriteProcess("");
-            ////ButtonBookmark.Click();
-
-            ////Thread.Sleep(5000);
-            ////Assert.AreEqual("remove", page.ButtonBookmark.Text);
 
         }
 
         [TestMethod]
-        public void PostsAddtoFavoriteByLink_Success()
+        public void PostAddtoFavorite(string postNumber)
         {
 
             PostPage page = new PostPage(Driver);
             page.GoToPostPage("515544");
+            Thread.Sleep(5000);
             page.Login();
 
-            //Driver.Navigate().GoToUrl("https://habr.com/ru/company/yandex/blog/515544/");
+
             //string link = "https://habr.com/ru/company/yandex/blog/515544/";
 
             //page.PostAddtoFavoriteByLink(link);
-            
-            Assert.AreEqual("remove", page.ButtonBookmark.Text);
+
+            //Assert.AreEqual("remove", page.ButtonBookmark.Text);
 
             //page.ButtonBookmark.Click();
         }

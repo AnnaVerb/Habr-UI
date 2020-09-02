@@ -42,14 +42,15 @@ namespace Habr.UI.Tests.Pages
                 return Driver.FindElement(By.Id("post_515544"));
             }
         }
+
+
         public void PostAddtoFavoriteBySearch(string posttext)
         {
             SeachFieldProcess(posttext);
             ButtonBookmark.Click();
 
             //posts_add_to_favorite(this);
-            //posts_add_to_favorite(this);
-            //page.SeachFieldProcess(posttext);
+                       
             //page.ButtonSearch.Click();
             //page.SearchFieldForm.SendKeys(text);
         }
@@ -64,6 +65,7 @@ namespace Habr.UI.Tests.Pages
 
             ButtonBookmark.Click();
         }
+
 
         public void GoToPostPage(string postNumber = _defaultPostNumber)
         {

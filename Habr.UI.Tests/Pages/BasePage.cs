@@ -10,21 +10,25 @@ namespace Habr.UI.Tests.Pages
         private const string _defaultLogInEmail = "annystudy@gmail.com";
         private const string _defaultLogInPassword = "d!6#AHW3uhq6*kL";
 
+
         protected static readonly string MainAddress = "https://habr.com/ru/";
         protected IWebDriver Driver { get; set; }
         public BasePage(IWebDriver driver)
         {
             Driver = driver;
         }
-        public IWebElement ButtonGreenUser => Driver.FindElement(By.XPath("/html/body/div[1]/div[2]/div/div/div[2]/div/button"));
+
+
         public IWebElement ButtonLogo => Driver.FindElement(By.ClassName("logo"));
+        public IWebElement ButtonGreenUser => Driver.FindElement(By.XPath("/html/body/div[1]/div[2]/div/div/div[2]/div/button"));
         public IWebElement ButtonSearch => Driver.FindElement(By.XPath("/html/body/div[1]/div[2]/div/div/div[1]/form/button"));
-        public IWebElement SearchFieldForm => Driver.FindElement(By.XPath("/html/body/div[1]/div[2]/div/div/div[1]/form/label/input"));
-        public IWebElement ButtonLogin => Driver.FindElement(By.XPath("//*[@id='login']"));
-        public IWebElement ButtonLoginOut_UserMenu => Driver.FindElement(By.XPath("/html/body/div[1]/div[2]/div/div/div[2]/div/div/ul/li[7]/a"));
         public IWebElement ButtonNotifications => Driver.FindElement(By.XPath("/html/body/div[1]/div[2]/div/div/div[2]/a[1]"));
         public IWebElement ButtonWriteTopic => Driver.FindElement(By.XPath("/html/body/div[1]/div[2]/div/div/div[2]/a[2]"));
 
+        public IWebElement ButtonLogin => Driver.FindElement(By.XPath("//*[@id='login']"));
+        public IWebElement ButtonLoginOut_UserMenu => Driver.FindElement(By.XPath("/html/body/div[1]/div[2]/div/div/div[2]/div/div/ul/li[7]/a"));
+
+        public IWebElement SearchFieldForm => Driver.FindElement(By.XPath("/html/body/div[1]/div[2]/div/div/div[1]/form/label/input"));
 
 
         public void Login(string email = _defaultLogInEmail, string password = _defaultLogInPassword)
@@ -46,6 +50,8 @@ namespace Habr.UI.Tests.Pages
             ButtonLoginOut_UserMenu.Click();
             IsLogedIn = false;
         }
+
+
         public void SeachFieldProcess(string text)
         {
 
