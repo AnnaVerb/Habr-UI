@@ -50,8 +50,9 @@ namespace Habr.UI.Tests.Pages
             get
             {
 
-                return Driver.FindElement(By.XPath("/html/body/div[1]/div[3]/div/section/div[1]/div[2]/ul/li[1]/article/footer/ul/li[2]/button"));
-                   
+                return Driver.FindElement(By.XPath("//button[@title ='Удалить из закладок' and onclick ='posts_add_to_favorite(this);']//ancestor::div"));
+
+                //title = "Удалить из закладок" onclick = "posts_add_to_favorite(this);" >
                 //(By.XPath("//button[@title ='Удалить из закладок' and @data-action = 'remove']"));
                 //data - action = "remove" title = "Удалить из закладок" onclick = "posts_add_to_favorite(this);" >
                 //Xpath.("/html/body/div[1]/div[3]/div/section/div[1]/div[2]/ul/li[1]/article/footer/ul/li[2]/button")
