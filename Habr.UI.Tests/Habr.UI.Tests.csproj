@@ -61,6 +61,7 @@
     <Compile Include="Pages\PageHome.cs" />
     <Compile Include="Pages\LoginPopUpPage.cs" />
     <Compile Include="Pages\PostPage.cs" />
+    <Compile Include="Pages\UserMenuPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

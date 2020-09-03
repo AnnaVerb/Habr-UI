@@ -113,42 +113,49 @@ namespace Habr.UI.Tests
         public void PostAddtoFavoriteBySearch_Success()
         {
             PostPage page = new PostPage(Driver);
-            page.GoToPostPage("515544");
+            page.GoToPostPage("512916");
             Thread.Sleep(2000);
 
             page.Login();
-            var post = "Как заставить код выполняться за одинаковое время? Способы от Яндекс.Контеста";
+            var post = "Яндекс отчитался о выручке на фоне";
+            //"Как заставить код выполняться за одинаковое время? Способы от Яндекс.Контеста";
             page.PostAddtoFavoriteBySearch(post);
+            Thread.Sleep(2000);
+            
+            page.ButtonLogo.Click();
+            page.ClickButtonGreenUser();
+            page.ButtonZakladki.Click();
+            
+            bool result = Driver.FindElement(By.XPath("//a[contains(@href,'512916') and @class='post__title_link']")).Displayed;
+            //https://habr.com/ru/company/ruvds/blog/515544/
 
-            Assert.AreEqual("remove", page.ButtonBookmark.Text);
+                      
+            Assert.IsTrue(result);
 
-            ////Driver.Navigate().GoToUrl("https://habr.com/ru/company/yandex/blog/515544/");
-            //page.SeachFieldProcess(post);
-
-
+            //Assert.AreEqual("remove", page.ButtonBookmark.("data-action"));
+                       
 
         }
 
-
-        public void PostAddtoFavorite(string postNumber)
+        [TestMethod]
+        public void PostAddtoFavoriteLink()
         {
 
             PostPage page = new PostPage(Driver);
-            page.GoToPostPage("515544");
+            page.GoToPostPage("512916");
 
             Thread.Sleep(5000);
             page.Login();
-            page.PostAddtoFavorite("515544");
+            page.PostAddtoFavorite("512916");
             page.ButtonBookmark.Click();
+                        
 
-
-            //string link = "https://habr.com/ru/company/yandex/blog/515544/";
-
-            Assert.AreEqual("remove", page.ButtonBookmark.Text);
+            Assert.AreEqual("remove", page.ButtonBookmark.GetAttribute("data-action"));
 
 
         }
 
+        [TestMethod]
         public void PostRemoveFromFavorite(string postNumber)
         {
 
@@ -157,7 +164,7 @@ namespace Habr.UI.Tests
 
             Thread.Sleep(5000);
             page.Login();
-            page.PostAddtoFavorite("515544");
+            page.PostAddtoFavorite("512916");
             page.ButtonBookmark.Click();
             Assert.AreNotEqual("Add", page.ButtonBookmark.Text);
 

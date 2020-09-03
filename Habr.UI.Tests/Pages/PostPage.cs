@@ -50,9 +50,10 @@ namespace Habr.UI.Tests.Pages
             get
             {
 
-                return Driver.FindElement(By.XPath("*//span[@title ='Закладки']"));
-
-                //By.TagName("onclick"));
+                return Driver.FindElement(By.XPath("/html/body/div[1]/div[3]/div/section/div[1]/div[2]/ul/li[1]/article/footer/ul/li[2]/button"));
+                   
+                //(By.XPath("//button[@title ='Удалить из закладок' and @data-action = 'remove']"));
+                //data - action = "remove" title = "Удалить из закладок" onclick = "posts_add_to_favorite(this);" >
                 //Xpath.("/html/body/div[1]/div[3]/div/section/div[1]/div[2]/ul/li[1]/article/footer/ul/li[2]/button")
             }
         }
@@ -61,7 +62,8 @@ namespace Habr.UI.Tests.Pages
             get
             {
 
-                return Driver.FindElement(By.Id("post_515544"));
+                return Driver.FindElement(By.XPath("//a[contains(@href,'512916') and @class='post__title_link']"));
+                //
             }
         }
 
