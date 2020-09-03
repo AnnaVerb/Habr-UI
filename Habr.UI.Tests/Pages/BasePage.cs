@@ -21,14 +21,33 @@ namespace Habr.UI.Tests.Pages
 
         public IWebElement ButtonLogo => Driver.FindElement(By.ClassName("logo"));
         public IWebElement ButtonGreenUser => Driver.FindElement(By.XPath("/html/body/div[1]/div[2]/div/div/div[2]/div/button"));
-        public IWebElement ButtonSearch => Driver.FindElement(By.XPath("/html/body/div[1]/div[2]/div/div/div[1]/form/button"));
-        public IWebElement ButtonNotifications => Driver.FindElement(By.XPath("/html/body/div[1]/div[2]/div/div/div[2]/a[1]"));
-        public IWebElement ButtonWriteTopic => Driver.FindElement(By.XPath("/html/body/div[1]/div[2]/div/div/div[2]/a[2]"));
+        public IWebElement ButtonSearch => Driver.FindElement(By.XPath("//*[@id='search-form-btn' and @title='Поиск по сайту']"));
+
+        //By.XPath("/html/body/div[1]/div[2]/div/div/div[1]/form/button"));
+        // <button type = "button" class="btn btn_navbar_search icon-svg_search" id="search-form-btn" title="Поиск по сайту">
+
+        public IWebElement ButtonNotifications => Driver.FindElement(By.XPath("//*[@href = 'https://habr.com/ru/tracker/'and @title='Трекер']"));
+        //By.XPath("/html/body/div[1]/div[2]/div/div/div[2]/a[1]")
+        //<a href = "https://habr.com/ru/tracker/" class="btn btn_medium btn_navbar_tracker" title="Трекер">
+
+        public IWebElement ButtonWriteTopic => Driver.FindElement(By.XPath("//*[@title = 'Написать' and @href='https://habr.com/ru/sandbox/start/']"));
+
+        //<a title = "Написать" href="https://habr.com/ru/sandbox/start/" class="btn btn_medium btn_navbar_write-topic">
+
 
         public IWebElement ButtonLogin => Driver.FindElement(By.XPath("//*[@id='login']"));
         public IWebElement ButtonLoginOut_UserMenu => Driver.FindElement(By.XPath("/html/body/div[1]/div[2]/div/div/div[2]/div/div/ul/li[7]/a"));
 
-        public IWebElement SearchFieldForm => Driver.FindElement(By.XPath("/html/body/div[1]/div[2]/div/div/div[1]/form/label/input"));
+        public IWebElement ButtonZakladki => Driver.FindElement(By.XPath("//a[text()='Закладки']"));
+
+        //Syntax: //tag[text()=’text value‘]
+        //label[text()=’Enter message’]
+        //Syntax: //tag[XPath Statement-1 and XPath Statement-2]
+        //*[@id=’user-message’ and @class=’form-control’]
+
+        public IWebElement SearchFieldForm => Driver.FindElement(By.XPath("//*[@id='search-form-field' and @placeholder='Поиск']"));
+        //id="search-form-field" placeholder="Поиск"
+        //XPath("/html/body/div[1]/div[2]/div/div/div[1]/form/label/input")
 
 
         public void Login(string email = _defaultLogInEmail, string password = _defaultLogInPassword)
