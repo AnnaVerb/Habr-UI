@@ -113,14 +113,15 @@ namespace Habr.UI.Tests
         public void PostAddtoFavoriteBySearch_Success()
         {
             PostPage page = new PostPage(Driver);
-            
+            page.GoToPostPage("515544");
+            Thread.Sleep(2000);
+            page.Login();
+
             var post = "Как заставить код выполняться за одинаковое время? Способы от Яндекс.Контеста";
             page.PostAddtoFavoriteBySearch(post);
-            Thread.Sleep(5000);
-            page.ButtonBookmark.Click();
 
+            Assert.AreEqual("remove", page.ButtonBookmark.Text);
 
-            ////Assert.AreEqual("remove", page.ButtonBookmark.Text);
             ////Driver.Navigate().GoToUrl("https://habr.com/ru/company/yandex/blog/515544/");
             //page.SeachFieldProcess(post);
 
@@ -128,24 +129,30 @@ namespace Habr.UI.Tests
 
         }
 
-        [TestMethod]
+
         public void PostAddtoFavorite(string postNumber)
         {
 
             PostPage page = new PostPage(Driver);
             page.GoToPostPage("515544");
+
             Thread.Sleep(5000);
             page.Login();
+            page.PostAddtoFavorite("515544");
+            page.ButtonBookmark.Click();
 
 
             //string link = "https://habr.com/ru/company/yandex/blog/515544/";
 
-            //page.PostAddtoFavoriteByLink(link);
-
             //Assert.AreEqual("remove", page.ButtonBookmark.Text);
 
-            //page.ButtonBookmark.Click();
+
         }
+
+
+
+
+
 
     }
 }

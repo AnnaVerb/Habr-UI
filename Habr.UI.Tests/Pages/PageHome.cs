@@ -6,14 +6,8 @@ namespace Habr.UI.Tests.Pages
 {
     public class PageHome : BasePage
     {
-        public string Title
-        {
-            get
-            {
-                return Driver.Title;
-            }
-        }
-
+        public string Title => Driver.Title;
+      
         public PageHome(IWebDriver driver) : base(driver)
         {
         }
@@ -22,9 +16,19 @@ namespace Habr.UI.Tests.Pages
         {
             get
             {
-                return Driver.FindElement(By.XPath("/html/body/div[1]/div[3]/div/div/div[1]/div[1]/h1"));
+                return Driver.FindElement(By.XPath("//a[@title = 'Трекер']"));
+                //By.XPath("/html/body/div[1]/div[3]/div/div/div[1]/div[1]/h1"));
             }
         }
+
+        //Syntax: //tag[text()=’text value‘]
+
+        //Example: //svg[text()= '']
+
+        //Syntax: //tag[@attribute=’value‘]
+
+        //Example: //a[@title = 'Трекер']
+        //title Трекер
 
         public void GoHomePage()
         {

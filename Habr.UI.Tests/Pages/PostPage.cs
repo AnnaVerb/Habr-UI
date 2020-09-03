@@ -17,11 +17,32 @@ namespace Habr.UI.Tests.Pages
         }
         private const string _defaultPostNumber = "502746";
 
+
+        //Syntax: //tag[starts-with(@attribute, ‘value‘)]
+
+        //Example: //input[starts-with(@id, ‘user’)]
+        //Example: *//h3[starts-with(@class, 'tabs-menu')]
+        //Example: *//h3[starts-with(@class, 'tabs-menu')]
+
+
+
+
+        //Syntax: //tag[@attribute=’value‘]
+
+        //Example: //input[@id = ‘user-message’]
+        //Example: *//span[@title ='Закладки']
+
+
+        //Syntax: //tag[contains(@attribute, ‘value‘)]
+
+        //Example: //input[contains(@id, ‘er-messa’)]
+
         public IWebElement ElementTabsPublications
         {
             get
             {
-                return Driver.FindElement(By.XPath("/html/body/div[1]/div[3]/div/section/div[1]/div[1]/div/a[1]/h3"));
+                return Driver.FindElement(By.XPath("*//h3[starts-with(@class, 'tabs-menu')]"));
+                //By.XPath("/html/body/div[1]/div[3]/div/section/div[1]/div[1]/div/a[1]/h3")
             }
         }
         public IWebElement ButtonBookmark
@@ -29,7 +50,8 @@ namespace Habr.UI.Tests.Pages
             get
             {
 
-                return Driver.FindElement(By.XPath("/html/body/div[1]/div[3]/div/section/div[1]/div[2]/ul/li[1]/article/footer/ul/li[2]/button"));
+                return Driver.FindElement(By.XPath("*//span[@title ='Закладки']"));
+
                 //By.TagName("onclick"));
                 //Xpath.("/html/body/div[1]/div[3]/div/section/div[1]/div[2]/ul/li[1]/article/footer/ul/li[2]/button")
             }
@@ -49,8 +71,12 @@ namespace Habr.UI.Tests.Pages
             SeachFieldProcess(posttext);
             ButtonBookmark.Click();
 
+            //if (page.ButtonBookmark.Displayed)
+            //{
+            //    page.ButtonBookmark.Click();
+            //}
             //posts_add_to_favorite(this);
-                       
+
             //page.ButtonSearch.Click();
             //page.SearchFieldForm.SendKeys(text);
         }
@@ -65,7 +91,6 @@ namespace Habr.UI.Tests.Pages
 
             ButtonBookmark.Click();
         }
-
 
         public void GoToPostPage(string postNumber = _defaultPostNumber)
         {
