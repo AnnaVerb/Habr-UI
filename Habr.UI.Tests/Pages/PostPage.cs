@@ -72,6 +72,13 @@ namespace Habr.UI.Tests.Pages
         public void PostAddtoFavoriteBySearch(string posttext)
         {
             SeachFieldProcess(posttext);
+            IJavaScriptExecutor javaScriptExecutor = (IJavaScriptExecutor)Driver;
+
+            //javaScriptExecutor.ExecuteScript("arguments[0].scrollIntoView();", page.CheckBoxSelect);
+            //Thread.Sleep(1000);
+            //page.TabSelect2Success.Click();
+            
+            //Assert.IsTrue(page.TabResultText.Displayed);
             ButtonBookmark.Click();
 
             //if (page.ButtonBookmark.Displayed)

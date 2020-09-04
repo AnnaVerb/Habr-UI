@@ -26,13 +26,32 @@ namespace Habr.UI.Tests.Pages
         //By.XPath("/html/body/div[1]/div[2]/div/div/div[1]/form/button"));
         // <button type = "button" class="btn btn_navbar_search icon-svg_search" id="search-form-btn" title="Поиск по сайту">
 
+        public IWebElement ButtonSettings => Driver.FindElement(By.XPath("//button[contains(@class, 'lang_settings']"));
+
+        //Syntax: //tag[contains(@attribute, ‘value‘)]
+
+        //Example: //input[contains(@id, ‘er-messa’)]
+
+        //button type = "button" class="btn btn_medium btn_navbar_lang js-show_lang_settings"> <svg class="icon-svg" width="18" height="18">
+
+        public IWebElement ButtonSettings_SaveSettings => Driver.FindElement(By.XPath("//*[@id='lang-settings-form']/div/button]"));
+
+        //<button type = "submit" class="btn btn_blue btn_huge btn_full-width js-popup_save_btn">Save settings</button>
+        public IWebElement ButtonSettings_EnglishButton => Driver.FindElement(By.XPath("//label[text()='English']"));
+
+        //Syntax: //tag[text()=’text value‘]
+
+        //Example: .//label[text()=’Enter message’]
+        //<label for="hl_langs_en" class="radio__label radio__label_another">English</label>
+
+        public IWebElement ButtonSettings_RussianButton => Driver.FindElement(By.XPath("//*[@for='hl_langs_ru' and @class='radio__label radio__label_another']"));
+
+        //<label for="hl_langs_ru" class="radio__label radio__label_another">Русский</label>
         public IWebElement ButtonNotifications => Driver.FindElement(By.XPath("//*[@href = 'https://habr.com/ru/tracker/'and @title='Трекер']"));
         //By.XPath("/html/body/div[1]/div[2]/div/div/div[2]/a[1]")
         //<a href = "https://habr.com/ru/tracker/" class="btn btn_medium btn_navbar_tracker" title="Трекер">
 
         public IWebElement ButtonWriteTopic => Driver.FindElement(By.XPath("//*[@title = 'Написать' and @href='https://habr.com/ru/sandbox/start/']"));
-
-        //<a title = "Написать" href="https://habr.com/ru/sandbox/start/" class="btn btn_medium btn_navbar_write-topic">
 
 
         public IWebElement ButtonLogin => Driver.FindElement(By.XPath("//*[@id='login']"));
@@ -71,6 +90,46 @@ namespace Habr.UI.Tests.Pages
         }
 
 
+        public IWebElement ElementTrackerNotifications
+        {
+            get
+            {
+                return Driver.FindElement(By.XPath("//a[@title = 'Трекер']"));
+                //By.XPath("/html/body/div[1]/div[3]/div/div/div[1]/div[1]/h1"));
+            }
+        }
+        public void SetEnglishByButtonSettings()
+        {
+            if (!IsLogedIn)
+            {
+                ButtonSettings_EnglishButton.Click();
+                ButtonSettings_SaveSettings.Click();
+            }
+
+            else
+                throw new Exception("User is loged in, you can change language in UserMenu!");
+
+            if (ButtonSettings_EnglishButton.Selected)
+            {
+
+                Driver.Navigate().Back();
+            }
+
+        }
+
+        public void ButtonSettingsSaveSettings()
+        {
+
+            if (!IsLogedIn)
+            {
+                ButtonSettings.Click();
+                ButtonSettingsSaveSettings();
+            }
+
+
+
+
+        }
         public void SeachFieldProcess(string text)
         {
 

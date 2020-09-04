@@ -113,27 +113,26 @@ namespace Habr.UI.Tests
         public void PostAddtoFavoriteBySearch_Success()
         {
             PostPage page = new PostPage(Driver);
-            page.GoToPostPage("512916");
+            page.GoToPostPage();
             Thread.Sleep(2000);
 
             page.Login();
             var post = "Яндекс отчитался о выручке на фоне";
-            //"Как заставить код выполняться за одинаковое время? Способы от Яндекс.Контеста";
             page.PostAddtoFavoriteBySearch(post);
             Thread.Sleep(2000);
-            
-            page.ButtonLogo.Click();
+
+
             page.ClickButtonGreenUser();
             page.ButtonZakladki.Click();
-            
+
             bool result = Driver.FindElement(By.XPath("//a[contains(@href,'512916') and @class='post__title_link']")).Displayed;
             //https://habr.com/ru/company/ruvds/blog/515544/
 
-                      
+
             Assert.IsTrue(result);
 
             //Assert.AreEqual("remove", page.ButtonBookmark.("data-action"));
-                       
+
 
         }
 
@@ -148,9 +147,9 @@ namespace Habr.UI.Tests
             page.Login();
             page.PostAddtoFavorite("512916");
             page.ButtonBookmark.Click();
-                        
 
-            Assert.AreEqual("remove", page.ButtonBookmark.GetAttribute("data-action"));
+
+            // Assert.AreEqual("remove", page.ButtonBookmark.GetAttribute("data-action"));
 
 
         }
@@ -181,7 +180,21 @@ namespace Habr.UI.Tests
 
         }
 
+        [TestMethod]
+        public void ChangeLanguageByButtonSettings()
+        {
+            BasePage basepage = new BasePage(Driver);
+            Thread.Sleep(3000);
+            basepage.SetEnglishByButtonSettings();
 
+            Assert.AreNotEqual("https://habr.com/en/", Driver.Url);
+
+            //https://habr.com/en/
+            //Assert.IsFalse(page.ElementPost.Displayed);
+
+
+
+        }
 
 
     }
