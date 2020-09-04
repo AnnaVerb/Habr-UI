@@ -11,8 +11,7 @@ namespace Habr.UI.Tests.Pages
         public PageHome(IWebDriver driver) : base(driver)
         {
         }
-            
-              
+                  
 
         public void GoHomePage()
         {

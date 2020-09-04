@@ -46,7 +46,6 @@ namespace Habr.UI.Tests
             Driver.Close();
         }
 
-
         [TestMethod]
         [ExpectedException(typeof(NoSuchElementException), "Login button is not presented on the page.")]
         public void LoginIn_Success()
@@ -183,11 +182,12 @@ namespace Habr.UI.Tests
         [TestMethod]
         public void ChangeLanguageByButtonSettings()
         {
-            BasePage basepage = new BasePage(Driver);
-            Thread.Sleep(3000);
-            basepage.SetEnglishByButtonSettings();
+            PageHome page = new PageHome(Driver);
+            page.GoHomePage();
+            Thread.Sleep(1000);
+            page.SetEnglishByButtonSettings();
 
-            Assert.AreNotEqual("https://habr.com/en/", Driver.Url);
+            Assert.AreEqual("https://habr.com/en/", Driver.Url);
 
             //https://habr.com/en/
             //Assert.IsFalse(page.ElementPost.Displayed);

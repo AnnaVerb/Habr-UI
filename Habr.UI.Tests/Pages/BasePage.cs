@@ -4,7 +4,7 @@ using System;
 
 namespace Habr.UI.Tests.Pages
 {
-    public class BasePage
+    public abstract class BasePage
     {
         protected static bool IsLogedIn { get; set; }
         private const string _defaultLogInEmail = "annystudy@gmail.com";
@@ -37,15 +37,16 @@ namespace Habr.UI.Tests.Pages
         public IWebElement ButtonSettings_SaveSettings => Driver.FindElement(By.XPath("//*[@id='lang-settings-form']/div/button]"));
 
         //<button type = "submit" class="btn btn_blue btn_huge btn_full-width js-popup_save_btn">Save settings</button>
-        public IWebElement ButtonSettings_EnglishButton => Driver.FindElement(By.XPath("//label[text()='English']"));
+        public IWebElement ButtonSettings_EnglishButton => Driver.FindElement(By.XPath("//input[@id='hl_langs_en']"));
 
         //Syntax: //tag[text()=’text value‘]
 
         //Example: .//label[text()=’Enter message’]
         //<label for="hl_langs_en" class="radio__label radio__label_another">English</label>
 
-        public IWebElement ButtonSettings_RussianButton => Driver.FindElement(By.XPath("//*[@for='hl_langs_ru' and @class='radio__label radio__label_another']"));
+        public IWebElement ButtonSettings_RussianButton => Driver.FindElement(By.XPath("//input[@id='hl_langs_ru']]"));
 
+        //XPath("//*[@for='hl_langs_ru' and @class='radio__label radio__label_another']"));
         //<label for="hl_langs_ru" class="radio__label radio__label_another">Русский</label>
         public IWebElement ButtonNotifications => Driver.FindElement(By.XPath("//*[@href = 'https://habr.com/ru/tracker/'and @title='Трекер']"));
         //By.XPath("/html/body/div[1]/div[2]/div/div/div[2]/a[1]")
@@ -107,7 +108,9 @@ namespace Habr.UI.Tests.Pages
             }
 
             else
+            {
                 throw new Exception("User is loged in, you can change language in UserMenu!");
+            }
 
             if (ButtonSettings_EnglishButton.Selected)
             {
@@ -130,13 +133,15 @@ namespace Habr.UI.Tests.Pages
 
 
         }
+
+
+
         public void SeachFieldProcess(string text)
         {
 
-            BasePage page = new BasePage(Driver);
-            //GoHomePage();
-            Driver.Navigate().GoToUrl("https://habr.com/ru/");
-
+            PageHome page = new PageHome(Driver);
+            page.GoHomePage();
+            
             page.ButtonSearch.Click();
             page.SearchFieldForm.SendKeys(text);
             WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(5));
@@ -169,5 +174,8 @@ namespace Habr.UI.Tests.Pages
             else
                 throw new Exception("User isn't loged in");
         }
+
+
+
     }
 }
