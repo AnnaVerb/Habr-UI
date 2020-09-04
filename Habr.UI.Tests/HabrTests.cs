@@ -1,4 +1,5 @@
 ﻿using Habr.UI.Tests.Pages;
+using Habr.UI.Tests.PopUpWindows;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -47,20 +48,20 @@ namespace Habr.UI.Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(NoSuchElementException), "Login button is not presented on the page.")]
+        //[ExpectedException(typeof(NoSuchElementException), "Login button is not presented on the page.")]
         public void LoginIn_Success()
         {
-            PageHome page = new PageHome(Driver);
+            Home page = new Home(Driver);
             page.GoHomePage();
             page.Login();
-            var button = page.ButtonLogin;
 
+            Assert.IsTrue(page.ButtonGreenUser.Displayed);
         }
 
         [TestMethod]
         public void LoginOut_Success()
         {
-            PageHome page = new PageHome(Driver);
+            Home page = new Home(Driver);
             page.GoHomePage();
             page.Login();
             page.LoginOutProcess();
@@ -72,7 +73,7 @@ namespace Habr.UI.Tests
         [TestMethod]
         public void CheckNotifications_Success()//поправить тест
         {
-            PageHome page = new PageHome(Driver);
+            Home page = new Home(Driver);
             page.GoHomePage();
             page.Login();
             page.ClickNotifications();
@@ -87,7 +88,7 @@ namespace Habr.UI.Tests
         [TestMethod]
         public void CheckButtonUser_Success()
         {
-            PageHome page = new PageHome(Driver);
+            Home page = new Home(Driver);
             page.GoHomePage();
             page.Login();
             page.ButtonGreenUser.Click();
@@ -101,17 +102,17 @@ namespace Habr.UI.Tests
         [TestMethod]
         public void SeachFieldProcess_Success()
         {
-            PostPage page = new PostPage(Driver);
+            Post page = new Post(Driver);
             page.GoToPostPage();
             page.SeachFieldProcess("Яндекс");
 
             Assert.IsTrue(page.ElementTabsPublications.Enabled);
         }
 
-        [TestMethod]
+        //[TestMethod]
         public void PostAddtoFavoriteBySearch_Success()
         {
-            PostPage page = new PostPage(Driver);
+            Post page = new Post(Driver);
             page.GoToPostPage();
             Thread.Sleep(2000);
 
@@ -135,11 +136,11 @@ namespace Habr.UI.Tests
 
         }
 
-        [TestMethod]
+
         public void PostAddtoFavoriteLink()
         {
 
-            PostPage page = new PostPage(Driver);
+            Post page = new Post(Driver);
             page.GoToPostPage("512916");
 
             Thread.Sleep(5000);
@@ -153,11 +154,11 @@ namespace Habr.UI.Tests
 
         }
 
-        [TestMethod]
+
         public void PostRemoveFromFavorite(string postNumber)
         {
 
-            PostPage page = new PostPage(Driver);
+            Post page = new Post(Driver);
             page.GoToPostPage();
 
             Thread.Sleep(5000);
@@ -182,20 +183,39 @@ namespace Habr.UI.Tests
         [TestMethod]
         public void ChangeLanguageByButtonSettings()
         {
-            PageHome page = new PageHome(Driver);
+            Home page = new Home(Driver);
             page.GoHomePage();
             Thread.Sleep(1000);
-            page.SetEnglishByButtonSettings();
+            page.ButtonSettings.Click();
 
+            LanguageSettings langSettings = new LanguageSettings(Driver);
+
+            langSettings.InputInterfaceEnglish.Click();
+            Thread.Sleep(2000);
+            langSettings.ButtonSaveSettings.Click();
+
+            Thread.Sleep(2000);
             Assert.AreEqual("https://habr.com/en/", Driver.Url);
-
-            //https://habr.com/en/
-            //Assert.IsFalse(page.ElementPost.Displayed);
-
-
-
         }
+
+        ////private static Func<IWebDriver, bool> ElementIsVisible(IWebElement element)
+        //{
+        //    return driver =>
+        //    {
+        //        try
+        //        {
+        //            return element.Displayed;
+        //        }
+        //        catch (Exception)
+        //        {
+        //            // If element is null, stale or if it cannot be located
+        //            return false;
+        //        }
+        //    };
 
 
     }
+
+
 }
+

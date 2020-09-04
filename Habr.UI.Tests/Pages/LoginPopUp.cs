@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace Habr.UI.Tests.Pages
 {
-    public class LoginPopUpPage
+    public class LoginPopUp
+
     {
         private IWebDriver Driver { get; set; }
 
@@ -33,15 +34,14 @@ namespace Habr.UI.Tests.Pages
             }
         }
 
-        public LoginPopUpPage(IWebDriver driver)
+        public LoginPopUp(IWebDriver driver)
         {
             Driver = driver;
         }
+
         public void ClickButtonLoginPopupPage()
         {
-            LoginPopUpPage page = new LoginPopUpPage(Driver);
-            page.ButtonLoginPopupPage.Click();
-
+            ButtonLoginPopupPage.Click();
         }
 
 

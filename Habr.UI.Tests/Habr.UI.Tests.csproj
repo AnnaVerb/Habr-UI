@@ -58,10 +58,12 @@
   <ItemGroup>
     <Compile Include="HabrTests.cs" />
     <Compile Include="Pages\BasePage.cs" />
-    <Compile Include="Pages\PageHome.cs" />
-    <Compile Include="Pages\LoginPopUpPage.cs" />
-    <Compile Include="Pages\PostPage.cs" />
-    <Compile Include="Pages\UserMenuPage.cs" />
+    <Compile Include="Pages\Home.cs" />
+    <Compile Include="Pages\LoginPopUp.cs" />
+    <Compile Include="Pages\Post.cs" />
+    <Compile Include="Pages\UserMenu.cs" />
+    <Compile Include="PopUpWindows\BasePopUpWindow.cs" />
+    <Compile Include="PopUpWindows\LanguageSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

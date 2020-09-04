@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Habr.UI.Tests.Pages
 {
-    public class PostPage : BasePage
+    public class Post : BasePage
     {
-        public PostPage(IWebDriver driver) : base(driver)
+        public Post(IWebDriver driver) : base(driver)
         {
 
         }

@@ -4,11 +4,11 @@ using System;
 
 namespace Habr.UI.Tests.Pages
 {
-    public class PageHome : BasePage
+    public class Home : BasePage
     {
         public string Title => Driver.Title;
       
-        public PageHome(IWebDriver driver) : base(driver)
+        public Home(IWebDriver driver) : base(driver)
         {
         }
                   

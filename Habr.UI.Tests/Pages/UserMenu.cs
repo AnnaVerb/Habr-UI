@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace Habr.UI.Tests.Pages
 {
-    public class UserMenuPage : BasePage
+    public class UserMenu : BasePage
     {
 
        
             public string Title => Driver.Title;
 
-            public UserMenuPage(IWebDriver driver) : base(driver)
+            public UserMenu(IWebDriver driver) : base(driver)
             {
             }
 
