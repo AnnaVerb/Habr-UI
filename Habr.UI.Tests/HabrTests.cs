@@ -209,7 +209,28 @@ namespace Habr.UI.Tests
         //        }
         //    };
 
+        [TestMethod]
+        public void ChangeContentLanguageByBtnSettings()
+        {
+            Home page = new Home(Driver);
+            page.GoHomePage();
+            Thread.Sleep(1000);
+            page.ButtonSettings.Click();
 
+            LanguageSettings langSettings = new LanguageSettings(Driver);
+
+            langSettings.SetEnglishContentByButtonSettings();
+
+            
+            Thread.Sleep(2000);
+            langSettings.ButtonSaveSettings.Click();
+            if ()
+            {
+
+            }
+           
+            //Assert.AreEqual("https://habr.com/en/", Driver.Url);
+        }
     }
 
 
