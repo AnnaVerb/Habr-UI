@@ -5,6 +5,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using System;
+using System.CodeDom;
 using System.IO;
 using System.Reflection;
 using System.Threading;
@@ -177,7 +178,7 @@ namespace Habr.UI.Tests
         }
 
         [TestMethod]
-        public void SetEnglishByButtonSettings()
+        public void SetEnglishByBtnSettings()
         {
             Home page = new Home(Driver);
             page.GoHomePage();
@@ -208,7 +209,7 @@ namespace Habr.UI.Tests
         }
 
         [TestMethod]
-        public void SetRussianByButtonSettings()
+        public void SetRussianByBtnSettings()
         {
             Home page = new Home(Driver);
             page.GoHomePage();
@@ -249,6 +250,49 @@ namespace Habr.UI.Tests
         //        }
         //    };
 
+        [TestMethod]//Negative test
+        public void SetAllButtonsInterfaceByBtnSettings()
+        {
+            Home page = new Home(Driver);
+            page.GoHomePage();
+            page.ButtonSettings.Click();
+
+            LanguageSettings langSettings = new LanguageSettings(Driver);
+            langSettings.InputInterfaceRussian.Click();
+            Thread.Sleep(2000);
+            langSettings.InputInterfaceEnglish.Click();
+            Thread.Sleep(2000);
+            langSettings.ButtonSaveSettings.Click();
+            //langSettings.InputInterfaceRussian.Click();
+
+            var valuechecked= langSettings.InputInterfaceEnglish.GetAttribute("checked");
+            Assert.AreEqual("0", valuechecked);
+
+            page.GoHomePage();
+            page.ButtonSettings.Click();
+            Thread.Sleep(2000);
+
+        }
+
+            //Assert.AreEqual("true", langSettings.InputInterfaceEnglish.GetAttribute("checked"));
+            
+            //Assert.IsFalse(langSettings.InputInterfaceRussian.Selected);
+
+            //Assert.AreEqual("https://habr.com/ru/", Driver.Url);
+            //if ()
+            //{
+            //    langSettings.ButtonSaveSettings.Click();
+            //    page.ButtonLogo.Click();
+            //}
+            //else
+            //{
+            //    langSettings.SetRussianByBtnSettings();
+            //    Thread.Sleep(2000);
+            //    Assert.AreEqual("https://habr.com/ru/", Driver.Url);
+            //}
+
+
+        
         [TestMethod]
         public void SetEnglishContentByBtnSettings()
         {
@@ -259,12 +303,14 @@ namespace Habr.UI.Tests
 
             LanguageSettings langSettings = new LanguageSettings(Driver);
             langSettings.SetEnglishContentByBtnSettings();
+            page.ButtonSettings.Click();
+            Thread.Sleep(1000);
 
-            
-            page.SeachFieldProcess("How Can AI & Data Science Help to Fight the Coronavirus");
-            
-            
-            Assert.IsTrue(page.Title.Contains("How Can AI & Data Science Help to Fight the Coronavirus"));
+            //Assert.IsTrue(langSettings.InputContentEnglish.Selected);
+
+            //page.SeachFieldProcess("How Can AI & Data Science Help to Fight the Coronavirus");
+
+            //Assert.IsTrue(page.Title.Contains("How Can AI & Data Science Help to Fight the Coronavirus"));
 
 
 
@@ -290,15 +336,26 @@ namespace Habr.UI.Tests
         }
 
         [TestMethod]
-        public void SetContentByBtnSettings()
+        public void SetALLOptionsContentByBtnSettings()//Negative Test
         {
             Home page = new Home(Driver);
             page.GoHomePage();
-            Thread.Sleep(1000);
             page.ButtonSettings.Click();
+            Thread.Sleep(1000);
 
             LanguageSettings langSettings = new LanguageSettings(Driver);
-            //langSettings.SetEnglishContentByBtnSettings();
+            langSettings.SetRussianContentByBtnSettings();
+            Thread.Sleep(1000);
+            langSettings.SetEnglishContentByBtnSettings();
+
+            page.ButtonSettings.Click();
+            Thread.Sleep(1000);
+
+            //set check
+            if (true)
+            {
+
+            }
 
             //page.SeachFieldProcess("How Can AI & Data Science Help to Fight the Coronavirus?");
 
