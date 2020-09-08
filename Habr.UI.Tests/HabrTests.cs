@@ -221,7 +221,7 @@ namespace Habr.UI.Tests
             if (langSettings.InputInterfaceRussian.Selected)
             {
                 langSettings.ButtonSaveSettings.Click();
-                page.GoHomePage();
+                page.ButtonLogo.Click();
             }
             else
             {
@@ -261,11 +261,13 @@ namespace Habr.UI.Tests
             langSettings.SetEnglishContentByBtnSettings();
 
             
-            page.SeachFieldProcess("How Can AI & Data Science Help to Fight the Coronavirus?");
+            page.SeachFieldProcess("How Can AI & Data Science Help to Fight the Coronavirus");
             
-            //Assert.IsTrue(); 
-            string result = "How Can AI & Data Science";
-            //Assert.IsTrue(page.result);
+            
+            Assert.IsTrue(page.Title.Contains("How Can AI & Data Science Help to Fight the Coronavirus"));
+
+
+
 
         }
 
@@ -286,6 +288,8 @@ namespace Habr.UI.Tests
             Assert.AreEqual("How Can AI & Data Science Help to Fight the Coronavirus?", page.Title);
 
         }
+
+        [TestMethod]
         public void SetContentByBtnSettings()
         {
             Home page = new Home(Driver);
