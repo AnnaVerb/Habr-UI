@@ -177,7 +177,38 @@ namespace Habr.UI.Tests
         }
 
         [TestMethod]
-        public void ChangeLanguageByButtonSettings()
+        public void SetEnglishByButtonSettings()
+        {
+            Home page = new Home(Driver);
+            page.GoHomePage();
+            Thread.Sleep(1000);
+            page.ButtonSettings.Click();
+            Thread.Sleep(1000);
+
+            LanguageSettings langSettings = new LanguageSettings(Driver);
+            if (!langSettings.InputInterfaceEnglish.Selected)
+            {
+                langSettings.SetEnglishByButtonSettings();
+                Thread.Sleep(2000);
+                Assert.AreEqual("https://habr.com/en/", Driver.Url);
+            }
+
+            else
+            {
+                langSettings.ButtonSaveSettings.Click();
+                page.GoHomePage();
+            }
+
+
+            //langSettings.InputInterfaceEnglish.Click();
+            //Thread.Sleep(2000);
+            //langSettings.ButtonSaveSettings.Click();
+
+
+        }
+
+        [TestMethod]
+        public void SetRussianByButtonSettings()
         {
             Home page = new Home(Driver);
             page.GoHomePage();
@@ -186,12 +217,21 @@ namespace Habr.UI.Tests
 
             LanguageSettings langSettings = new LanguageSettings(Driver);
 
-            langSettings.InputInterfaceEnglish.Click();
-            Thread.Sleep(2000);
-            langSettings.ButtonSaveSettings.Click();
+
+            if (langSettings.InputInterfaceRussian.Selected)
+            {
+                langSettings.ButtonSaveSettings.Click();
+                page.GoHomePage();
+            }
+            else
+            {
+                langSettings.SetRussianByBtnSettings();
+                Thread.Sleep(2000);
+                Assert.AreEqual("https://habr.com/ru/", Driver.Url);
+            }
 
             Thread.Sleep(2000);
-            Assert.AreEqual("https://habr.com/en/", Driver.Url);
+
         }
 
         ////private static Func<IWebDriver, bool> ElementIsVisible(IWebElement element)
@@ -210,7 +250,7 @@ namespace Habr.UI.Tests
         //    };
 
         [TestMethod]
-        public void ChangeContentLanguageByBtnSettings()
+        public void SetEnglishContentByBtnSettings()
         {
             Home page = new Home(Driver);
             page.GoHomePage();
@@ -218,19 +258,51 @@ namespace Habr.UI.Tests
             page.ButtonSettings.Click();
 
             LanguageSettings langSettings = new LanguageSettings(Driver);
-
-            langSettings.SetEnglishContentByButtonSettings();
+            langSettings.SetEnglishContentByBtnSettings();
 
             
-            Thread.Sleep(2000);
-            langSettings.ButtonSaveSettings.Click();
-            if ()
-            {
+            page.SeachFieldProcess("How Can AI & Data Science Help to Fight the Coronavirus?");
+            
+            //Assert.IsTrue(); 
+            string result = "How Can AI & Data Science";
+            //Assert.IsTrue(page.result);
 
-            }
-           
-            //Assert.AreEqual("https://habr.com/en/", Driver.Url);
         }
+
+
+        public void SetEnglish()
+        {
+            Home page = new Home(Driver);
+            page.GoHomePage();
+            Thread.Sleep(1000);
+            page.ButtonSettings.Click();
+
+            LanguageSettings langSettings = new LanguageSettings(Driver);
+            langSettings.SetEnglishContentByBtnSettings();
+
+            page.SeachFieldProcess("How Can AI & Data Science Help to Fight the Coronavirus?");
+
+
+            Assert.AreEqual("How Can AI & Data Science Help to Fight the Coronavirus?", page.Title);
+
+        }
+        public void SetContentByBtnSettings()
+        {
+            Home page = new Home(Driver);
+            page.GoHomePage();
+            Thread.Sleep(1000);
+            page.ButtonSettings.Click();
+
+            LanguageSettings langSettings = new LanguageSettings(Driver);
+            //langSettings.SetEnglishContentByBtnSettings();
+
+            //page.SeachFieldProcess("How Can AI & Data Science Help to Fight the Coronavirus?");
+
+
+            //Assert.AreEqual("How Can AI & Data Science Help to Fight the Coronavirus?", page.Title);
+
+        }
+
     }
 
 
