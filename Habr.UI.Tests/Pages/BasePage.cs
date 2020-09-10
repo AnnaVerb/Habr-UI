@@ -35,7 +35,6 @@ namespace Habr.UI.Tests.Pages
 
         //button type = "button" class="btn btn_medium btn_navbar_lang js-show_lang_settings"> <svg class="icon-svg" width="18" height="18">
 
-        
 
         //XPath("//*[@for='hl_langs_ru' and @class='radio__label radio__label_another']"));
         //<label for="hl_langs_ru" class="radio__label radio__label_another">Русский</label>
@@ -91,14 +90,26 @@ namespace Habr.UI.Tests.Pages
                 //a[contains(@href,'/tracker/') and contains(@class, 'btn_navbar_tracker')
             }
         }
-       
+
+        public IWebElement ElementMyPost
+        {
+            get
+            {
+                return Driver.FindElement(By.XPath("/html/body/div[1]/div[3]/div/div/div[1]/div[2]/div/a[4]/h3"));
+
+                "////h3[@class='tabs-menu__item-text']"));
+                //By.XPath("/html/body/div[1]/div[3]/div/div/div[1]/div[2]/div/a[4]/h3");
+
+            }
+        }
+
 
         public void SeachFieldProcess(string text)
         {
 
             Home page = new Home(Driver);
             page.GoHomePage();
-            
+
             page.ButtonSearch.Click();
             page.SearchFieldForm.SendKeys(text);
             WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(5));
@@ -132,6 +143,14 @@ namespace Habr.UI.Tests.Pages
                 throw new Exception("User isn't loged in");
         }
 
+        public void WriteTopic()
+        {
+            if (IsLogedIn)
+                ButtonWriteTopic.Click()
+                    ;
+            else
+                throw new Exception("User isn't loged in");
+        }
 
 
     }

@@ -263,36 +263,26 @@ namespace Habr.UI.Tests
             langSettings.InputInterfaceEnglish.Click();
             Thread.Sleep(2000);
             langSettings.ButtonSaveSettings.Click();
-            //langSettings.InputInterfaceRussian.Click();
 
-            var valuechecked= langSettings.InputInterfaceEnglish.GetAttribute("checked");
-            Assert.AreEqual("0", valuechecked);
+            //langSettings.InputInterfaceRussian.Click();
+            //var valuechecked= langSettings.InputInterfaceEnglish.GetAttribute("checked");
 
             page.GoHomePage();
             page.ButtonSettings.Click();
             Thread.Sleep(2000);
 
+            // Assert.IsTrue(langSettings.InputInterfaceEnglish.Selected); к кнопке это свойство не подходит
+            Assert.IsTrue(langSettings.InputInterfaceEnglish.Displayed);
+            Assert.IsTrue(langSettings.InputInterfaceEnglish.Enabled);
+            //Assert.AreEqual("true", langSettings.InputInterfaceEnglish.FindElement(By.("checked")));
+
+
         }
 
-            //Assert.AreEqual("true", langSettings.InputInterfaceEnglish.GetAttribute("checked"));
-            
-            //Assert.IsFalse(langSettings.InputInterfaceRussian.Selected);
-
-            //Assert.AreEqual("https://habr.com/ru/", Driver.Url);
-            //if ()
-            //{
-            //    langSettings.ButtonSaveSettings.Click();
-            //    page.ButtonLogo.Click();
-            //}
-            //else
-            //{
-            //    langSettings.SetRussianByBtnSettings();
-            //    Thread.Sleep(2000);
-            //    Assert.AreEqual("https://habr.com/ru/", Driver.Url);
-            //}
 
 
-        
+
+
         [TestMethod]
         public void SetEnglishContentByBtnSettings()
         {
@@ -306,19 +296,15 @@ namespace Habr.UI.Tests
             page.ButtonSettings.Click();
             Thread.Sleep(1000);
 
-            //Assert.IsTrue(langSettings.InputContentEnglish.Selected);
+            Assert.IsTrue(langSettings.InputContentEnglish.Enabled);
 
             //page.SeachFieldProcess("How Can AI & Data Science Help to Fight the Coronavirus");
-
             //Assert.IsTrue(page.Title.Contains("How Can AI & Data Science Help to Fight the Coronavirus"));
-
-
-
 
         }
 
-
-        public void SetEnglish()
+        [TestMethod]
+        public void SetRussianContentByBtnSettings()
         {
             Home page = new Home(Driver);
             page.GoHomePage();
@@ -326,16 +312,19 @@ namespace Habr.UI.Tests
             page.ButtonSettings.Click();
 
             LanguageSettings langSettings = new LanguageSettings(Driver);
-            langSettings.SetEnglishContentByBtnSettings();
+            langSettings.InputContentRussian.Click();
 
-            page.SeachFieldProcess("How Can AI & Data Science Help to Fight the Coronavirus?");
+            page.ButtonSettings.Click();
+            Thread.Sleep(1000);
 
+            Assert.IsTrue(langSettings.InputContentRussian.Displayed);
+            Assert.AreEqual("1", langSettings.InputContentRussian.GetAttribute("checked"));
 
-            Assert.AreEqual("How Can AI & Data Science Help to Fight the Coronavirus?", page.Title);
+            //page.SeachFieldProcess("How Can AI & Data Science Help to Fight the Coronavirus?");
 
         }
 
-        [TestMethod]
+
         public void SetALLOptionsContentByBtnSettings()//Negative Test
         {
             Home page = new Home(Driver);
@@ -363,6 +352,9 @@ namespace Habr.UI.Tests
             //Assert.AreEqual("How Can AI & Data Science Help to Fight the Coronavirus?", page.Title);
 
         }
+
+
+
 
     }
 
