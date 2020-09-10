@@ -106,7 +106,26 @@ namespace Habr.UI.Tests
             Assert.IsTrue(page.ElementTabsPublications.Enabled);
         }
 
-        //[TestMethod]
+        [TestMethod]
+        public void WriteTopicProcess_Success()
+        {
+            Home page = new Home(Driver);
+            page.GoHomePage();
+            page.Login();
+            Thread.Sleep(2000);
+
+            page.WriteTopicProcess();
+            var result = page.FieldPostList.Text;
+            Thread.Sleep(2000);
+            Assert.IsNotNull(result);
+
+            Assert.IsTrue(page.ButtonWritePost.Displayed);
+            Assert.IsTrue(page.ButtonWritePost.Enabled);
+            Thread.Sleep(2000);
+            Assert.AreEqual("https://habr.com/ru/sandbox/start/", page.Title);
+        }
+
+        [TestMethod]
         public void PostAddtoFavoriteBySearch_Success()
         {
             Post page = new Post(Driver);
@@ -323,6 +342,8 @@ namespace Habr.UI.Tests
             //page.SeachFieldProcess("How Can AI & Data Science Help to Fight the Coronavirus?");
 
         }
+
+
 
 
         public void SetALLOptionsContentByBtnSettings()//Negative Test

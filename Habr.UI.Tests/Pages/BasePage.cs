@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Threading;
@@ -90,16 +91,34 @@ namespace Habr.UI.Tests.Pages
                 //a[contains(@href,'/tracker/') and contains(@class, 'btn_navbar_tracker')
             }
         }
-
-        public IWebElement ElementMyPost
+        public IWebElement ElementMyPosts//change xpath
         {
             get
             {
                 return Driver.FindElement(By.XPath("/html/body/div[1]/div[3]/div/div/div[1]/div[2]/div/a[4]/h3"));
 
-                "////h3[@class='tabs-menu__item-text']"));
+                ////h3[@class='tabs-menu__item-text']"));
                 //By.XPath("/html/body/div[1]/div[3]/div/div/div[1]/div[2]/div/a[4]/h3");
 
+            }
+        }
+
+        public IWebElement ButtonWritePost//заменить путь
+        {
+            get
+            {
+                return Driver.FindElement(By.XPath("/html/body/div[1]/div[3]/div/div/div[1]/div[3]/a[1]"));
+
+                ///h3[@class='tabs-menu__item-text']"));
+
+            }
+        }
+        public IWebElement FieldPostList
+        {
+            get
+            {
+                return Driver.FindElement(By.XPath("//div[@class='posts_list']"));
+                //By.XPath("/html/body/div[1]/div[3]/div/div/div[1]/div[2]/div/a[4]/h3");
             }
         }
 
@@ -143,11 +162,17 @@ namespace Habr.UI.Tests.Pages
                 throw new Exception("User isn't loged in");
         }
 
-        public void WriteTopic()
+        public void WriteTopicProcess()
         {
             if (IsLogedIn)
-                ButtonWriteTopic.Click()
-                    ;
+            {
+                ButtonWriteTopic.Click();
+                Thread.Sleep(2000);
+                ElementMyPosts.Click();
+                Thread.Sleep(2000);
+                ButtonWritePost.Click();
+            }
+
             else
                 throw new Exception("User isn't loged in");
         }
