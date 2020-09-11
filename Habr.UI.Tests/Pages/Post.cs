@@ -45,7 +45,7 @@ namespace Habr.UI.Tests.Pages
                 //By.XPath("/html/body/div[1]/div[3]/div/section/div[1]/div[1]/div/a[1]/h3")
             }
         }
-        public IWebElement ButtonBookmark
+        public IWebElement ButtonBookmarkPost
         {
             get
             {
@@ -69,7 +69,8 @@ namespace Habr.UI.Tests.Pages
         }
 
 
-        public void PostAddtoFavoriteBySearch(string posttext)
+
+         public void PostAddtoFavoriteBySearch(string posttext)
         {
             SeachFieldProcess(posttext);
             IJavaScriptExecutor javaScriptExecutor = (IJavaScriptExecutor)Driver;
@@ -79,15 +80,16 @@ namespace Habr.UI.Tests.Pages
             //page.TabSelect2Success.Click();
             
             //Assert.IsTrue(page.TabResultText.Displayed);
-            ButtonBookmark.Click();
+            ButtonBookmarkPost.Click();
 
-            //if (page.ButtonBookmark.Displayed)
-            //{
-            //    page.ButtonBookmark.Click();
-            //}
+            if (ButtonBookmarkPost.Displayed)
+            {
+                ButtonBookmarkPost.Click();
+            }
+            
             //posts_add_to_favorite(this);
 
-            //page.ButtonSearch.Click();
+            ButtonSearch.Click();
             //page.SearchFieldForm.SendKeys(text);
         }
         public void PostAddtoFavorite(string postNumber = _defaultPostNumber)
@@ -99,7 +101,7 @@ namespace Habr.UI.Tests.Pages
                 Login();
             }
 
-            ButtonBookmark.Click();
+            ButtonBookmarkPost.Click();
         }
 
         public void GoToPostPage(string postNumber = _defaultPostNumber)

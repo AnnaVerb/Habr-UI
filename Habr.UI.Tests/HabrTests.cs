@@ -137,22 +137,25 @@ namespace Habr.UI.Tests
             page.PostAddtoFavoriteBySearch(post);
             Thread.Sleep(2000);
 
-
             page.ClickButtonGreenUser();
             page.ButtonZakladki.Click();
+            page.ButtonBookmarkPost.Click();
 
-            bool result = Driver.FindElement(By.XPath("//a[contains(@href,'512916') and @class='post__title_link']")).Displayed;
+            bool result = page.ElementTabsPublications.Displayed;
+            bool result1 = page.ButtonBookmarkPost.Enabled;
+            Assert.IsTrue(result);
+            Assert.IsTrue(result1);
+
+            //bool result = Driver.FindElement(By.XPath("//a[contains(@href,'512916') and @class='post__title_link']")).Displayed;
             //https://habr.com/ru/company/ruvds/blog/515544/
 
-
-            Assert.IsTrue(result);
-
             //Assert.AreEqual("remove", page.ButtonBookmark.("data-action"));
-
 
         }
 
 
+
+        [TestMethod]
         public void PostAddtoFavoriteLink()
         {
 
@@ -162,7 +165,7 @@ namespace Habr.UI.Tests
             Thread.Sleep(5000);
             page.Login();
             page.PostAddtoFavorite("512916");
-            page.ButtonBookmark.Click();
+            page.ButtonBookmarkPost.Click();
 
 
             // Assert.AreEqual("remove", page.ButtonBookmark.GetAttribute("data-action"));
@@ -180,10 +183,10 @@ namespace Habr.UI.Tests
             Thread.Sleep(5000);
             page.Login();
             page.PostAddtoFavorite("512916");
-            page.ButtonBookmark.Click();
-            Assert.AreNotEqual("Add", page.ButtonBookmark.Text);
+            page.ButtonBookmarkPost.Click();
+            Assert.AreNotEqual("Add", page.ButtonBookmarkPost.Text);
 
-            page.ButtonBookmark.Click();//remove from bookmark
+            page.ButtonBookmarkPost.Click();//remove from bookmark
             page.ButtonGreenUser.Click();
             page.ButtonZakladki.Click();
             Assert.IsFalse(page.ElementPost.Displayed);
@@ -338,8 +341,6 @@ namespace Habr.UI.Tests
 
             Assert.IsTrue(langSettings.InputContentRussian.Displayed);
             Assert.AreEqual("1", langSettings.InputContentRussian.GetAttribute("checked"));
-
-            //page.SeachFieldProcess("How Can AI & Data Science Help to Fight the Coronavirus?");
 
         }
 
