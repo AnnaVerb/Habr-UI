@@ -325,7 +325,7 @@ namespace Habr.UI.Tests
 
         }
 
-        [TestMethod]
+       
         public void SetRussianContentByBtnSettings()
         {
             Home page = new Home(Driver);
