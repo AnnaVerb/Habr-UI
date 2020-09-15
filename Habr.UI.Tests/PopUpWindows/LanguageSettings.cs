@@ -34,7 +34,7 @@ namespace Habr.UI.Tests.PopUpWindows
 
         //("//fieldset[@data-section='2']/div[1]/span"));
 
-        public IWebElement InputContentEnglish => Driver.FindElement(By.XPath("//*[@id='fl_langs_en']"));
+        public IWebElement InputContentEnglish => Driver.FindElement(By.XPath("//label[@for='fl_langs_en']"));
         //fieldset[@data-section='2']/div[2]/span")
         //XPath("//fieldset[@class='form__fieldset form__fieldset_thin']//input[@value='fl_langs_en']"));
         // <input type = "checkbox" name="fl[]" id="fl_langs_en" class="checkbox__input js-fl_langs" value="en">

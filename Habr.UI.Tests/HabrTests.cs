@@ -160,7 +160,7 @@ namespace Habr.UI.Tests
         {
 
             Post page = new Post(Driver);
-            page.GoToPostPage("512916");
+            page.GoToPostPage();
 
             Thread.Sleep(5000);
             page.Login();

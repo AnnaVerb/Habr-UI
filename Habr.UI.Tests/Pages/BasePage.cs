@@ -86,9 +86,10 @@ namespace Habr.UI.Tests.Pages
         {
             get
             {
-                return Driver.FindElement(By.XPath("//a[@title = 'Tracker']"));
+                return Driver.FindElement(By.XPath("//h1[@class ='page-header__title']"));
                 //By.XPath("/html/body/div[1]/div[3]/div/div/div[1]/div[1]/h1"));
                 //a[contains(@href,'/tracker/') and contains(@class, 'btn_navbar_tracker')
+
             }
         }
         public IWebElement ElementMyPosts//change xpath
