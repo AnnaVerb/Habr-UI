@@ -27,8 +27,9 @@ namespace Habr.UI.Tests.PopUpWindows
        
         public IWebElement InputInterfaceEnglish => Driver.FindElement(By.XPath("//fieldset[@data-section='2']/div[2]/span"));
 
-        public IWebElement InputContentRussian => Driver.FindElement(By.XPath("//*[@id='lang-settings-form']//fieldset[2]/div[1]"));
-        
+        public IWebElement InputContentRussian => Driver.FindElement(By.XPath("//*[@id='fl_langs_ru']"));
+        //*[@id="fl_langs_ru"]
+
         //form-field form-field_lang-settings
         //By.XPath("//*[@id='fl_langs_ru']")
 
@@ -71,9 +72,17 @@ namespace Habr.UI.Tests.PopUpWindows
 
         public void SetRussianContentByBtnSettings()
         {
-            InputContentRussian.Click();
-            Thread.Sleep(2000);
-            ButtonSaveSettings.Click();
+            if (!InputContentRussian.Selected)
+            {
+                InputContentRussian.Click();
+                Thread.Sleep(2000);
+                ButtonSaveSettings.Click();
+            }
+            else
+            {
+                ButtonSaveSettings.Click();
+            }
+            
 
         }
 

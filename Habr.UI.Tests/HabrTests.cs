@@ -106,6 +106,9 @@ namespace Habr.UI.Tests
             Assert.IsTrue(page.ElementTabsPublications.Enabled);
         }
 
+
+
+
         [TestMethod]
         public void WriteTopicProcess_Success()
         {
@@ -125,7 +128,7 @@ namespace Habr.UI.Tests
             Assert.AreEqual("https://habr.com/ru/sandbox/start/", page.Title);
         }
 
-        [TestMethod]
+        
         public void PostAddtoFavoriteBySearch_Success()
         {
             Post page = new Post(Driver);
@@ -152,6 +155,7 @@ namespace Habr.UI.Tests
             //Assert.AreEqual("remove", page.ButtonBookmark.("data-action"));
 
         }
+
 
 
 
@@ -302,9 +306,6 @@ namespace Habr.UI.Tests
         }
 
 
-
-
-
         [TestMethod]
         public void SetEnglishContentByBtnSettings()
         {
@@ -315,18 +316,19 @@ namespace Habr.UI.Tests
 
             LanguageSettings langSettings = new LanguageSettings(Driver);
             langSettings.SetEnglishContentByBtnSettings();
-            page.ButtonSettings.Click();
             Thread.Sleep(1000);
 
+            page.ButtonSettings.Click();
+            Assert.IsTrue(langSettings.InputContentEnglish.Displayed);
+            //Assert.IsTrue(langSettings.InputContentEnglish.Selected);
             Assert.IsTrue(langSettings.InputContentEnglish.Enabled);
 
-            //page.SeachFieldProcess("How Can AI & Data Science Help to Fight the Coronavirus");
-            //Assert.IsTrue(page.Title.Contains("How Can AI & Data Science Help to Fight the Coronavirus"));
 
         }
 
-       
-        public void SetRussianContentByBtnSettings()
+
+        
+        public void SetRussianContentByBtnSettings_Success()
         {
             Home page = new Home(Driver);
             page.GoHomePage();
@@ -335,16 +337,16 @@ namespace Habr.UI.Tests
 
             LanguageSettings langSettings = new LanguageSettings(Driver);
             langSettings.InputContentRussian.Click();
+            //langSettings.ButtonSaveSettings.Click();
+          
+            Assert.IsTrue(langSettings.InputContentRussian.Enabled);
 
-            page.ButtonSettings.Click();
-            Thread.Sleep(1000);
+            Post postpage = new Post(Driver);
+            postpage.SeachFieldProcess("График");
 
-            Assert.IsTrue(langSettings.InputContentRussian.Displayed);
-            Assert.AreEqual("1", langSettings.InputContentRussian.GetAttribute("checked"));
+           // Assert.AreEqual("1", postpage.ElementTabsPublications.Enabled);
 
         }
-
-
 
 
         public void SetALLOptionsContentByBtnSettings()//Negative Test
