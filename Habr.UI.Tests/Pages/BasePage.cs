@@ -104,24 +104,9 @@ namespace Habr.UI.Tests.Pages
             }
         }
 
-        public IWebElement ButtonWritePost//заменить путь
-        {
-            get
-            {
-                return Driver.FindElement(By.XPath("/html/body/div[1]/div[3]/div/div/div[1]/div[3]/a[1]"));
+     
 
-                ///h3[@class='tabs-menu__item-text']"));
 
-            }
-        }
-        public IWebElement FieldPostList
-        {
-            get
-            {
-                return Driver.FindElement(By.XPath("//div[@class='posts_list']"));
-                //By.XPath("/html/body/div[1]/div[3]/div/div/div[1]/div[2]/div/a[4]/h3");
-            }
-        }
 
 
         public void SeachFieldProcess(string text)
@@ -141,6 +126,7 @@ namespace Habr.UI.Tests.Pages
 
 
         }
+
         public void ClickNotifications()
         {
             if (IsLogedIn)
@@ -163,20 +149,7 @@ namespace Habr.UI.Tests.Pages
                 throw new Exception("User isn't loged in");
         }
 
-        public void WriteTopicProcess()
-        {
-            if (IsLogedIn)
-            {
-                ButtonWriteTopic.Click();
-                Thread.Sleep(2000);
-                ElementMyPosts.Click();
-                Thread.Sleep(2000);
-                ButtonWritePost.Click();
-            }
 
-            else
-                throw new Exception("User isn't loged in");
-        }
 
 
     }

@@ -61,6 +61,7 @@
     <Compile Include="Pages\Home.cs" />
     <Compile Include="Pages\LoginPopUp.cs" />
     <Compile Include="Pages\Post.cs" />
+    <Compile Include="Pages\SandboxPage.cs" />
     <Compile Include="Pages\UserMenu.cs" />
     <Compile Include="PopUpWindows\BasePopUpWindow.cs" />
     <Compile Include="PopUpWindows\LanguageSettings.cs" />

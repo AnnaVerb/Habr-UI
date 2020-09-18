@@ -15,6 +15,8 @@ namespace Habr.UI.Tests.Pages
         {
 
         }
+
+
         private const string _defaultPostNumber = "502746";
 
 
@@ -45,20 +47,23 @@ namespace Habr.UI.Tests.Pages
                 //By.XPath("/html/body/div[1]/div[3]/div/section/div[1]/div[1]/div/a[1]/h3")
             }
         }
-        public IWebElement ButtonBookmarkPost
+
+
+        public IWebElement ButtonBookmarkPost512916//fix
         {
             get
             {
 
-                return Driver.FindElement(By.XPath("//button[@title ='Удалить из закладок' and onclick ='posts_add_to_favorite(this);']//ancestor::div"));
+                return Driver.FindElement(By.XPath("//button[@title ='Удалить из закладок']"));
 
+                //https://habr.com/ru/news/t/512916/
                 //title = "Удалить из закладок" onclick = "posts_add_to_favorite(this);" >
                 //(By.XPath("//button[@title ='Удалить из закладок' and @data-action = 'remove']"));
                 //data - action = "remove" title = "Удалить из закладок" onclick = "posts_add_to_favorite(this);" >
                 //Xpath.("/html/body/div[1]/div[3]/div/section/div[1]/div[2]/ul/li[1]/article/footer/ul/li[2]/button")
             }
         }
-        public IWebElement ElementPost
+        public IWebElement ElementPost_512916//check
         {
             get
             {
@@ -69,9 +74,8 @@ namespace Habr.UI.Tests.Pages
         }
 
 
-
-         public void PostAddtoFavoriteBySearch(string posttext)
-        {
+        public void PostAddtoFavoriteBySearch(string posttext)
+         {
             SeachFieldProcess(posttext);
             IJavaScriptExecutor javaScriptExecutor = (IJavaScriptExecutor)Driver;
 
@@ -103,6 +107,7 @@ namespace Habr.UI.Tests.Pages
 
             ButtonBookmarkPost.Click();
         }
+
 
         public void GoToPostPage(string postNumber = _defaultPostNumber)
         {
