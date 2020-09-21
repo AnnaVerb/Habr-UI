@@ -3,6 +3,7 @@ using Habr.UI.Tests.PopUpWindows;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Support.Extensions;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.CodeDom;
@@ -107,26 +108,59 @@ namespace Habr.UI.Tests
         }
 
 
+        [TestMethod]
+        public void CheckButtonWritePostFirstElementk_Success()
+        {
+            Home page = new Home(Driver);
+            page.GoHomePage();
+            page.Login();
+
+            SandboxPage page1 = new SandboxPage(Driver);
+            WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(5));
+            page1.ClickButtonWritePostFirstElement();
+
+            Assert.IsTrue(page1.ButtonWritePostFirstElement.Displayed);
+            Assert.IsTrue(page1.ButtonWritePostFirstElement.Enabled);
+
+        }
+
+        [TestMethod]
+        public void WriteTopicProcess_Success()//check
+        {
+            Home page = new Home(Driver);
+            page.GoHomePage();
+            Thread.Sleep(2000);
+
+            SandboxPage page1 = new SandboxPage(Driver);
+            page1.WriteTopicProcess();
+
+            Assert.IsTrue(page1.ButtonWritePostFirstElement.Displayed);
+            page1.ButtonWritePostFirstElement.Click();
+            Thread.Sleep(2000);
+
+        }
 
 
         [TestMethod]
-        public void WriteTopicProcess_Success()//fix
+
+        public void WriteTopicProcessComplex_Success()//fix
         {
             Home page = new Home(Driver);
             page.GoHomePage();
             page.Login();
             Thread.Sleep(2000);
 
-            page.WriteTopicProcess();
-            var result = page.FieldPostList.Text;
+            SandboxPage page1 = new SandboxPage(Driver);
+            page1.WriteTopicProcess();
+            var result = page1.FieldPostList.Text;
             Thread.Sleep(2000);
 
 
             Assert.IsNotNull(result);
-            Assert.IsTrue(page.ButtonWritePost.Displayed);
-            Assert.IsTrue(page.ButtonWritePost.Enabled);
+            Assert.IsTrue(page1.ButtonWritePostFirstElement.Displayed);
+            Assert.IsTrue(page1.ButtonWritePostFirstElement.Enabled);
 
-            //Thread.Sleep(2000);
+            Thread.Sleep(2000);
             //Assert.AreEqual("https://habr.com/ru/sandbox/start/", page.Title);
         }
 
@@ -144,10 +178,10 @@ namespace Habr.UI.Tests
 
             page.ClickButtonGreenUser();
             page.ButtonZakladki.Click();
-            page.ButtonBookmarkPost.Click();
+            page.ButtonBookmarkPost512916.Click();
 
             bool result = page.ElementTabsPublications.Displayed;
-            bool result1 = page.ButtonBookmarkPost.Enabled;
+            bool result1 = page.ButtonBookmarkPost512916.Enabled;
             Assert.IsTrue(result);
             Assert.IsTrue(result1);
 
@@ -171,7 +205,7 @@ namespace Habr.UI.Tests
             Thread.Sleep(5000);
             page.Login();
             page.PostAddtoFavorite("512916");
-            page.ButtonBookmarkPost.Click();
+            page.ButtonBookmarkPost512916.Click();
 
 
             // Assert.AreEqual("remove", page.ButtonBookmark.GetAttribute("data-action"));
@@ -189,13 +223,13 @@ namespace Habr.UI.Tests
             Thread.Sleep(5000);
             page.Login();
             page.PostAddtoFavorite("512916");
-            page.ButtonBookmarkPost.Click();
-            Assert.AreNotEqual("Add", page.ButtonBookmarkPost.Text);
+            page.ButtonBookmarkPost512916.Click();
+            Assert.AreNotEqual("Add", page.ButtonBookmarkPost512916.Text);
 
-            page.ButtonBookmarkPost.Click();//remove from bookmark
+            page.ButtonBookmarkPost512916.Click();//remove from bookmark
             page.ButtonGreenUser.Click();
             page.ButtonZakladki.Click();
-            Assert.IsFalse(page.ElementPost.Displayed);
+            Assert.IsFalse(page.ElementPost_512916.Displayed);
 
 
 
@@ -328,25 +362,25 @@ namespace Habr.UI.Tests
 
         }
 
-
-
+        [TestMethod]
         public void SetRussianContentByBtnSettings_Success()
         {
             Home page = new Home(Driver);
             page.GoHomePage();
-            Thread.Sleep(1000);
+            Thread.Sleep(2000);
             page.ButtonSettings.Click();
+            Thread.Sleep(2000);
 
             LanguageSettings langSettings = new LanguageSettings(Driver);
-            langSettings.InputContentRussian.Click();
-            //langSettings.ButtonSaveSettings.Click();
+            langSettings.SetRussianContentByBtnSettings();
+            Thread.Sleep(2000);
 
-            Assert.IsTrue(langSettings.InputContentRussian.Enabled);
+            //Assert.IsTrue(langSettings.InputContentRussian.Displayed);
+            Assert.IsTrue(langSettings.InputContentRussian.Selected);
 
-            Post postpage = new Post(Driver);
-            postpage.SeachFieldProcess("График");
-
-            // Assert.AreEqual("1", postpage.ElementTabsPublications.Enabled);
+            page.SeachFieldProcess("График");
+            Driver.TakeScreenshot();
+            Thread.Sleep(2000);
 
         }
 

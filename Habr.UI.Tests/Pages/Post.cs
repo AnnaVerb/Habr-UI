@@ -84,11 +84,11 @@ namespace Habr.UI.Tests.Pages
             //page.TabSelect2Success.Click();
             
             //Assert.IsTrue(page.TabResultText.Displayed);
-            ButtonBookmarkPost.Click();
+            ButtonBookmarkPost512916.Click();
 
-            if (ButtonBookmarkPost.Displayed)
+            if (ButtonBookmarkPost512916.Displayed)
             {
-                ButtonBookmarkPost.Click();
+                ButtonBookmarkPost512916.Click();
             }
             
             //posts_add_to_favorite(this);
@@ -105,7 +105,7 @@ namespace Habr.UI.Tests.Pages
                 Login();
             }
 
-            ButtonBookmarkPost.Click();
+            ButtonBookmarkPost512916.Click();
         }
 
 

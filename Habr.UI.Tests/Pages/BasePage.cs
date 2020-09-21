@@ -107,8 +107,6 @@ namespace Habr.UI.Tests.Pages
      
 
 
-
-
         public void SeachFieldProcess(string text)
         {
 

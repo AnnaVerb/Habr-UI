@@ -6,6 +6,8 @@ namespace Habr.UI.Tests.Pages
 {
     public class Home : BasePage
     {
+        internal readonly object ButtonWritePost;
+
         public string Title => Driver.Title;
       
         public Home(IWebDriver driver) : base(driver)
