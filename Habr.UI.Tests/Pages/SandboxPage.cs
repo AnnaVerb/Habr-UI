@@ -23,7 +23,8 @@ namespace Habr.UI.Tests.Pages
         {
             get
             {
-                return Driver.FindElement(By.XPath("//a[@href='/ru/sandbox/add/']//h2[1]"));
+                return Driver.FindElement(By.XPath("//a[@href='/ru/sandbox/add/' and @class='tabs-menu__item-text']"));
+
 
                 //a[@href ='/ru/sandbox/add/']//following::h2[1]
                 //By.XPath("//a[@href ='/ru/sandbox/add/']//ancestor::div[1]]"));

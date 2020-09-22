@@ -107,6 +107,33 @@ namespace Habr.UI.Tests
             Assert.IsTrue(page.ElementTabsPublications.Enabled);
         }
 
+        [TestMethod]
+        public void LogoMenuQA_Success()
+        {
+            Home page = new Home(Driver);
+            page.GoHomePage();
+            Thread.Sleep(2000);
+            page.LogoMenuClickQA();
+            WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(5));
+            Driver.TakeScreenshot();
+            Assert.IsTrue(Driver.Url.StartsWith("https://qna.habr.com/"));
+        }
+
+        [TestMethod]
+        public void LogoMenuOptions()
+        {
+            Home page = new Home(Driver);
+            page.GoHomePage();
+            Thread.Sleep(2000);
+            page.LogoMenuClickQA();
+            WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(3));
+            Driver.Navigate().Back();
+
+            Assert.IsTrue(Driver.Url.StartsWith("https://habr.com/"));
+            
+        }
+
+
 
         [TestMethod]
         public void CheckButtonWritePostFirstElementk_Success()
@@ -141,7 +168,7 @@ namespace Habr.UI.Tests
         }
 
 
-        [TestMethod]
+       
 
         public void WriteTopicProcessComplex_Success()//fix
         {
@@ -363,7 +390,7 @@ namespace Habr.UI.Tests
         }
 
         [TestMethod]
-        public void SetRussianContentByBtnSettings_Success()
+        public void SetRussianContentByBtnSettingsSearch_Success()
         {
             Home page = new Home(Driver);
             page.GoHomePage();
@@ -384,32 +411,29 @@ namespace Habr.UI.Tests
 
         }
 
-
-        public void SetALLOptionsContentByBtnSettings()//Negative Test
+        [TestMethod]
+        public void SetALLOptionsContentByBtnSettings()//Maybe NegativeTest
         {
             Home page = new Home(Driver);
             page.GoHomePage();
             page.ButtonSettings.Click();
-            Thread.Sleep(1000);
+            Thread.Sleep(2000);
 
             LanguageSettings langSettings = new LanguageSettings(Driver);
             langSettings.SetRussianContentByBtnSettings();
             Thread.Sleep(1000);
-            langSettings.SetEnglishContentByBtnSettings();
-
             page.ButtonSettings.Click();
+            langSettings.SetEnglishContentByBtnSettings();
             Thread.Sleep(1000);
+            page.ButtonSettings.Click();
+            Thread.Sleep(4000);
+            Driver.TakeScreenshot().SaveAsFile("ContentView");
+                      
+            page.SeachFieldProcess("All");
+            Thread.Sleep(2000);
+            page.SeachFieldProcess("Все");
+            Thread.Sleep(2000);
 
-            //set check
-            if (true)
-            {
-
-            }
-
-            //page.SeachFieldProcess("How Can AI & Data Science Help to Fight the Coronavirus?");
-
-
-            //Assert.AreEqual("How Can AI & Data Science Help to Fight the Coronavirus?", page.Title);
 
         }
 
