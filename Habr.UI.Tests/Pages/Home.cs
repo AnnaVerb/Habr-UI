@@ -39,8 +39,18 @@ namespace Habr.UI.Tests.Pages
             Home page = new Home(Driver);
             GoHomePage();
             LogoMenuElement.Click();
-            Thread.Sleep(2000);
+            
             DownMenuElementQA.Click();
+            Thread.Sleep(2000);
+
+        }
+
+        public void LogoMenuClickHabr()
+        {
+            Home page = new Home(Driver);
+            GoHomePage();
+            LogoMenuElement.Click();
+            DownMenuElementHabr.Click();
             Thread.Sleep(2000);
 
         }

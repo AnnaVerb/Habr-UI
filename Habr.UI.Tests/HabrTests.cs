@@ -127,10 +127,12 @@ namespace Habr.UI.Tests
             Thread.Sleep(2000);
             page.LogoMenuClickQA();
             WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(3));
-            Driver.Navigate().Back();
+            page.GoHomePage();
+            page.LogoMenuClickHabr();
+            Thread.Sleep(2000);
 
-            Assert.IsTrue(Driver.Url.StartsWith("https://habr.com/"));
-            
+            Assert.IsTrue(Driver.Url.Contains("habr.com/"));
+
         }
 
 
