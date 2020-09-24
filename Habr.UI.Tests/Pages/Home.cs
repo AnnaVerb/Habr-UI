@@ -7,7 +7,7 @@ namespace Habr.UI.Tests.Pages
 {
     public class Home : BasePage
     {
-        internal readonly object ButtonWritePost;
+        //internal readonly object ButtonPost;
 
         public string Title => Driver.Title;
 
@@ -19,14 +19,10 @@ namespace Habr.UI.Tests.Pages
 
         public IWebElement DownMenuElementHabr => Driver.FindElement(By.XPath("//a[@class='service' and @href='/']"));
         public IWebElement DownMenuElementQA => Driver.FindElement(By.XPath("//h4[@class='service-title']"));
-        //[contains(@id, ‘er - messa’)]
 
-        // Syntax: //tag[starts-with(@attribute, ‘value‘)]
+        public IWebElement UpPanelSectionAuthor => Driver.FindElement(By.XPath("//a[@class='bmenu__conversion']"));
 
-        //Example: //input[starts-with(@id, ‘user’)]
-
-        //public IWebElement DownMenuElementHabr => Driver.FindElement(By.XPath(""));
-
+        //href="/ru/sandbox/add/"
 
 
         public void GoHomePage()
@@ -54,6 +50,10 @@ namespace Habr.UI.Tests.Pages
             Thread.Sleep(2000);
 
         }
+
+    
+
+
     }
 }
 

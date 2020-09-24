@@ -84,7 +84,7 @@ namespace Habr.UI.Tests
         }
 
         [TestMethod]
-        public void CheckButtonUser_Success()
+        public void ClickButtonUser_Success()
         {
             Home page = new Home(Driver);
             page.GoHomePage();
@@ -99,6 +99,7 @@ namespace Habr.UI.Tests
 
         [TestMethod]
         public void SeachFieldProcess_Success()
+        //проверка поисковой строки или поля
         {
             Post page = new Post(Driver);
             page.GoToPostPage();
@@ -121,6 +122,7 @@ namespace Habr.UI.Tests
 
         [TestMethod]
         public void LogoMenuOptions()
+        //проверка кликабельности подменю
         {
             Home page = new Home(Driver);
             page.GoHomePage();
@@ -136,6 +138,19 @@ namespace Habr.UI.Tests
         }
 
 
+        [TestMethod]
+        public void ClickUpPanelSectionAuthor()
+        //проверка функционала меню стартовой страницы
+        {
+            Home page = new Home(Driver);
+            page.GoHomePage();
+            Thread.Sleep(2000);
+            page.UpPanelSectionAuthor.Click();
+            Thread.Sleep(2000);
+            Assert.IsTrue(Driver.Url.Contains("sandbox/start/"));
+            //https://habr.com/ru/sandbox/start/
+
+        }
 
         [TestMethod]
         public void CheckButtonWritePostFirstElementk_Success()
@@ -170,8 +185,6 @@ namespace Habr.UI.Tests
         }
 
 
-       
-
         public void WriteTopicProcessComplex_Success()//fix
         {
             Home page = new Home(Driver);
@@ -193,14 +206,13 @@ namespace Habr.UI.Tests
             //Assert.AreEqual("https://habr.com/ru/sandbox/start/", page.Title);
         }
 
-
+        [TestMethod]
         public void PostAddtoFavoriteBySearch_Success()
         {
             Post page = new Post(Driver);
             page.GoToPostPage();
-            Thread.Sleep(2000);
-
             page.Login();
+
             var post = "Яндекс отчитался о выручке на фоне";
             page.PostAddtoFavoriteBySearch(post);
             Thread.Sleep(2000);
@@ -209,12 +221,14 @@ namespace Habr.UI.Tests
             page.ButtonZakladki.Click();
             page.ButtonBookmarkPost512916.Click();
 
-            bool result = page.ElementTabsPublications.Displayed;
+            //bool result = page.ElementTabsPublications.Displayed;
             bool result1 = page.ButtonBookmarkPost512916.Enabled;
-            Assert.IsTrue(result);
+            //Assert.IsTrue(result);
             Assert.IsTrue(result1);
 
-            //bool result = Driver.FindElement(By.XPath("//a[contains(@href,'512916') and @class='post__title_link']")).Displayed;
+            bool result2 = Driver.FindElement(By.XPath("//a[contains(@href,'512916') and @class='post__title_link']")).Displayed;
+            Assert.IsTrue(result2);
+            
             //https://habr.com/ru/company/ruvds/blog/515544/
 
             //Assert.AreEqual("remove", page.ButtonBookmark.("data-action"));
@@ -225,19 +239,17 @@ namespace Habr.UI.Tests
 
 
         [TestMethod]
-        public void PostAddtoFavoriteLink()
+        public void PostAddtoFavoriteLink()//fix xpaths
         {
 
             Post page = new Post(Driver);
             page.GoToPostPage();
+            Thread.Sleep(2000);
 
-            Thread.Sleep(5000);
-            page.Login();
             page.PostAddtoFavorite("512916");
-            page.ButtonBookmarkPost512916.Click();
 
-
-            // Assert.AreEqual("remove", page.ButtonBookmark.GetAttribute("data-action"));
+            Assert.IsTrue(Driver.Url.Equals("https://habr.com/ru/news/t/512916/"));
+            //Assert.AreEqual("remove", page.ButtonBookmarkPost512916.GetAttribute("data-action"));
 
 
         }
@@ -299,7 +311,7 @@ namespace Habr.UI.Tests
 
         }
 
-        [TestMethod]
+
         public void SetRussianByBtnSettings()
         {
             Home page = new Home(Driver);
@@ -342,7 +354,7 @@ namespace Habr.UI.Tests
         //    };
 
         [TestMethod]//Negative test
-        public void SetAllButtonsInterfaceByBtnSettings()
+        public void SetALLOptionsInterfaceByBtnSettings()
         {
             Home page = new Home(Driver);
             page.GoHomePage();
@@ -371,7 +383,6 @@ namespace Habr.UI.Tests
         }
 
 
-        [TestMethod]
         public void SetEnglishContentByBtnSettings()
         {
             Home page = new Home(Driver);
@@ -392,7 +403,7 @@ namespace Habr.UI.Tests
         }
 
         [TestMethod]
-        public void SetRussianContentByBtnSettingsSearch_Success()
+        public void SetRussianContentPlusSearch_Success()
         {
             Home page = new Home(Driver);
             page.GoHomePage();
@@ -430,7 +441,7 @@ namespace Habr.UI.Tests
             page.ButtonSettings.Click();
             Thread.Sleep(4000);
             Driver.TakeScreenshot().SaveAsFile("ContentView");
-                      
+
             page.SeachFieldProcess("All");
             Thread.Sleep(2000);
             page.SeachFieldProcess("Все");

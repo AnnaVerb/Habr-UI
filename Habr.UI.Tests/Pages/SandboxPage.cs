@@ -23,16 +23,18 @@ namespace Habr.UI.Tests.Pages
         {
             get
             {
-                return Driver.FindElement(By.XPath("//a[@href='/ru/sandbox/add/' and @class='tabs-menu__item-text']"));
+                return Driver.FindElement(By.XPath("//h2[contains(text()='Как всё произойдет')]"));
 
+                //Syntax: //tag[Syntax: //tag[contains(@attribute, ‘value‘)]
+                //h2[text()='Как всё произойдет']
+                //Example: //input[contains(@id, ‘er-messa’)] ‘value‘)]
 
+                //Example: //input[contains(@id, ‘er-messa’)]
                 //a[@href ='/ru/sandbox/add/']//following::h2[1]
                 //By.XPath("//a[@href ='/ru/sandbox/add/']//ancestor::div[1]]"));
                 //a[@href ='/ru/sandbox/add/']//ancestor::div[1]
-                ///h3[@class='tabs-menu__item-text']"));
-                //a[@href ='sandbox/add/']
-                // / html / body / div[1] / div[3] / div / div / div[1] / div[3] / a[1]
-                //*h2[text()=’Зачем вообще писать‘]
+
+
             }
         }
         public IWebElement FieldPostList//check
