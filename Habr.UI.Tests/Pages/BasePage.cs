@@ -82,16 +82,9 @@ namespace Habr.UI.Tests.Pages
         }
 
 
-        public IWebElement ElementTrackerNotifications
-        {
-            get
-            {
-                return Driver.FindElement(By.XPath("//h1[@class ='page-header__title']"));
-                //By.XPath("/html/body/div[1]/div[3]/div/div/div[1]/div[1]/h1"));
-                //a[contains(@href,'/tracker/') and contains(@class, 'btn_navbar_tracker')
-
-            }
-        }
+        public IWebElement ElementTrackerNotifications => Driver.FindElement(By.XPath("//h1[@class ='page-header__title']"));
+               
+                 
         public IWebElement ElementMyPosts//change xpath
         {
             get
@@ -121,7 +114,6 @@ namespace Habr.UI.Tests.Pages
 
             //Actions builder = new Actions(Driver);
             //builder.SendKeys(Keys.Enter);
-
 
         }
 

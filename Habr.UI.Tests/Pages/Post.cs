@@ -1,10 +1,13 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
+using OpenQA.Selenium.Support.Extensions;
 using OpenQA.Selenium.Support.UI;
 using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Habr.UI.Tests.Pages
@@ -46,16 +49,26 @@ namespace Habr.UI.Tests.Pages
             }
         }
 
-        public IWebElement ButtonBookmarkPost512916 => Driver.FindElement(By.XPath("//button[@data-id='512916' and @data-action='add']//span[@class='btn_inner']"));
-        //fixing
+        public IWebElement ButtonBookmarkPost512916 => Driver.FindElement(By.XPath("//button[@data-id='512916']//span"));
+        
+        //fix
+        public IWebElement ButtonBookmarkPost512916Counter => Driver.FindElement(By.XPath("//*[@data-id='512916']//span[@class='bookmark__counter js-favs_count']"));
+
+        //public IWebElement ElementTrackerNotifications => Driver.FindElement(By.XPath("//h1[@class ='page-header__title']"));
+        //div[@data-id='512916']//[@id='post_512916']
+
+        //button[@data-id='512916']//span[@class='btn_inner']"
         //button[@data-id='512916' and @data-action='add']"
         //button[@data-id='512916' and @data-action='add']
         //https://habr.com/ru/news/t/512916/
         //title = "Удалить из закладок" onclick = "posts_add_to_favorite(this);" >
 
-        public IWebElement ElementPost_512916 => Driver.FindElement(By.XPath("//a[contains(@href,'512916') and @class='post__title_link']"));
-        //check
+        //<span class="bookmark__counter js-favs_count"
 
+
+        //check
+        public IWebElement ElementPost_512916 => Driver.FindElement(By.XPath("//a[contains(@href,'512916') and @class='post__title_link']"));
+       
 
 
         public void PostAddtoFavoriteBySearch(string posttext)
@@ -66,34 +79,37 @@ namespace Habr.UI.Tests.Pages
             //javaScriptExecutor.ExecuteScript("arguments[0].scrollIntoView();", page.CheckBoxSelect);
             //Thread.Sleep(1000);
             //page.TabSelect2Success.Click();
-
-            //Assert.IsTrue(page.TabResultText.Displayed);
-            ButtonBookmarkPost512916.Click();
+                        //Assert.IsTrue(page.TabResultText.Displayed);
+            //ButtonBookmarkPost512916.Click();
 
             if (ButtonBookmarkPost512916.Displayed)
             {
                 ButtonBookmarkPost512916.Click();
             }
 
-            //posts_add_to_favorite(this);
-
-            ButtonSearch.Click();
+            else
+            {
+                Driver.TakeScreenshot();
+                GoToPostPage();
+            }
+            
+            //ButtonSearch.Click();
             //page.SearchFieldForm.SendKeys(text);
         }
-        public void PostAddtoFavorite(string postNumber = _defaultPostNumber)
-        {
-            
+
+        public void PostAddtoFavoriteByLink512916(string postNumber)
+        {            
             if (!IsLogedIn)
             {
                 Login();
             }
-            //вставить вейт
-            GoToPostPage(postNumber); 
+            
+            GoToPostPage("512916"); //512916
 
-            WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(4));
+            WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(3));
 
-           //wait.Until(ButtonBookmarkPost512916.Displayed);
-
+            //wait.Until(ButtonBookmarkPost512916.Displayed);
+            Thread.Sleep(2000);
             ButtonBookmarkPost512916.Click();
         }
 

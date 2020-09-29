@@ -206,8 +206,48 @@ namespace Habr.UI.Tests
             //Assert.AreEqual("https://habr.com/ru/sandbox/start/", page.Title);
         }
 
+
+
         [TestMethod]
-        public void PostAddtoFavoriteBySearch_Success()
+        public void PostAddtoFavoriteBySearch_Success()//дополнить проверкой на закладку
+        {
+            Post page = new Post(Driver);
+            page.GoToPostPage();
+            page.Login();
+
+            var post = "Яндекс отчитался о выручке на фоне";
+            page.PostAddtoFavoriteBySearch(post);
+            Thread.Sleep(2000);
+            Driver.TakeScreenshot();
+
+            bool result = page.ElementTabsPublications.Displayed;
+            Assert.IsTrue(result);
+            Assert.IsTrue(page.ButtonBookmarkPost512916.Displayed);
+
+            var counter = page.ButtonBookmarkPost512916Counter.Text.ToString();
+
+            if (counter.Equals("0"))
+            {
+                page.ButtonBookmarkPost512916.Click();
+                Thread.Sleep(2000);
+            }
+            else
+            {
+                Assert.AreEqual("1", counter);
+
+            }
+
+            //var result1 = page.ButtonBookmarkPost512916.GetProperty("color");
+            //# a3bc49;
+            //title = "Удалить из закладок"
+            //data - action = "add"
+            //remove
+
+        }
+
+
+
+        public void PostAddtoFavoriteBySearchDoubleCheck_Success()
         {
             Post page = new Post(Driver);
             page.GoToPostPage();
@@ -217,68 +257,71 @@ namespace Habr.UI.Tests
             page.PostAddtoFavoriteBySearch(post);
             Thread.Sleep(2000);
 
+            page.ButtonLogo.Click();
+            Thread.Sleep(2000);
+
             page.ClickButtonGreenUser();
             page.ButtonZakladki.Click();
-            page.ButtonBookmarkPost512916.Click();
+            //page.ButtonBookmarkPost512916.Click();
 
-            //bool result = page.ElementTabsPublications.Displayed;
+            bool result = page.ElementTabsPublications.Displayed;
             bool result1 = page.ButtonBookmarkPost512916.Enabled;
-            //Assert.IsTrue(result);
+            Assert.IsTrue(result);
             Assert.IsTrue(result1);
 
-            bool result2 = Driver.FindElement(By.XPath("//a[contains(@href,'512916') and @class='post__title_link']")).Displayed;
-            Assert.IsTrue(result2);
-            
-            //https://habr.com/ru/company/ruvds/blog/515544/
+            //bool result2 = Driver.FindElement(By.XPath("//a[contains(@href,'512916') and @class='post__title_link']")).Displayed;
+            //Assert.IsTrue(result2);
 
+            //https://habr.com/ru/company/ruvds/blog/515544/
             //Assert.AreEqual("remove", page.ButtonBookmark.("data-action"));
+            //page.ButtonLogo.Click();
+            //Thread.Sleep(2000);
+            //page.ClickButtonGreenUser();
+            //page.ButtonZakladki.Click();
+
 
         }
 
 
+        [TestMethod]
+        public void PostRemoveFromFavoritePost512916()
+        {
+            Post page = new Post(Driver);
+            page.GoToPostPage();
+
+            page.PostAddtoFavoriteBySearch("512916");
+
+            //ищем в меню наличие закладки
+            page.ButtonGreenUser.Click();
+            page.ButtonZakladki.Click();
+            Thread.Sleep(2000);
+
+            //remove bookmark from favorites
+            page.ButtonBookmarkPost512916.Click();
+
+            //check assert
+            Assert.IsFalse(page.ButtonBookmarkPost512916.Displayed);
+
+        }
 
 
         [TestMethod]
-        public void PostAddtoFavoriteLink()//fix xpaths
+        public void PostAddtoFavoriteByLink_Success()//fix xpaths
         {
 
             Post page = new Post(Driver);
             page.GoToPostPage();
             Thread.Sleep(2000);
 
-            page.PostAddtoFavorite("512916");
+            page.PostAddtoFavoriteByLink512916("512916");
+            Thread.Sleep(2000);
 
             Assert.IsTrue(Driver.Url.Equals("https://habr.com/ru/news/t/512916/"));
-            //Assert.AreEqual("remove", page.ButtonBookmarkPost512916.GetAttribute("data-action"));
+            // Assert.AreEqual("remove", page.ButtonBookmarkPost512916.GetAttribute("data-action"));
 
 
         }
 
-
-        public void PostRemoveFromFavorite(string postNumber)
-        {
-
-            Post page = new Post(Driver);
-            page.GoToPostPage();
-
-            Thread.Sleep(5000);
-            page.Login();
-            page.PostAddtoFavorite("512916");
-            page.ButtonBookmarkPost512916.Click();
-            Assert.AreNotEqual("Add", page.ButtonBookmarkPost512916.Text);
-
-            page.ButtonBookmarkPost512916.Click();//remove from bookmark
-            page.ButtonGreenUser.Click();
-            page.ButtonZakladki.Click();
-            Assert.IsFalse(page.ElementPost_512916.Displayed);
-
-
-
-            //string link = "https://habr.com/ru/company/yandex/blog/515544/";
-
-
-
-        }
 
         [TestMethod]
         public void SetEnglishByBtnSettings()
