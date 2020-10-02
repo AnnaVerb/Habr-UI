@@ -50,7 +50,7 @@ namespace Habr.UI.Tests.Pages
         }
 
         public IWebElement ButtonBookmarkPost512916 => Driver.FindElement(By.XPath("//button[@data-id='512916']//span"));
-        
+
         //fix
         public IWebElement ButtonBookmarkPost512916Counter => Driver.FindElement(By.XPath("//*[@data-id='512916']//span[@class='bookmark__counter js-favs_count']"));
 
@@ -68,21 +68,29 @@ namespace Habr.UI.Tests.Pages
 
         //check
         public IWebElement ElementPost_512916 => Driver.FindElement(By.XPath("//a[contains(@href,'512916') and @class='post__title_link']"));
-       
+
 
 
         public void PostAddtoFavoriteBySearch(string posttext)
         {
-            SeachFieldProcess(posttext);
-            IJavaScriptExecutor javaScriptExecutor = (IJavaScriptExecutor)Driver;
 
+            if (!IsLogedIn)
+            {
+                Login();
+            }
+
+            SeachFieldProcess(posttext);
+
+            //IJavaScriptExecutor javaScriptExecutor = (IJavaScriptExecutor)Driver;
             //javaScriptExecutor.ExecuteScript("arguments[0].scrollIntoView();", page.CheckBoxSelect);
             //Thread.Sleep(1000);
             //page.TabSelect2Success.Click();
-                        //Assert.IsTrue(page.TabResultText.Displayed);
+            //Assert.IsTrue(page.TabResultText.Displayed);
             //ButtonBookmarkPost512916.Click();
 
-            if (ButtonBookmarkPost512916.Displayed)
+
+
+            if (ButtonBookmarkPost512916Counter.Equals("0"))
             {
                 ButtonBookmarkPost512916.Click();
             }
@@ -90,20 +98,19 @@ namespace Habr.UI.Tests.Pages
             else
             {
                 Driver.TakeScreenshot();
-                GoToPostPage();
+                Thread.Sleep(2000);
+                // GoToPostPage();
             }
-            
-            //ButtonSearch.Click();
-            //page.SearchFieldForm.SendKeys(text);
+
         }
 
         public void PostAddtoFavoriteByLink512916(string postNumber)
-        {            
+        {
             if (!IsLogedIn)
             {
                 Login();
             }
-            
+
             GoToPostPage("512916"); //512916
 
             WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(3));

@@ -7,6 +7,8 @@ namespace Habr.UI.Tests.Pages
 {
     public class Home : BasePage
     {
+        internal readonly object ButtonWritePostFirstElement;
+
         //internal readonly object ButtonPost;
 
         public string Title => Driver.Title;
@@ -51,9 +53,10 @@ namespace Habr.UI.Tests.Pages
 
         }
 
-    
-
-
+        internal void ClickButtonWritePostFirstElement()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 

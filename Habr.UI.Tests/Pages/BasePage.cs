@@ -49,12 +49,7 @@ namespace Habr.UI.Tests.Pages
         public IWebElement ButtonLogin => Driver.FindElement(By.XPath("//*[@id='login']"));
         public IWebElement ButtonLoginOut_UserMenu => Driver.FindElement(By.XPath("/html/body/div[1]/div[2]/div/div/div[2]/div/div/ul/li[7]/a"));
 
-        public IWebElement ButtonZakladki => Driver.FindElement(By.XPath("//a[text()='Закладки']"));
-
-        //Syntax: //tag[text()=’text value‘]
-        //label[text()=’Enter message’]
-        //Syntax: //tag[XPath Statement-1 and XPath Statement-2]
-        //*[@id=’user-message’ and @class=’form-control’]
+        
 
         public IWebElement SearchFieldForm => Driver.FindElement(By.XPath("//*[@id='search-form-field' and @placeholder='Поиск']"));
         //id="search-form-field" placeholder="Поиск"

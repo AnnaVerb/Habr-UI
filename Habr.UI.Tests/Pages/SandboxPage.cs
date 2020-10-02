@@ -18,25 +18,17 @@ namespace Habr.UI.Tests.Pages
         }
 
 
+        //check new 
+        public IWebElement ButtonWritePostFirstElement=> Driver.FindElement(By.XPath("//h2[contains(text()='Как всё произойдет')]"));
 
-        public IWebElement ButtonWritePostFirstElement//check new xpath
-        {
-            get
-            {
-                return Driver.FindElement(By.XPath("//h2[contains(text()='Как всё произойдет')]"));
-
-                //Syntax: //tag[Syntax: //tag[contains(@attribute, ‘value‘)]
+               
                 //h2[text()='Как всё произойдет']
                 //Example: //input[contains(@id, ‘er-messa’)] ‘value‘)]
 
                 //Example: //input[contains(@id, ‘er-messa’)]
                 //a[@href ='/ru/sandbox/add/']//following::h2[1]
-                //By.XPath("//a[@href ='/ru/sandbox/add/']//ancestor::div[1]]"));
-                //a[@href ='/ru/sandbox/add/']//ancestor::div[1]
-
-
-            }
-        }
+                
+                   
         public IWebElement FieldPostList//check
         {
             get
@@ -49,6 +41,7 @@ namespace Habr.UI.Tests.Pages
 
         public void ClickButtonWritePostFirstElement()
         {
+            Home page = new Home(Driver);
             ButtonWriteTopic.Click();
             ButtonWritePostFirstElement.Click();        
         

@@ -152,15 +152,49 @@ namespace Habr.UI.Tests
 
         }
 
+
         [TestMethod]
+        public void ClickButtonWritePostFirstElement_Success()//fix
+        {
+            Home page = new Home(Driver);
+            page.GoHomePage();
+            page.Login();
+
+            page.ButtonWriteTopic.Click();
+
+            SandboxPage page1 = new SandboxPage(Driver);
+            WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(4));
+            page1.ClickButtonWritePostFirstElement();
+            Thread.Sleep(2000);
+
+            Assert.IsTrue(Driver.Url.Contains("https://habr.com/ru/sandbox/add/"));
+
+
+            //bool result = page.ButtonWritePostFirstElement.Displayed;
+
+            //"https://habr.com/ru/sandbox/add/"
+            //Assert.IsTrue(page.ButtonWritePostFirstElement.);
+            //Assert.IsTrue(page.ButtonWritePostFirstElement.Enabled);
+
+            //page.ButtonGreenUser.Click();
+
+            //WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(5));
+            //bool result = page.ButtonGreenUser.Displayed;
+            //Assert.IsTrue(result);
+
+        }
+
+
+
         public void CheckButtonWritePostFirstElementk_Success()
         {
             Home page = new Home(Driver);
             page.GoHomePage();
             page.Login();
 
+
+            WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(4));
             SandboxPage page1 = new SandboxPage(Driver);
-            WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(5));
             page1.ClickButtonWritePostFirstElement();
 
             Assert.IsTrue(page1.ButtonWritePostFirstElement.Displayed);
@@ -168,7 +202,7 @@ namespace Habr.UI.Tests
 
         }
 
-        [TestMethod]
+      
         public void WriteTopicProcess_Success()//check
         {
             Home page = new Home(Driver);
@@ -208,34 +242,35 @@ namespace Habr.UI.Tests
 
 
 
+        //tests anout posts
+
         [TestMethod]
         public void PostAddtoFavoriteBySearch_Success()//дополнить проверкой на закладку
         {
             Post page = new Post(Driver);
             page.GoToPostPage();
-            page.Login();
 
             var post = "Яндекс отчитался о выручке на фоне";
             page.PostAddtoFavoriteBySearch(post);
             Thread.Sleep(2000);
-            Driver.TakeScreenshot();
 
-            bool result = page.ElementTabsPublications.Displayed;
-            Assert.IsTrue(result);
+            //bool result = page.ElementTabsPublications.Displayed;
+            //Assert.IsTrue(result);
+
             Assert.IsTrue(page.ButtonBookmarkPost512916.Displayed);
 
             var counter = page.ButtonBookmarkPost512916Counter.Text.ToString();
+
 
             if (counter.Equals("0"))
             {
                 page.ButtonBookmarkPost512916.Click();
                 Thread.Sleep(2000);
-            }
-            else
-            {
-                Assert.AreEqual("1", counter);
 
+                Assert.IsFalse(counter.Equals("0"));
             }
+
+            Assert.IsTrue(page.ElementPost_512916.Displayed);
 
             //var result1 = page.ButtonBookmarkPost512916.GetProperty("color");
             //# a3bc49;
@@ -261,7 +296,7 @@ namespace Habr.UI.Tests
             Thread.Sleep(2000);
 
             page.ClickButtonGreenUser();
-            page.ButtonZakladki.Click();
+            //page.ButtonZakladki.Click();
             //page.ButtonBookmarkPost512916.Click();
 
             bool result = page.ElementTabsPublications.Displayed;
@@ -286,21 +321,39 @@ namespace Habr.UI.Tests
         [TestMethod]
         public void PostRemoveFromFavoritePost512916()
         {
-            Post page = new Post(Driver);
-            page.GoToPostPage();
+            Home page = new Home(Driver);
+            page.GoHomePage();
+            page.Login();
 
-            page.PostAddtoFavoriteBySearch("512916");
+            //var post = "Яндекс отчитался о выручке на фоне";
+            //page.PostAddtoFavoriteBySearch(post);
+            //Thread.Sleep(2000);
 
             //ищем в меню наличие закладки
             page.ButtonGreenUser.Click();
-            page.ButtonZakladki.Click();
+            //page.ButtonZakladki.Click();
             Thread.Sleep(2000);
 
             //remove bookmark from favorites
-            page.ButtonBookmarkPost512916.Click();
+            Post page1 = new Post(Driver);
+            WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(4));
 
-            //check assert
-            Assert.IsFalse(page.ButtonBookmarkPost512916.Displayed);
+            if (page1.ButtonBookmarkPost512916.Enabled)
+            {
+                WebDriverWait wait2 = new WebDriverWait(Driver, TimeSpan.FromSeconds(4));
+                page1.ButtonBookmarkPost512916.Click();
+                Thread.Sleep(2000);
+
+                //check assert
+
+                //Assert.IsFalse(page1.ElementPost_512916.Displayed);
+            }
+
+            else
+            {
+                Driver.Navigate().Back();
+                page1.GoToPostPage();
+            }
 
         }
 
@@ -319,9 +372,10 @@ namespace Habr.UI.Tests
             Assert.IsTrue(Driver.Url.Equals("https://habr.com/ru/news/t/512916/"));
             // Assert.AreEqual("remove", page.ButtonBookmarkPost512916.GetAttribute("data-action"));
 
-
         }
 
+
+        //test language Settings
 
         [TestMethod]
         public void SetEnglishByBtnSettings()
@@ -494,8 +548,44 @@ namespace Habr.UI.Tests
         }
 
 
+        //test user Profile
+
+        [TestMethod]
+        public void ClickButtonExit()
+        {
+            Home page = new Home(Driver);
+            page.GoHomePage();
+            page.Login();
+
+            page.ButtonGreenUser.Click();
+            Thread.Sleep(2000);
+            page.ButtonLoginOut_UserMenu.Click();
+
+            Driver.Navigate().Refresh();
+            Assert.IsTrue(Driver.Url.Contains("https://habr.com/"));
+            Assert.IsTrue(page.ButtonLogin.Enabled);
 
 
+        }
+
+
+        
+        public void ClickProfileMenu()
+        {
+            Home page = new Home(Driver);
+            page.GoHomePage();
+            page.Login();
+
+            page.ButtonGreenUser.Click();
+            
+          
+
+            Driver.Navigate().Refresh();
+            Assert.IsTrue(Driver.Url.Contains("https://habr.com/"));
+            Assert.IsTrue(page.ButtonLogin.Enabled);
+
+
+        }
     }
 
 
