@@ -43,7 +43,9 @@ namespace Habr.UI.Tests.Pages
         {
             Home page = new Home(Driver);
             ButtonWriteTopic.Click();
-            ButtonWritePostFirstElement.Click();        
+            SandboxPage pagesand = new SandboxPage(Driver);
+            pagesand.ButtonWritePostFirstElement.Click();
+            
         
         }
 

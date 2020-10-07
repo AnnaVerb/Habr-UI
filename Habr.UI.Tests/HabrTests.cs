@@ -30,6 +30,7 @@ namespace Habr.UI.Tests
         }
 
 
+
         [TestInitialize] //запускается перед каждым тестом 
         public void OpenBrowser()
         {
@@ -121,8 +122,9 @@ namespace Habr.UI.Tests
         }
 
         [TestMethod]
-        public void LogoMenuOptions()
         //проверка кликабельности подменю
+        public void LogoMenuOptions()
+
         {
             Home page = new Home(Driver);
             page.GoHomePage();
@@ -139,8 +141,8 @@ namespace Habr.UI.Tests
 
 
         [TestMethod]
-        public void ClickUpPanelSectionAuthor()
         //проверка функционала меню стартовой страницы
+        public void ClickUpPanelSectionAuthor()
         {
             Home page = new Home(Driver);
             page.GoHomePage();
@@ -153,8 +155,8 @@ namespace Habr.UI.Tests
         }
 
 
-        [TestMethod]
-        public void ClickButtonWritePostFirstElement_Success()//fix
+        //дополнить тест
+        public void ClickButtonWritePostFirstElement_Success()
         {
             Home page = new Home(Driver);
             page.GoHomePage();
@@ -185,15 +187,14 @@ namespace Habr.UI.Tests
         }
 
 
-
+        [TestMethod]
         public void CheckButtonWritePostFirstElementk_Success()
         {
             Home page = new Home(Driver);
             page.GoHomePage();
             page.Login();
 
-
-            WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(4));
+            //WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(4));
             SandboxPage page1 = new SandboxPage(Driver);
             page1.ClickButtonWritePostFirstElement();
 
@@ -202,7 +203,7 @@ namespace Habr.UI.Tests
 
         }
 
-      
+
         public void WriteTopicProcess_Success()//check
         {
             Home page = new Home(Driver);
@@ -242,7 +243,9 @@ namespace Habr.UI.Tests
 
 
 
-        //tests anout posts
+
+
+        //tests about posts
 
         [TestMethod]
         public void PostAddtoFavoriteBySearch_Success()//дополнить проверкой на закладку
@@ -281,7 +284,6 @@ namespace Habr.UI.Tests
         }
 
 
-
         public void PostAddtoFavoriteBySearchDoubleCheck_Success()
         {
             Post page = new Post(Driver);
@@ -318,58 +320,99 @@ namespace Habr.UI.Tests
         }
 
 
-        [TestMethod]
-        public void PostRemoveFromFavoritePost512916()
+        [TestMethod]//fix
+        public void PostRemoveFromFav512916()
         {
-            Home page = new Home(Driver);
-            page.GoHomePage();
+            Post page = new Post(Driver);
+            page.GoToPostPage();
             page.Login();
 
-            //var post = "Яндекс отчитался о выручке на фоне";
-            //page.PostAddtoFavoriteBySearch(post);
-            //Thread.Sleep(2000);
-
-            //ищем в меню наличие закладки
-            page.ButtonGreenUser.Click();
-            //page.ButtonZakladki.Click();
+            var post = "Яндекс отчитался о выручке на фоне";
+            page.PostAddtoFavoriteBySearch(post);
             Thread.Sleep(2000);
 
-            //remove bookmark from favorites
-            Post page1 = new Post(Driver);
-            WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(4));
+            var counterbeforeremove = page.ButtonBookmarkPost512916Counter.Text;
+            
+            //remove post from favs
+            string a = page.ButtonBookmarkPost512916.GetAttribute("data-action");
 
-            if (page1.ButtonBookmarkPost512916.Enabled)
+            if (page.ButtonBookmarkPost512916.Displayed && a == "remove")//counterbeforeremove != "0"
             {
-                WebDriverWait wait2 = new WebDriverWait(Driver, TimeSpan.FromSeconds(4));
-                page1.ButtonBookmarkPost512916.Click();
-                Thread.Sleep(2000);
+                page.ButtonBookmarkPost512916.Click();
+                
+                //var newcounter = page.ButtonBookm arkPost512916Counter.Text;
+                                //Assert.AreNotEqual(counterbeforeremove, newcounter);
 
-                //check assert
+                Assert.AreNotEqual("remove", a);
+                Assert.AreEqual("add", a);
 
-                //Assert.IsFalse(page1.ElementPost_512916.Displayed);
+                //data - action = "remove" title = "Удалить из закладок"
             }
 
             else
             {
-                Driver.Navigate().Back();
-                page1.GoToPostPage();
+                //post is not added
+                page.GoToPostPage();
+            
+                        //page.ButtonBookmarkPost512916.Click();
+                //Thread.Sleep(2000);
+                //Assert.AreNotEqual("add", a);
+                //page.ButtonBookmarkPost512916.Click();
+                //Assert.AreEqual("add", a);
             }
+                       
 
+        }
+
+        public void CheckFavs()
+
+        {
+
+            //другой вариант проверки
+            ////check that bookmark is removed => ищем post
+            //UserMenu page1 = new UserMenu(Driver);
+            //page.ButtonGreenUser.Click();
+            //page1.ButtonZakladki.Click();
+            //Thread.Sleep(2000);
+
+            //if (!page.ElementPost_512916.Displayed)
+            //{
+            //    WebDriverWait wait2 = new WebDriverWait(Driver, TimeSpan.FromSeconds(2));
+
+            //    Assert.IsFalse(page.ElementPost_512916.Displayed);
+            //}
+
+            //else
+            //{
+            //    //post is not removed
+            //    //CodeThrowExceptionStatement()
+            //    page.GoToPostPage();
+
+            //}
         }
 
 
         [TestMethod]
-        public void PostAddtoFavoriteByLink_Success()//fix xpaths
+        public void PostAddtoFavoriteByLink512916()
+        //добавить проверку счетчика
         {
-
             Post page = new Post(Driver);
-            page.GoToPostPage();
-            Thread.Sleep(2000);
 
-            page.PostAddtoFavoriteByLink512916("512916");
-            Thread.Sleep(2000);
+            string postlink = "https://habr.com/ru/news/t/512916/";
+            page.GoToPostPage("512916");
+            page.Login();
 
-            Assert.IsTrue(Driver.Url.Equals("https://habr.com/ru/news/t/512916/"));
+            WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(3));
+            page.ButtonBookmarkPost512916.Click();
+            Thread.Sleep(2000);
+            Driver.TakeScreenshot();
+
+
+            Assert.IsTrue(Driver.Url.Equals(postlink));
+            Assert.IsTrue(page.ButtonBookmarkPost512916.Enabled);
+
+            //page.PostAddtoFavoriteByLink512916("512916");
+            //Driver.Url.Equals("https://habr.com/ru/news/t/512916/"));
             // Assert.AreEqual("remove", page.ButtonBookmarkPost512916.GetAttribute("data-action"));
 
         }
@@ -569,7 +612,7 @@ namespace Habr.UI.Tests
         }
 
 
-        
+
         public void ClickProfileMenu()
         {
             Home page = new Home(Driver);
@@ -577,8 +620,8 @@ namespace Habr.UI.Tests
             page.Login();
 
             page.ButtonGreenUser.Click();
-            
-          
+
+
 
             Driver.Navigate().Refresh();
             Assert.IsTrue(Driver.Url.Contains("https://habr.com/"));

@@ -20,6 +20,7 @@ namespace Habr.UI.Tests.Pages
         }
 
         private const string _defaultPostNumber = "502746";
+        internal readonly object ButtonZakladki;
 
         //Syntax: //tag[starts-with(@attribute, ‘value‘)]
 
@@ -50,6 +51,8 @@ namespace Habr.UI.Tests.Pages
         }
 
         public IWebElement ButtonBookmarkPost512916 => Driver.FindElement(By.XPath("//button[@data-id='512916']//span"));
+
+
 
         //fix
         public IWebElement ButtonBookmarkPost512916Counter => Driver.FindElement(By.XPath("//*[@data-id='512916']//span[@class='bookmark__counter js-favs_count']"));
@@ -89,8 +92,7 @@ namespace Habr.UI.Tests.Pages
             //ButtonBookmarkPost512916.Click();
 
 
-
-            if (ButtonBookmarkPost512916Counter.Equals("0"))
+            if (ButtonBookmarkPost512916Counter.Equals("0")  || !ButtonBookmarkPost512916.Selected)
             {
                 ButtonBookmarkPost512916.Click();
             }
@@ -113,7 +115,7 @@ namespace Habr.UI.Tests.Pages
 
             GoToPostPage("512916"); //512916
 
-            WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(3));
+            
 
             //wait.Until(ButtonBookmarkPost512916.Displayed);
             Thread.Sleep(2000);
