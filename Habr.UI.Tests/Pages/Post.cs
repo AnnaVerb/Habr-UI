@@ -113,9 +113,7 @@ namespace Habr.UI.Tests.Pages
                 Login();
             }
 
-            GoToPostPage("512916"); //512916
-
-            
+            GoToPostPage("512916"); //512916                 
 
             //wait.Until(ButtonBookmarkPost512916.Displayed);
             Thread.Sleep(2000);

@@ -11,7 +11,7 @@ namespace Habr.UI.Tests.Pages
         protected static bool IsLogedIn { get; set; }
         private const string _defaultLogInEmail = "annystudy@gmail.com";
         private const string _defaultLogInPassword = "d!6#AHW3uhq6*kL";
-
+               
 
         protected static readonly string MainAddress = "https://habr.com/ru/";
         protected IWebDriver Driver { get; set; }
@@ -20,10 +20,12 @@ namespace Habr.UI.Tests.Pages
             Driver = driver;
         }
 
-
-        public IWebElement ButtonLogo => Driver.FindElement(By.ClassName("logo"));
+        //used english names for buttons
+        //
+        public IWebElement ButtonLogo => Driver.FindElement(By.XPath("//a[@class='logo']"));
         public IWebElement ButtonGreenUser => Driver.FindElement(By.XPath("//div[@class='main-navbar']//button[contains(@class,'btn_navbar_user-dropdown')]"));
-        public IWebElement ButtonSearch => Driver.FindElement(By.XPath("//*[@id='search-form-btn' and @title='Поиск по сайту']"));
+        public IWebElement ButtonSearch => Driver.FindElement(By.XPath("//button[@id='search-form-btn']"));
+        //fix and use english words
 
         //By.XPath("/html/body/div[1]/div[2]/div/div/div[1]/form/button"));
         // <button type = "button" class="btn btn_navbar_search icon-svg_search" id="search-form-btn" title="Поиск по сайту">
@@ -43,19 +45,27 @@ namespace Habr.UI.Tests.Pages
         //By.XPath("/html/body/div[1]/div[2]/div/div/div[2]/a[1]")
         //<a href = "https://habr.com/ru/tracker/" class="btn btn_medium btn_navbar_tracker" title="Трекер">
 
-        public IWebElement ButtonWriteTopic => Driver.FindElement(By.XPath("//*[@title = 'Написать' and @href='https://habr.com/ru/sandbox/start/']"));
-
+        public IWebElement ButtonWriteTopic => Driver.FindElement(By.XPath("//a[@title='Create post']")); //"Написать пост"
 
         public IWebElement ButtonLogin => Driver.FindElement(By.XPath("//*[@id='login']"));
         public IWebElement ButtonLoginOut_UserMenu => Driver.FindElement(By.XPath("/html/body/div[1]/div[2]/div/div/div[2]/div/div/ul/li[7]/a"));
-
-        
-
-        public IWebElement SearchFieldForm => Driver.FindElement(By.XPath("//*[@id='search-form-field' and @placeholder='Поиск']"));
+        public IWebElement SearchFieldForm => Driver.FindElement(By.XPath("//*[@id='search-form-field']"));
+            // @placeholder='Поиск']"));
         //id="search-form-field" placeholder="Поиск"
         //XPath("/html/body/div[1]/div[2]/div/div/div[1]/form/label/input")
 
 
+
+
+        //methods
+
+        public IWebElement ElementTrackerNotifications => Driver.FindElement(By.XPath("//h1[@class ='page-header__title']"));
+        
+        
+        
+
+
+        //methods
         public void Login(string email = _defaultLogInEmail, string password = _defaultLogInPassword)
         {
 
@@ -76,23 +86,6 @@ namespace Habr.UI.Tests.Pages
             IsLogedIn = false;
         }
 
-
-        public IWebElement ElementTrackerNotifications => Driver.FindElement(By.XPath("//h1[@class ='page-header__title']"));
-               
-                 
-        public IWebElement ElementMyPosts//change xpath
-        {
-            get
-            {
-                return Driver.FindElement(By.XPath("/html/body/div[1]/div[3]/div/div/div[1]/div[2]/div/a[4]/h3"));
-
-                ////h3[@class='tabs-menu__item-text']"));
-                //By.XPath("/html/body/div[1]/div[3]/div/div/div[1]/div[2]/div/a[4]/h3");
-
-            }
-        }
-
-     
 
 
         public void SeachFieldProcess(string text)
@@ -128,6 +121,7 @@ namespace Habr.UI.Tests.Pages
         }
         public void ClickButtonWriteTopic()
         {
+            
             if (IsLogedIn)
                 ButtonWriteTopic.Click();
             else

@@ -53,10 +53,10 @@ namespace Habr.UI.Tests.Pages
 
         }
 
-        internal void ClickButtonWritePostFirstElement()
-        {
-            throw new NotImplementedException();
-        }
+        ////internal void ClickButtonWritePostFirstElement()
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }
 
