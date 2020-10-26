@@ -37,7 +37,8 @@ namespace Habr.UI.Tests
             Driver = GetChromeDriver();// метод ГетХром вернет нам созданный браузер в свойство
             Driver.Manage().Window.Maximize();
             Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
-
+            Home page = new Home(Driver);
+            SetEnglishByBtnSettings();
         }
 
         [TestCleanup]
@@ -69,8 +70,58 @@ namespace Habr.UI.Tests
 
         }
 
+
         [TestMethod]
-        public void CheckNotifications_Success()//поправить тест
+        public void ClickUpPanelMenuNavigationLinksMyFeed_Success()
+        {
+            Home page = new Home(Driver);
+            page.GoHomePage();
+            page.Login();
+            
+            //SetEnglishByBtnSettings();
+
+            page.UpPanelMenuNavigationLinksMyFeed.Click();
+            Thread.Sleep(2000);
+            //WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(5));
+            bool result = Driver.Url.Contains("habr.com/en/feed");
+            Assert.IsTrue(result);
+
+        }
+
+        [TestMethod]
+        public void ClickUpPanelMenuNavigationLinksAllStream_Success()
+        {
+            Home page = new Home(Driver);
+            page.GoHomePage();
+
+            page.UpPanelMenuNavigationLinksAllStreams.Click();
+            Thread.Sleep(2000);
+
+            //WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(5));
+            //bool result = Driver.Url.Contains("habr.com/en/top/");
+            var resultword = Driver.FindElement(By.XPath("//*[text()='All streams']")).Text;
+
+            Assert.AreEqual("All streams",resultword);
+            
+
+        }
+        [TestMethod]
+        public void ClickUpPanelMenuNavigationLinksDevelopment_Success()
+        {
+            Home page = new Home(Driver);
+            page.GoHomePage();
+           
+            page.UpPanelMenuNavigationLinksDevelopment.Click();
+            Thread.Sleep(2000);
+
+            //WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(5));
+            bool result = Driver.Url.Contains("/flows/develop/");
+            Assert.IsTrue(result);
+
+        }
+
+        [TestMethod]
+        public void CheckNotifications_Success()
         {
             Home page = new Home(Driver);
             page.GoHomePage();
@@ -215,29 +266,29 @@ namespace Habr.UI.Tests
         [TestMethod]
         //add waits for visible btn
         //check xpaths
-        public void ClickBtnWritePostFirstElement()
+        public void ClickButtonWritePostFirstElementOnPage_Success()
         {
             Home page = new Home(Driver);
             page.GoHomePage();
             page.Login();
 
-            SandboxPage page1 = new SandboxPage(Driver);
-            WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(3));
+            SandboxPage page2 = new SandboxPage(Driver);
+            //WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(3));
+
+            page2.ClickButtonWritePostFirstElementOnPage();
 
             //check button. It should be on sandbox page 
-            page1.ButtonWritePostFirstElement.Click();
-
-            var a = page1.ButtonWritePostFirstElement.Enabled;
+            var a = page2.ButtonWritePostFirstElement.Enabled;
 
             Assert.IsTrue(a);
-            Assert.IsTrue(page1.ButtonWritePostFirstElement.Displayed);
+            Assert.IsTrue(page2.ButtonWritePostFirstElement.Displayed);
             Assert.IsTrue(Driver.Url.Contains("sandbox/add/"));
 
             //"https://habr.com/ru/sandbox/add/");
 
         }
 
-        [TestMethod]
+        
         public void WriteTopicProcess_Success()//check
         {
             Home page = new Home(Driver);
