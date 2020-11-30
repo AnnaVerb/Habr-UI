@@ -71,7 +71,7 @@ namespace Habr.UI.Tests
         }
 
 
-        [TestMethod]
+      
         public void ClickUpPanelMenuNavigationLinksMyFeed_Success()
         {
             Home page = new Home(Driver);
@@ -185,6 +185,10 @@ namespace Habr.UI.Tests
         {
             Home page = new Home(Driver);
             page.GoHomePage();
+
+            SetRussianByBtnSettings();
+            page.LogoMenuElement.Click();
+
             Thread.Sleep(2000);
             page.LogoMenuClickQA();
             WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(5));
@@ -199,14 +203,21 @@ namespace Habr.UI.Tests
         {
             Home page = new Home(Driver);
             page.GoHomePage();
+            
+            SetRussianByBtnSettings();
             Thread.Sleep(2000);
-            page.LogoMenuClickQA();
+            page.LogoMenuElement.Click();
+
             WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(3));
-            page.GoHomePage();
             page.LogoMenuClickHabr();
             Thread.Sleep(2000);
+            Assert.IsTrue(Driver.Url.Contains("habr.com/ru/"));
 
-            Assert.IsTrue(Driver.Url.Contains("habr.com/"));
+            Driver.Navigate().Back();
+            page.LogoMenuClickQA();
+            WebDriverWait wait2 = new WebDriverWait(Driver, TimeSpan.FromSeconds(3));
+
+            Assert.IsTrue(Driver.Url.Contains("qna.habr.com"));
 
         }
 
@@ -263,7 +274,7 @@ namespace Habr.UI.Tests
         //}
 
 
-        [TestMethod]
+        //[TestMethod]
         //add waits for visible btn
         //check xpaths
         public void ClickButtonWritePostFirstElementOnPage_Success()
@@ -273,11 +284,11 @@ namespace Habr.UI.Tests
             page.Login();
 
             SandboxPage page2 = new SandboxPage(Driver);
-            //WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(3));
+            WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(3));
 
             page2.ClickButtonWritePostFirstElementOnPage();
 
-            //check button. It should be on sandbox page 
+            //check button. It should be on sandbox page
             var a = page2.ButtonWritePostFirstElement.Enabled;
 
             Assert.IsTrue(a);
@@ -288,7 +299,7 @@ namespace Habr.UI.Tests
 
         }
 
-        
+
         public void WriteTopicProcess_Success()//check
         {
             Home page = new Home(Driver);
@@ -391,7 +402,7 @@ namespace Habr.UI.Tests
         }
 
 
-        [TestMethod]
+        
         public void PostAddandRemoveFromFav512916()
         {
             Post page = new Post(Driver);

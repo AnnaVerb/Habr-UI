@@ -59,7 +59,7 @@
     <Compile Include="HabrTests.cs" />
     <Compile Include="Pages\BasePage.cs" />
     <Compile Include="Pages\Home.cs" />
-    <Compile Include="Pages\LoginPopUp.cs" />
+    <Compile Include="PopUpWindows\LoginPopUp.cs" />
     <Compile Include="Pages\Post.cs" />
     <Compile Include="Pages\SandboxPage.cs" />
     <Compile Include="Pages\UserMenu.cs" />

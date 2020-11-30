@@ -74,7 +74,7 @@ namespace Habr.UI.Tests.PopUpWindows
         {
             if (!InputContentRussian.Selected)
             {
-                InputContentRussian.Click();
+                InputContentRussian.SendKeys("Enter");
                 Thread.Sleep(2000);
                 ButtonSaveSettings.Click();
             }

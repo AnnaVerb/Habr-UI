@@ -20,6 +20,8 @@ namespace Habr.UI.Tests.Pages
             Driver = driver;
         }
 
+
+
         //used english names for buttons
         //
         public IWebElement ButtonLogo => Driver.FindElement(By.XPath("//a[@class='logo']"));
@@ -56,8 +58,6 @@ namespace Habr.UI.Tests.Pages
 
 
 
-
-
         public IWebElement ButtonNotifications => Driver.FindElement(By.XPath("//a[contains(@href,'/tracker/') and contains(@class, 'btn_navbar_tracker')]"));
         //By.XPath("/html/body/div[1]/div[2]/div/div/div[2]/a[1]")
         //<a href = "https://habr.com/ru/tracker/" class="btn btn_medium btn_navbar_tracker" title="Трекер">
@@ -77,8 +77,6 @@ namespace Habr.UI.Tests.Pages
         //methods
 
         public IWebElement ElementTrackerNotifications => Driver.FindElement(By.XPath("//h1[@class ='page-header__title']"));
-
-
 
 
 
