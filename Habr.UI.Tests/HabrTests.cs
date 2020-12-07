@@ -17,9 +17,7 @@ namespace Habr.UI.Tests
     [TestClass]
     public class HabrTests
     {
-
-        IWebDriver Driver { get; set; }
-
+        private IWebDriver Driver { get; set; }
         private IWebDriver GetChromeDriver()
         {
 
@@ -30,8 +28,8 @@ namespace Habr.UI.Tests
         }
 
 
-
-        [TestInitialize] //запускается перед каждым тестом 
+        [TestInitialize] 
+        //запускается перед каждым тестом 
         public void OpenBrowser()
         {
             Driver = GetChromeDriver();// метод ГетХром вернет нам созданный браузер в свойство
@@ -46,6 +44,7 @@ namespace Habr.UI.Tests
         {
             Driver.Close();
         }
+
 
         [TestMethod]
         //[ExpectedException(typeof(NoSuchElementException), "Login button is not presented on the page.")]
@@ -71,13 +70,12 @@ namespace Habr.UI.Tests
         }
 
 
-      
         public void ClickUpPanelMenuNavigationLinksMyFeed_Success()
         {
             Home page = new Home(Driver);
             page.GoHomePage();
             page.Login();
-            
+
             //SetEnglishByBtnSettings();
 
             page.UpPanelMenuNavigationLinksMyFeed.Click();
@@ -101,8 +99,8 @@ namespace Habr.UI.Tests
             //bool result = Driver.Url.Contains("habr.com/en/top/");
             var resultword = Driver.FindElement(By.XPath("//*[text()='All streams']")).Text;
 
-            Assert.AreEqual("All streams",resultword);
-            
+            Assert.AreEqual("All streams", resultword);
+
 
         }
         [TestMethod]
@@ -110,7 +108,7 @@ namespace Habr.UI.Tests
         {
             Home page = new Home(Driver);
             page.GoHomePage();
-           
+
             page.UpPanelMenuNavigationLinksDevelopment.Click();
             Thread.Sleep(2000);
 
@@ -149,7 +147,6 @@ namespace Habr.UI.Tests
 
         }
 
-        [TestMethod]
         public void ClickBtnWriteTopic()//поправить тест
         {
             Home page = new Home(Driver);
@@ -167,10 +164,9 @@ namespace Habr.UI.Tests
         }
 
 
-
         [TestMethod]
-        public void SeachFieldProcess_Success()
         //проверка поисковой строки или поля
+        public void SeachFieldProcess_Success()
         {
             Post page = new Post(Driver);
             page.GoToPostPage();
@@ -185,7 +181,6 @@ namespace Habr.UI.Tests
         {
             Home page = new Home(Driver);
             page.GoHomePage();
-
             SetRussianByBtnSettings();
             page.LogoMenuElement.Click();
 
@@ -203,7 +198,7 @@ namespace Habr.UI.Tests
         {
             Home page = new Home(Driver);
             page.GoHomePage();
-            
+
             SetRussianByBtnSettings();
             Thread.Sleep(2000);
             page.LogoMenuElement.Click();
@@ -235,8 +230,6 @@ namespace Habr.UI.Tests
             //https://habr.com/ru/sandbox/start/
 
         }
-
-
 
 
         //[TestMethod]
@@ -317,8 +310,6 @@ namespace Habr.UI.Tests
 
 
 
-
-
         ////public void WriteTopicProcessComplex_Success()//fix
         //{
         //    Home page = new Home(Driver);
@@ -342,8 +333,6 @@ namespace Habr.UI.Tests
 
 
 
-
-
         //tests about posts
 
         [TestMethod]
@@ -364,7 +353,6 @@ namespace Habr.UI.Tests
 
 
         }
-
 
         public void CheckAddedPostByUserMenu_Success()
         {
@@ -401,8 +389,6 @@ namespace Habr.UI.Tests
 
         }
 
-
-        
         public void PostAddandRemoveFromFav512916()
         {
             Post page = new Post(Driver);
@@ -421,7 +407,7 @@ namespace Habr.UI.Tests
 
             if (page.ButtonBookmarkPost512916.Displayed && a == "remove")
             {
-                page.ButtonBookmarkPost512916.Click();              
+                page.ButtonBookmarkPost512916.Click();
 
                 Assert.AreNotEqual("remove", a);
                 Assert.AreEqual("add", a);
@@ -483,7 +469,7 @@ namespace Habr.UI.Tests
 
 
         [TestMethod]
-        public void PostAddtoFavoriteByLink512916()
+        public void PostAddtoFavoriteByLink512916()//убрать номер, вынести в константу
         //добавить проверку счетчика
         {
             Post page = new Post(Driver);
@@ -617,7 +603,7 @@ namespace Habr.UI.Tests
             //Assert.AreEqual("true", langSettings.InputInterfaceEnglish.FindElement(By.("checked")));
         }
 
-
+        [TestMethod]
         public void SetEnglishContentByBtnSettings()
         {
             Home page = new Home(Driver);
@@ -659,7 +645,6 @@ namespace Habr.UI.Tests
 
         }
 
-        [TestMethod]
         public void SetALLOptionsContentByBtnSettings()
         {
             Home page = new Home(Driver);
@@ -687,7 +672,6 @@ namespace Habr.UI.Tests
 
 
 
-
         //tests for UserProfile
 
         [TestMethod]
@@ -707,7 +691,8 @@ namespace Habr.UI.Tests
         }
 
         [TestMethod]
-        public void ClickProfileMenu_Success()
+        //Проверка иконки профиля юзера
+        public void ClickProfileMenu()
         {
             Home page = new Home(Driver);
             page.GoHomePage();
@@ -724,7 +709,6 @@ namespace Habr.UI.Tests
         }
 
     }
-
 
 }
 

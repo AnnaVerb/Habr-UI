@@ -34,13 +34,12 @@ namespace Habr.UI.Tests.Pages
 
         public void LogoMenuClickQA()
         {
-            Home page = new Home(Driver);
+            //Home page = new Home(Driver);
             GoHomePage();
             LogoMenuElement.Click();
             
             DownMenuElementQA.Click();
             Thread.Sleep(2000);
-
         }
 
         public void LogoMenuClickHabr()

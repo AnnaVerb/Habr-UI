@@ -106,14 +106,14 @@ namespace Habr.UI.Tests.Pages
 
         }
 
-        public void PostAddtoFavoriteByLink512916(string postNumber)
+        public void PostAddtoFavoriteByLink512916()
         {
             if (!IsLogedIn)
             {
                 Login();
             }
 
-            GoToPostPage("512916"); //512916                 
+            GoToPostPage("512916");              
 
             //wait.Until(ButtonBookmarkPost512916.Displayed);
             Thread.Sleep(2000);

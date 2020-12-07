@@ -3,14 +3,15 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Threading;
+using System.Configuration;
 
 namespace Habr.UI.Tests.Pages
 {
     public abstract class BasePage
     {
         protected static bool IsLogedIn { get; set; }
-        private const string _defaultLogInEmail = "annystudy@gmail.com";
-        private const string _defaultLogInPassword = "d!6#AHW3uhq6*kL";
+        private readonly string _defaultLogInEmail;
+        private readonly string _defaultLogInPassword;
 
 
         protected static readonly string MainAddress = "https://habr.com/ru/";
@@ -18,12 +19,15 @@ namespace Habr.UI.Tests.Pages
         public BasePage(IWebDriver driver)
         {
             Driver = driver;
+            var appSettings = ConfigurationManager.AppSettings;
+            _defaultLogInEmail = appSettings["login"];
+            _defaultLogInPassword = appSettings["password"];
         }
 
 
 
         //used english names for buttons
-        //
+
         public IWebElement ButtonLogo => Driver.FindElement(By.XPath("//a[@class='logo']"));
 
         public IWebElement UpPanelMenuNavigationLinksMyFeed => Driver.FindElement(By.XPath("//a[text()='My feed']"));
@@ -46,17 +50,6 @@ namespace Habr.UI.Tests.Pages
         //fix path
         public IWebElement ButtonSettings => Driver.FindElement(By.XPath("//div[@class='main-navbar__section main-navbar__section_right']//button[1]"));
 
-        //Syntax: //tag[contains(@attribute, ‘value‘)]
-
-        //Example: //input[contains(@id, ‘er-messa’)]
-
-        //button type = "button" class="btn btn_medium btn_navbar_lang js-show_lang_settings"> <svg class="icon-svg" width="18" height="18">
-
-
-        //XPath("//*[@for='hl_langs_ru' and @class='radio__label radio__label_another']"));
-        //<label for="hl_langs_ru" class="radio__label radio__label_another">Русский</label>
-
-
 
         public IWebElement ButtonNotifications => Driver.FindElement(By.XPath("//a[contains(@href,'/tracker/') and contains(@class, 'btn_navbar_tracker')]"));
         //By.XPath("/html/body/div[1]/div[2]/div/div/div[2]/a[1]")
@@ -67,23 +60,16 @@ namespace Habr.UI.Tests.Pages
         public IWebElement ButtonLogin => Driver.FindElement(By.XPath("//*[@id='login']"));
         public IWebElement ButtonLoginOut_UserMenu => Driver.FindElement(By.XPath("/html/body/div[1]/div[2]/div/div/div[2]/div/div/ul/li[7]/a"));
         public IWebElement SearchFieldForm => Driver.FindElement(By.XPath("//*[@id='search-form-field']"));
-        // @placeholder='Поиск']"));
-        //id="search-form-field" placeholder="Поиск"
-        //XPath("/html/body/div[1]/div[2]/div/div/div[1]/form/label/input")
-
-
-
-
-        //methods
 
         public IWebElement ElementTrackerNotifications => Driver.FindElement(By.XPath("//h1[@class ='page-header__title']"));
 
 
 
         //methods
-        public void Login(string email = _defaultLogInEmail, string password = _defaultLogInPassword)
-        {
 
+        public void Login() => Login(_defaultLogInEmail, _defaultLogInPassword);
+        public void Login(string email, string password)
+        {
             ButtonLogin.Click();
             Thread.Sleep(2000);
             LoginPopUp page = new LoginPopUp(Driver);
@@ -92,7 +78,6 @@ namespace Habr.UI.Tests.Pages
             page.ClickButtonLoginPopupPage();
 
             IsLogedIn = true;
-
         }
         public void LoginOutProcess()
         {
@@ -101,11 +86,8 @@ namespace Habr.UI.Tests.Pages
             IsLogedIn = false;
         }
 
-
-
         public void SeachFieldProcess(string text)
         {
-
             Home page = new Home(Driver);
             page.GoHomePage();
 
@@ -117,7 +99,6 @@ namespace Habr.UI.Tests.Pages
 
             //Actions builder = new Actions(Driver);
             //builder.SendKeys(Keys.Enter);
-
         }
 
         public void ClickNotifications()
@@ -142,9 +123,6 @@ namespace Habr.UI.Tests.Pages
             else
                 throw new Exception("User isn't loged in");
         }
-
-
-
 
     }
 }
