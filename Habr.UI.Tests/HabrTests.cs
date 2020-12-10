@@ -28,7 +28,7 @@ namespace Habr.UI.Tests
         }
 
 
-        [TestInitialize] 
+        [TestInitialize]
         //запускается перед каждым тестом 
         public void OpenBrowser()
         {
@@ -36,6 +36,7 @@ namespace Habr.UI.Tests
             Driver.Manage().Window.Maximize();
             Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
             Home page = new Home(Driver);
+            page.GoHomePage();
             SetEnglishByBtnSettings();
         }
 
@@ -336,10 +337,11 @@ namespace Habr.UI.Tests
         //tests about posts
 
         [TestMethod]
-        public void PostAddtoFavoriteBySearch()
+        public void PostYandexAddtoFavoriteBySearch_Success()
         {
             Post page = new Post(Driver);
             page.GoToPostPage();
+            page.Login();
 
             var post = "Яндекс отчитался о выручке на фоне";
             page.PostAddtoFavoriteBySearch(post);
@@ -349,8 +351,8 @@ namespace Habr.UI.Tests
             Assert.IsTrue(result);
 
             Assert.IsTrue(page.ButtonBookmarkPost512916.Enabled);
+            //Assert.IsTrue(); //data-id="512916" data-action="remove" 
             Assert.IsTrue(page.ElementPost_512916.Displayed);
-
 
         }
 
@@ -613,17 +615,16 @@ namespace Habr.UI.Tests
 
             LanguageSettings langSettings = new LanguageSettings(Driver);
             langSettings.SetEnglishContentByBtnSettings();
-            Thread.Sleep(1000);
+            Thread.Sleep(2000);
 
-            page.ButtonSettings.Click();
+            //page.ButtonSettings.Click();
             Assert.IsTrue(langSettings.InputContentEnglish.Displayed);
             //Assert.IsTrue(langSettings.InputContentEnglish.Selected);
             Assert.IsTrue(langSettings.InputContentEnglish.Enabled);
 
-
         }
 
-        [TestMethod]
+
         public void SetRussianContentPlusSearch_Success()
         {
             Home page = new Home(Driver);
@@ -695,17 +696,16 @@ namespace Habr.UI.Tests
         public void ClickProfileMenu()
         {
             Home page = new Home(Driver);
-            page.GoHomePage();
+            //page.GoHomePage();
             page.Login();
 
             page.ButtonGreenUser.Click();
             UserMenu page2 = new UserMenu(Driver);
             page2.ClickButtonUserProfile();
 
-            //Assert.IsFalse(page2.ButtonUserProfile.Displayed);
+            //если не проставить чекбоксы то они очистятся и тест не пройдет, возможный баг или сбой настроек
+            Assert.IsFalse(page2.ButtonUserProfile.Displayed);
             Assert.IsTrue(page2.ButtonProfileSettings.Displayed);
-            Assert.AreEqual("AnnyV - Пользователь on Habr", Driver.Title);
-
         }
 
     }

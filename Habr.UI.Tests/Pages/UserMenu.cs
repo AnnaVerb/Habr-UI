@@ -21,7 +21,8 @@ namespace Habr.UI.Tests.Pages
         public IWebElement ButtonPublications => Driver.FindElement(By.XPath("//a[text()='Публикации' and @class='n-dropdown-menu__item-link']"));
 
         public IWebElement ButtonUserProfile => Driver.FindElement(By.XPath("//a[@class='dropdown__user-info user-info']"));
-
+        
+        //кнопка настройки профиля юзера
         public IWebElement ButtonProfileSettings => Driver.FindElement(By.XPath("//*['Profile settings']//div[@class='user-info__buttons']"));
 
 
