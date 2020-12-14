@@ -24,7 +24,7 @@ namespace Habr.UI.Tests.PopUpWindows
         //<label for="hl_langs_en" class="radio__label radio__label_another">English</label>
 
         public IWebElement InputInterfaceRussian => Driver.FindElement(By.XPath("//fieldset[@data-section='2']/div[1]/span"));
-       
+
         public IWebElement InputInterfaceEnglish => Driver.FindElement(By.XPath("//fieldset[@data-section='2']/div[2]/span"));
 
         public IWebElement InputContentRussian => Driver.FindElement(By.XPath("//*[@id='fl_langs_ru']"));
@@ -41,6 +41,8 @@ namespace Habr.UI.Tests.PopUpWindows
         // <input type = "checkbox" name="fl[]" id="fl_langs_en" class="checkbox__input js-fl_langs" value="en">
         //*[@id="lang-settings-form"]/fieldset[2]/div[2]
         //html/body/div[2]/div/div[2]/form/fieldset[2]/div[2]/span
+
+
 
 
         public void SetRussianByBtnSettings()
@@ -60,7 +62,6 @@ namespace Habr.UI.Tests.PopUpWindows
 
         }
 
-        
         public void SetEnglishContentByBtnSettings()
         {
             InputContentEnglish.Click();
@@ -82,11 +83,9 @@ namespace Habr.UI.Tests.PopUpWindows
             {
                 ButtonSaveSettings.Click();
             }
-            
+
 
         }
-
-
 
     }
 }

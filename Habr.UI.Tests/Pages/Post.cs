@@ -20,7 +20,7 @@ namespace Habr.UI.Tests.Pages
         }
 
         private const string _defaultPostNumber = "502746";
-        internal readonly object ButtonZakladki;
+        //internal readonly object ButtonBookmarks;
 
         //Syntax: //tag[starts-with(@attribute, ‘value‘)]
 
@@ -49,13 +49,10 @@ namespace Habr.UI.Tests.Pages
                 //By.XPath("/html/body/div[1]/div[3]/div/section/div[1]/div[1]/div/a[1]/h3")
             }
         }
-
-        public IWebElement ButtonBookmarkPost512916 => Driver.FindElement(By.XPath("//button[@data-id='512916']//span"));
-
+        public IWebElement ButtonBookmarkPost => Driver.FindElement(By.XPath("//button[@data-id='512916']//span"));
 
 
-        //fix
-        public IWebElement ButtonBookmarkPost512916Counter => Driver.FindElement(By.XPath("//*[@data-id='512916']//span[@class='bookmark__counter js-favs_count']"));
+        //public IWebElement ButtonBookmarkPost512916Counter => Driver.FindElement(By.XPath("//*[@data-id='512916']//span[@class='bookmark__counter js-favs_count']"));
 
         //public IWebElement ElementTrackerNotifications => Driver.FindElement(By.XPath("//h1[@class ='page-header__title']"));
         //div[@data-id='512916']//[@id='post_512916']
@@ -65,12 +62,10 @@ namespace Habr.UI.Tests.Pages
         //button[@data-id='512916' and @data-action='add']
         //https://habr.com/ru/news/t/512916/
         //title = "Удалить из закладок" onclick = "posts_add_to_favorite(this);" >
-
         //<span class="bookmark__counter js-favs_count"
 
+        public IWebElement ElementPost => Driver.FindElement(By.XPath("//a[contains(@href,'512916') and @class='post__title_link']"));
 
-        //check
-        public IWebElement ElementPost_512916 => Driver.FindElement(By.XPath("//a[contains(@href,'512916') and @class='post__title_link']"));
 
 
 
@@ -84,40 +79,25 @@ namespace Habr.UI.Tests.Pages
 
             SeachFieldProcess(posttext);
 
-            //IJavaScriptExecutor javaScriptExecutor = (IJavaScriptExecutor)Driver;
-            //javaScriptExecutor.ExecuteScript("arguments[0].scrollIntoView();", page.CheckBoxSelect);
-            //Thread.Sleep(1000);
-            //page.TabSelect2Success.Click();
-            //Assert.IsTrue(page.TabResultText.Displayed);
-            //ButtonBookmarkPost512916.Click();
+            ButtonBookmarkPost.Click();
 
-
-            if (ButtonBookmarkPost512916Counter.Equals("0")  || !ButtonBookmarkPost512916.Selected)
-            {
-                ButtonBookmarkPost512916.Click();
-            }
-
-            else
-            {
-                Driver.TakeScreenshot();
-                Thread.Sleep(2000);
-                // GoToPostPage();
-            }
+            Driver.TakeScreenshot();
+            Thread.Sleep(2000);
 
         }
 
-        public void PostAddtoFavoriteByLink512916()
+        public void PostAddtoFavoriteByLink()
         {
             if (!IsLogedIn)
             {
                 Login();
             }
 
-            GoToPostPage("512916");              
+            GoToPostPage("512916");
 
             //wait.Until(ButtonBookmarkPost512916.Displayed);
             Thread.Sleep(2000);
-            ButtonBookmarkPost512916.Click();
+            ButtonBookmarkPost.Click();
         }
 
         public void GoToPostPage(string postNumber = _defaultPostNumber)
@@ -127,3 +107,10 @@ namespace Habr.UI.Tests.Pages
 
     }
 }
+
+//IJavaScriptExecutor javaScriptExecutor = (IJavaScriptExecutor)Driver;
+//javaScriptExecutor.ExecuteScript("arguments[0].scrollIntoView();", page.CheckBoxSelect);
+//Thread.Sleep(1000);
+//page.TabSelect2Success.Click();
+//Assert.IsTrue(page.TabResultText.Displayed);
+//ButtonBookmarkPost512916.Click();

@@ -8,40 +8,33 @@ namespace Habr.UI.Tests.Pages
     public class Home : BasePage
     {
         internal readonly object ButtonWritePostFirstElement;
-
-        //internal readonly object ButtonPost;
-
         public string Title => Driver.Title;
-
         public Home(IWebDriver driver) : base(driver)
         {
         }
 
+        //buttons and elements
         public IWebElement LogoMenuElement => Driver.FindElement(By.XPath("//span[@id='dropdown-control']"));
-
         public IWebElement DownMenuElementHabr => Driver.FindElement(By.XPath("//a[@class='service' and @href='/']"));
         public IWebElement DownMenuElementQA => Driver.FindElement(By.XPath("//h4[@class='service-title']"));
-
         public IWebElement UpPanelSectionAuthor => Driver.FindElement(By.XPath("//a[@class='bmenu__conversion']"));
-
         //href="/ru/sandbox/add/"
 
 
+        //methods
         public void GoHomePage()
         {
             Driver.Navigate().GoToUrl(MainAddress);
         }
-
         public void LogoMenuClickQA()
         {
             //Home page = new Home(Driver);
             GoHomePage();
             LogoMenuElement.Click();
-            
+
             DownMenuElementQA.Click();
             Thread.Sleep(2000);
         }
-
         public void LogoMenuClickHabr()
         {
             Home page = new Home(Driver);
@@ -52,14 +45,8 @@ namespace Habr.UI.Tests.Pages
 
         }
 
-        ////internal void ClickButtonWritePostFirstElement()
-        //{
-        //    throw new NotImplementedException();
-        //}
     }
 }
-
-
 
 
 ////scroll bar down

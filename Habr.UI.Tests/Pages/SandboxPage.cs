@@ -12,32 +12,15 @@ namespace Habr.UI.Tests.Pages
 {
     public class SandboxPage : BasePage
     {
-
         public SandboxPage(IWebDriver driver) : base(driver)
         {
 
         }
 
-
-        //check
         public IWebElement ButtonWritePostFirstElement => Driver.FindElement(By.XPath("//*['Create post']//[@class='nav - links__item - link']"));
-
-
-
-
         ////*['Create post']//[@class='nav - links__item - link']"));
 
-        //*['Написать пост']//h2[text()='Как всё произойдет']"));
-        //"//h2[contains(text()='Как всё произойдет')]"));
-        //*['Написать пост']//h2[text()='Как всё произойдет']
-
-        //h2[text()='Как всё произойдет']
-        //Example: //input[contains(@id, ‘er-messa’)] ‘value‘)]
-
-        //Example: //input[contains(@id, ‘er-messa’)]
-        //a[@href ='/ru/sandbox/add/']//following::h2[1]
-
-
+    
         public IWebElement FieldPostList//check
         {
             get
@@ -47,10 +30,9 @@ namespace Habr.UI.Tests.Pages
                 //By.XPath("/html/body/div[1]/div[3]/div/div/div[1]/div[2]/div/a[4]/h3");
             }
         }
-
         public IWebElement MenuMyPosts => Driver.FindElement(By.XPath("//div[@class='tabs']//a[4]"));
 
-        //public IWebElement ElementMyPosts => return Driver.FindElement(By.XPath("//div[@class='tabs']//a[4]"));
+        //public IWebElement ElementMyPosts => Driver.FindElement(By.XPath("//div[@class='tabs']//a[4]"));
 
         ////h3[@class='tabs-menu__item-text']"));
         //By.XPath("/html/body/div[1]/div[3]/div/div/div[1]/div[2]/div/a[4]/h3");           
@@ -61,6 +43,9 @@ namespace Habr.UI.Tests.Pages
 
 
         //methods
+
+        //методы
+
         public void ClickButtonWritePostFirstElementOnPage()//Как всё произойдет
         {
             Home page = new Home(Driver);
@@ -70,7 +55,7 @@ namespace Habr.UI.Tests.Pages
             WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(4));
 
             Thread.Sleep(2000);
-            
+
             if (ButtonWritePostFirstElement.Displayed)
             {
                 //this one will scroll the element into view for interactions
@@ -132,8 +117,6 @@ namespace Habr.UI.Tests.Pages
                 //Home page = new Home(Driver); 
                 Login();
         }
-
-
 
     }
 }

@@ -37,7 +37,7 @@ namespace Habr.UI.Tests
             Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
             Home page = new Home(Driver);
             page.GoHomePage();
-            SetEnglishByBtnSettings();
+            //SetEnglishByBtnSettings();
         }
 
         [TestCleanup]
@@ -71,21 +71,8 @@ namespace Habr.UI.Tests
         }
 
 
-        public void ClickUpPanelMenuNavigationLinksMyFeed_Success()
-        {
-            Home page = new Home(Driver);
-            page.GoHomePage();
-            page.Login();
 
-            //SetEnglishByBtnSettings();
-
-            page.UpPanelMenuNavigationLinksMyFeed.Click();
-            Thread.Sleep(2000);
-            //WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(5));
-            bool result = Driver.Url.Contains("habr.com/en/feed");
-            Assert.IsTrue(result);
-
-        }
+        //проверка панелей меню
 
         [TestMethod]
         public void ClickUpPanelMenuNavigationLinksAllStream_Success()
@@ -118,6 +105,60 @@ namespace Habr.UI.Tests
             Assert.IsTrue(result);
 
         }
+        [TestMethod]
+        //проверка функционала меню стартовой страницы
+        public void ClickUpPanelSectionAuthor()
+        {
+            Home page = new Home(Driver);
+            page.GoHomePage();
+            Thread.Sleep(2000);
+            page.UpPanelSectionAuthor.Click();
+            Thread.Sleep(2000);
+            Assert.IsTrue(Driver.Url.Contains("sandbox/start/"));
+            //https://habr.com/ru/sandbox/start/
+
+        }
+        [TestMethod]
+        public void LogoMenuQA_Success()
+        {
+            Home page = new Home(Driver);
+            page.GoHomePage();
+            SetRussianByBtnSettings();
+            page.LogoMenuElement.Click();
+
+            Thread.Sleep(2000);
+            page.LogoMenuClickQA();
+            WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(5));
+            Driver.TakeScreenshot();
+            Assert.IsTrue(Driver.Url.Contains("qna.habr.com"));
+        }
+        [TestMethod]
+        //проверка кликабельности подменю
+        public void LogoMenuOptions()
+
+        {
+            Home page = new Home(Driver);
+            page.GoHomePage();
+
+            SetRussianByBtnSettings();
+            Thread.Sleep(2000);
+            page.LogoMenuElement.Click();
+
+            WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(3));
+            page.LogoMenuClickHabr();
+            Thread.Sleep(2000);
+            Assert.IsTrue(Driver.Url.Contains("https://habr.com/ru/"));
+
+            Driver.Navigate().Back();
+            page.LogoMenuClickQA();
+            WebDriverWait wait2 = new WebDriverWait(Driver, TimeSpan.FromSeconds(3));
+
+            Assert.IsTrue(Driver.Url.Contains("qna.habr.com"));
+
+        }
+
+
+        //проверка кнопок
 
         [TestMethod]
         public void CheckNotifications_Success()
@@ -133,7 +174,6 @@ namespace Habr.UI.Tests
             Assert.IsTrue(page.ElementTrackerNotifications.Displayed);
 
         }
-
         [TestMethod]
         public void ClickButtonUser_Success()
         {
@@ -165,6 +205,10 @@ namespace Habr.UI.Tests
         }
 
 
+
+        //проверка элементов 
+
+
         [TestMethod]
         //проверка поисковой строки или поля
         public void SeachFieldProcess_Success()
@@ -177,100 +221,43 @@ namespace Habr.UI.Tests
             Assert.IsTrue(page.ElementTabsPublications.Enabled);
         }
 
-        [TestMethod]
-        public void LogoMenuQA_Success()
-        {
-            Home page = new Home(Driver);
-            page.GoHomePage();
-            SetRussianByBtnSettings();
-            page.LogoMenuElement.Click();
 
-            Thread.Sleep(2000);
-            page.LogoMenuClickQA();
-            WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(5));
-            Driver.TakeScreenshot();
-            Assert.IsTrue(Driver.Url.StartsWith("https://qna.habr.com/"));
-        }
+
+
+        //tests about posts
 
         [TestMethod]
-        //проверка кликабельности подменю
-        public void LogoMenuOptions()
-
+        public void PostYandexAddtoFavoriteBySearch_Success()
         {
             Home page = new Home(Driver);
-            page.GoHomePage();
+            page.Login();
 
-            SetRussianByBtnSettings();
+            Post page1 = new Post(Driver);
+            page1.GoToPostPage();
+            var post = "Яндекс отчитался о выручке на фоне";
+            page1.PostAddtoFavoriteBySearch(post);
             Thread.Sleep(2000);
-            page.LogoMenuElement.Click();
 
-            WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(3));
-            page.LogoMenuClickHabr();
-            Thread.Sleep(2000);
-            Assert.IsTrue(Driver.Url.Contains("habr.com/ru/"));
+            bool result = page1.ElementTabsPublications.Displayed;
+            Assert.IsTrue(result);
 
-            Driver.Navigate().Back();
-            page.LogoMenuClickQA();
-            WebDriverWait wait2 = new WebDriverWait(Driver, TimeSpan.FromSeconds(3));
+            //проверка элементов
+            Assert.IsTrue(page1.ButtonBookmarkPost.Enabled);
 
-            Assert.IsTrue(Driver.Url.Contains("qna.habr.com"));
+            if (page1.ButtonBookmarkPost.GetAttribute("data - action").Contains("remove"))
+            {
+                Assert.IsTrue(page1.ButtonBookmarkPost.GetAttribute("data - action").Contains("remove"));  //data-id="512916";
+            }
+
+            else
+            {
+                page1.ButtonBookmarkPost.Click();
+            }
+
+            Assert.IsTrue(page1.ElementPost.Displayed);
 
         }
 
-
-        [TestMethod]
-        //проверка функционала меню стартовой страницы
-        public void ClickUpPanelSectionAuthor()
-        {
-            Home page = new Home(Driver);
-            page.GoHomePage();
-            Thread.Sleep(2000);
-            page.UpPanelSectionAuthor.Click();
-            Thread.Sleep(2000);
-            Assert.IsTrue(Driver.Url.Contains("sandbox/start/"));
-            //https://habr.com/ru/sandbox/start/
-
-        }
-
-
-        //[TestMethod]
-        //дополнить тест
-
-        //public void ButtonWritePostFirstElement()
-        //{
-        //    Home page = new Home(Driver);
-        //    page.GoHomePage();
-        //    page.Login();
-
-        //    page.ButtonWriteTopic.Click();
-        //    Thread.Sleep(2000);
-        //    SandboxPage page1 = new SandboxPage(Driver);
-        //    WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(4));
-
-        //    //page1.ClickButtonWritePostFirstElement();
-
-
-        //    Assert.IsTrue(Driver.Url.Contains("https://habr.com/ru/sandbox/add/"));
-
-
-        //    //bool result = page.ButtonWritePostFirstElement.Displayed;
-
-        //    //"https://habr.com/ru/sandbox/add/"
-        //    //Assert.IsTrue(page.ButtonWritePostFirstElement.);
-        //    //Assert.IsTrue(page.ButtonWritePostFirstElement.Enabled);
-
-        //    //page.ButtonGreenUser.Click();
-
-        //    //WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(5));
-        //    //bool result = page.ButtonGreenUser.Displayed;
-        //    //Assert.IsTrue(result);
-
-        //}
-
-
-        //[TestMethod]
-        //add waits for visible btn
-        //check xpaths
         public void ClickButtonWritePostFirstElementOnPage_Success()
         {
             Home page = new Home(Driver);
@@ -294,199 +281,89 @@ namespace Habr.UI.Tests
         }
 
 
-        public void WriteTopicProcess_Success()//check
-        {
-            Home page = new Home(Driver);
-            page.GoHomePage();
-            Thread.Sleep(2000);
 
-            SandboxPage page1 = new SandboxPage(Driver);
-            //page1.WriteTopicProcess();
-
-            Assert.IsTrue(page1.ButtonWritePostFirstElement.Displayed);
-            page1.ButtonWritePostFirstElement.Click();
-            Thread.Sleep(2000);
-
-        }
-
-
-
-        ////public void WriteTopicProcessComplex_Success()//fix
+        //public void WriteTopicProcess_Success()//check
         //{
         //    Home page = new Home(Driver);
         //    page.GoHomePage();
-        //    page.Login();
         //    Thread.Sleep(2000);
 
         //    SandboxPage page1 = new SandboxPage(Driver);
-        //    page1.WriteTopicProcess();
-        //    var result = page1.FieldPostList.Text;
-        //    Thread.Sleep(2000);
+        //    //page1.WriteTopicProcess();
 
-
-        //    Assert.IsNotNull(result);
         //    Assert.IsTrue(page1.ButtonWritePostFirstElement.Displayed);
-        //    Assert.IsTrue(page1.ButtonWritePostFirstElement.Enabled);
-
+        //    page1.ButtonWritePostFirstElement.Click();
         //    Thread.Sleep(2000);
-        //    //Assert.AreEqual("https://habr.com/ru/sandbox/start/", page.Title);
+
         //}
 
 
 
-        //tests about posts
+        //public void CheckBookmarkCounter()
 
-        [TestMethod]
-        public void PostYandexAddtoFavoriteBySearch_Success()
-        {
-            Post page = new Post(Driver);
-            page.GoToPostPage();
-            page.Login();
+        //{
+        //    //var newcounter = page.ButtonBookm arkPost512916Counter.Text;
+        //    //Assert.AreNotEqual(counterbeforeremove, newcounter);
+        //    //другой вариант проверки
+        //    ////check that bookmark is removed => ищем post
+        //    //UserMenu page1 = new UserMenu(Driver);
+        //    //page.ButtonGreenUser.Click();
+        //    //page1.ButtonZakladki.Click();
+        //    //Thread.Sleep(2000);
 
-            var post = "Яндекс отчитался о выручке на фоне";
-            page.PostAddtoFavoriteBySearch(post);
-            Thread.Sleep(2000);
+        //    //if (!page.ElementPost_512916.Displayed)
+        //    //{
+        //    //    WebDriverWait wait2 = new WebDriverWait(Driver, TimeSpan.FromSeconds(2));
 
-            bool result = page.ElementTabsPublications.Displayed;
-            Assert.IsTrue(result);
+        //    //    Assert.IsFalse(page.ElementPost_512916.Displayed);
+        //    //}
 
-            Assert.IsTrue(page.ButtonBookmarkPost512916.Enabled);
-            //Assert.IsTrue(); //data-id="512916" data-action="remove" 
-            Assert.IsTrue(page.ElementPost_512916.Displayed);
+        //    //else
+        //    //{
+        //    //    //post is not removed
+        //    //    //CodeThrowExceptionStatement()
+        //    //    page.GoToPostPage();
 
-        }
+        //    //}
+        //    //var counter = page.ButtonBookmarkPost512916Counter.Text.ToString();
 
-        public void CheckAddedPostByUserMenu_Success()
-        {
-            Post page = new Post(Driver);
-            page.GoToPostPage();
-            page.Login();
+        //    //if (!counter.Equals("0"))
+        //    //{
+        //    //    page.ButtonBookmarkPost512916.Click();
+        //    //    Thread.Sleep(2000);
 
-            var post = "Яндекс отчитался о выручке на фоне";
-            page.PostAddtoFavoriteBySearch(post);
-            Thread.Sleep(2000);
+        //    //    //Assert.IsFalse(counter.Equals("0"));
+        //    //}
 
-            page.ButtonLogo.Click();
-            Thread.Sleep(2000);
+        //    //var counterbeforeremove = page.ButtonBookmarkPost512916Counter.Text;
 
-            page.ClickButtonGreenUser();
-            //page.ButtonZakladki.Click();
-            //page.ButtonBookmarkPost512916.Click();
-
-            bool result = page.ElementTabsPublications.Displayed;
-            bool result1 = page.ButtonBookmarkPost512916.Enabled;
-            Assert.IsTrue(result);
-            Assert.IsTrue(result1);
-
-            //bool result2 = Driver.FindElement(By.XPath("//a[contains(@href,'512916') and @class='post__title_link']")).Displayed;
-            //Assert.IsTrue(result2);
-
-            //https://habr.com/ru/company/ruvds/blog/515544/
-            //Assert.AreEqual("remove", page.ButtonBookmark.("data-action"));
-            //page.ButtonLogo.Click();
-            //Thread.Sleep(2000);
-            //page.ClickButtonGreenUser();
-            //page.ButtonZakladki.Click();
-
-
-        }
-
-        public void PostAddandRemoveFromFav512916()
-        {
-            Post page = new Post(Driver);
-            page.GoToPostPage();
-            page.Login();
-
-            SetALLOptionsContentByBtnSettings();
-            //language Settings should be russian and english
-
-            var post = "Яндекс отчитался о выручке на фоне";
-            page.PostAddtoFavoriteBySearch(post);
-            Thread.Sleep(2000);
-
-            //remove post from favs
-            string a = page.ButtonBookmarkPost512916.GetAttribute("data-action");
-
-            if (page.ButtonBookmarkPost512916.Displayed && a == "remove")
-            {
-                page.ButtonBookmarkPost512916.Click();
-
-                Assert.AreNotEqual("remove", a);
-                Assert.AreEqual("add", a);
-
-            }
-
-            else
-            {
-                //post is not added
-                page.GoToPostPage();
-            }
-
-        }
-
-        public void CheckBookmarkCounter()
-
-        {
-            //var newcounter = page.ButtonBookm arkPost512916Counter.Text;
-            //Assert.AreNotEqual(counterbeforeremove, newcounter);
-            //другой вариант проверки
-            ////check that bookmark is removed => ищем post
-            //UserMenu page1 = new UserMenu(Driver);
-            //page.ButtonGreenUser.Click();
-            //page1.ButtonZakladki.Click();
-            //Thread.Sleep(2000);
-
-            //if (!page.ElementPost_512916.Displayed)
-            //{
-            //    WebDriverWait wait2 = new WebDriverWait(Driver, TimeSpan.FromSeconds(2));
-
-            //    Assert.IsFalse(page.ElementPost_512916.Displayed);
-            //}
-
-            //else
-            //{
-            //    //post is not removed
-            //    //CodeThrowExceptionStatement()
-            //    page.GoToPostPage();
-
-            //}
-            //var counter = page.ButtonBookmarkPost512916Counter.Text.ToString();
-
-            //if (!counter.Equals("0"))
-            //{
-            //    page.ButtonBookmarkPost512916.Click();
-            //    Thread.Sleep(2000);
-
-            //    //Assert.IsFalse(counter.Equals("0"));
-            //}
-
-            //var counterbeforeremove = page.ButtonBookmarkPost512916Counter.Text;
-
-            //page.ButtonBookmarkPost512916.Click();
-            //Thread.Sleep(2000);
-            //Assert.AreNotEqual("add", a);
-            //page.ButtonBookmarkPost512916.Click();
-            //Assert.AreEqual("add", a);
-        }
+        //    //page.ButtonBookmarkPost512916.Click();
+        //    //Thread.Sleep(2000);
+        //    //Assert.AreNotEqual("add", a);
+        //    //page.ButtonBookmarkPost512916.Click();
+        //    //Assert.AreEqual("add", a);
+        //}
 
 
         [TestMethod]
-        public void PostAddtoFavoriteByLink512916()//убрать номер, вынести в константу
+        public void PostAddtoFavoriteByLink()
+        //вынести в константу
         //добавить проверку счетчика
         {
-            Post page = new Post(Driver);
-
-            //string postlink = "https://habr.com/ru/news/t/512916/";
-            page.GoToPostPage("512916");
+            Home page = new Home(Driver);
             page.Login();
 
+            //string postlink = "https://habr.com/ru/news/t/512916/";
+            Post pagepost = new Post(Driver);
+            pagepost.GoToPostPage("512916");
+
             WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(3));
-            page.ButtonBookmarkPost512916.Click();
+            pagepost.ButtonBookmarkPost.Click();
             Thread.Sleep(2000);
             Driver.TakeScreenshot();
 
             Assert.IsTrue(Driver.Url.EndsWith("/512916/"));
-            Assert.IsTrue(page.ButtonBookmarkPost512916.Enabled);
+            Assert.IsTrue(pagepost.ButtonBookmarkPost.Enabled);
 
             //CheckforBookmark();
 
@@ -494,10 +371,11 @@ namespace Habr.UI.Tests
 
 
 
+
         //test language Settings
 
         [TestMethod]
-        public void SetEnglishByBtnSettings()
+        public void SetEnglishByBtnSettings_Success()
         {
             Home page = new Home(Driver);
             page.GoHomePage();
@@ -510,7 +388,7 @@ namespace Habr.UI.Tests
             {
                 langSettings.SetEnglishByButtonSettings();
                 Thread.Sleep(2000);
-                Assert.AreEqual("https://habr.com/en/", Driver.Url);
+                Assert.IsTrue(Driver.Url.Contains("https://habr.com/en/"));
             }
 
             else
@@ -541,7 +419,7 @@ namespace Habr.UI.Tests
             {
                 langSettings.SetRussianByBtnSettings();
                 Thread.Sleep(2000);
-                Assert.AreEqual("https://habr.com/ru/", Driver.Url);
+                Assert.IsTrue(Driver.Url.Contains("https://habr.com/ru/"));
             }
 
             Thread.Sleep(2000);
@@ -604,7 +482,6 @@ namespace Habr.UI.Tests
             //Assert.IsTrue(langSettings.InputInterfaceRussian.Selected || langSettings.InputInterfaceEnglish.Selected);
             //Assert.AreEqual("true", langSettings.InputInterfaceEnglish.FindElement(By.("checked")));
         }
-
         [TestMethod]
         public void SetEnglishContentByBtnSettings()
         {
@@ -625,49 +502,63 @@ namespace Habr.UI.Tests
         }
 
 
-        public void SetRussianContentPlusSearch_Success()
-        {
-            Home page = new Home(Driver);
-            page.GoHomePage();
-            Thread.Sleep(2000);
-            page.ButtonSettings.Click();
-            Thread.Sleep(2000);
+        //public void SetRussianContentPlusSearch_Success()
+        //{
+        //    Home page = new Home(Driver);
+        //    page.GoHomePage();
+        //    Thread.Sleep(2000);
+        //    page.ButtonSettings.Click();
+        //    Thread.Sleep(2000);
 
-            LanguageSettings langSettings = new LanguageSettings(Driver);
-            langSettings.SetRussianContentByBtnSettings();
-            Thread.Sleep(2000);
+        //    LanguageSettings langSettings = new LanguageSettings(Driver);
+        //    langSettings.SetRussianContentByBtnSettings();
+        //    Thread.Sleep(2000);
 
-            //Assert.IsTrue(langSettings.InputContentRussian.Displayed);
-            Assert.IsTrue(langSettings.InputContentRussian.Selected);
+        //    //Assert.IsTrue(langSettings.InputContentRussian.Displayed);
+        //    Assert.IsTrue(langSettings.InputContentRussian.Selected);
 
-            page.SeachFieldProcess("График");
-            Driver.TakeScreenshot();
-            Thread.Sleep(2000);
+        //    page.SeachFieldProcess("График");
+        //    Driver.TakeScreenshot();
+        //    Thread.Sleep(2000);
 
-        }
+        //}
 
+        [TestMethod]
         public void SetALLOptionsContentByBtnSettings()
         {
             Home page = new Home(Driver);
             page.GoHomePage();
             page.ButtonSettings.Click();
-            Thread.Sleep(2000);
+            Thread.Sleep(1000);
 
             LanguageSettings langSettings = new LanguageSettings(Driver);
-            langSettings.SetRussianContentByBtnSettings();
+            //langSettings.SetRussianContentByBtnSettings();
             Thread.Sleep(1000);
-            page.ButtonSettings.Click();
-            langSettings.SetEnglishContentByBtnSettings();
-            Thread.Sleep(1000);
-            page.ButtonSettings.Click();
-            Thread.Sleep(4000);
+
+            langSettings.InputContentRussian.Click();
+            if (!langSettings.InputContentRussian.Selected)
+            {
+                langSettings.InputContentRussian.SendKeys("Enter");
+                Thread.Sleep(2000);
+                //ButtonSaveSettings.Click();
+            }
+            else
+            {
+                langSettings.InputContentEnglish.Click();
+                //Driver.Manage().Timeouts().ImplicitWait.TotalSeconds;
+                Thread.Sleep(2000);
+            }
+
+            langSettings.ButtonSaveSettings.Click();
             Driver.TakeScreenshot().SaveAsFile("ContentView");
 
+            //проверка поиска по языкам
             page.SeachFieldProcess("All");
             Thread.Sleep(2000);
+
             page.SeachFieldProcess("Все");
             Thread.Sleep(2000);
-
+            //Assert.IsTrue();
 
         }
 
@@ -707,6 +598,30 @@ namespace Habr.UI.Tests
             Assert.IsFalse(page2.ButtonUserProfile.Displayed);
             Assert.IsTrue(page2.ButtonProfileSettings.Displayed);
         }
+
+        [TestMethod]
+        //проверка изменений поля Actual name
+        public void CheckSaveChangesAfterInput_Success()
+        {
+            Home page = new Home(Driver);
+            page.GoHomePage();
+            page.Login();
+
+            page.ButtonGreenUser.Click();
+            CheckSaveChangesAfterInput_Success();
+            Driver.Navigate().Refresh();
+
+            //check changes
+            page.ButtonLogo.Click();
+            page.ButtonGreenUser.Click();
+            UserMenu page1 = new UserMenu(Driver);
+            page1.ButtonProfileSettings.Click();
+
+            //observe changes
+            Thread.Sleep(2000);
+            Assert.AreEqual("Anna", page1.FieldName.Text);
+        }
+
 
     }
 
