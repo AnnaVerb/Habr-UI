@@ -32,6 +32,18 @@ namespace Habr.UI.Tests.Pages
         //Syntax: //tag[XPath Statement-1 and XPath Statement-2]
         //*[@id=’user-message’ and @class=’form-control’]
 
+        public IWebElement ButtonSaveChanges => Driver.FindElement(By.XPath("//span[@class='tm-button__text']"));
+        //Driver.FindElement(By.XPath("//span[@class='tm-button__text']")).Click();
+        /////html/body/div[1]/div[3]/div/div/div[1]/div[2]/div/form/div[3]/button")).Click();
+        //span[@class = 'tm-button__text']
+
+
+
+
+
+
+        //methods
+
 
 
         public void ClickButtonUserProfile()
@@ -49,13 +61,14 @@ namespace Habr.UI.Tests.Pages
             UserMenu page = new UserMenu(Driver);
             page.ButtonUserProfile.Click();
 
-
             page.ButtonProfileSettings.Click();
+            page.FieldName.Clear();
+            Thread.Sleep(2000);
             page.FieldName.Click();
-            page.FieldName.SendKeys("Anna");
-
-            Driver.FindElement(By.XPath("///html/body/div[1]/div[3]/div/div/div[1]/div[2]/div/form/div[3]/button")).Click();
-            
+            page.FieldName.SendKeys("_Anna");
+            Thread.Sleep(2000);
+            page.ButtonSaveChanges.Click();
+          
         }
 
     }

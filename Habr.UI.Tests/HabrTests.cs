@@ -244,15 +244,15 @@ namespace Habr.UI.Tests
             //проверка элементов
             Assert.IsTrue(page1.ButtonBookmarkPost.Enabled);
 
-            if (page1.ButtonBookmarkPost.GetAttribute("data - action").Contains("remove"))
-            {
-                Assert.IsTrue(page1.ButtonBookmarkPost.GetAttribute("data - action").Contains("remove"));  //data-id="512916";
-            }
+            //if (page1.ButtonBookmarkPost.GetAttribute("data - action").Contains("remove"))
+            //{
+            //    Assert.IsTrue(page1.ButtonBookmarkPost.GetAttribute("data - action").Contains("remove"));  //data-id="512916";
+            //}
 
-            else
-            {
-                page1.ButtonBookmarkPost.Click();
-            }
+            //else
+            //{
+            page1.ButtonBookmarkPost.Click();
+
 
             Assert.IsTrue(page1.ElementPost.Displayed);
 
@@ -345,7 +345,7 @@ namespace Habr.UI.Tests
         //}
 
 
-        [TestMethod]
+
         public void PostAddtoFavoriteByLink()
         //вынести в константу
         //добавить проверку счетчика
@@ -353,17 +353,20 @@ namespace Habr.UI.Tests
             Home page = new Home(Driver);
             page.Login();
 
-            //string postlink = "https://habr.com/ru/news/t/512916/";
+            //string postlink = "https://habr.com/en/news/t/512916/";
+            //Post pagepost = new Post(Driver);
+            //page.GoToPostPage("512916");
+
             Post pagepost = new Post(Driver);
-            pagepost.GoToPostPage("512916");
+            Driver.Navigate().GoToUrl("https://habr.com/en/news/t/512916/");
 
             WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(3));
             pagepost.ButtonBookmarkPost.Click();
             Thread.Sleep(2000);
             Driver.TakeScreenshot();
 
-            Assert.IsTrue(Driver.Url.EndsWith("/512916/"));
-            Assert.IsTrue(pagepost.ButtonBookmarkPost.Enabled);
+            Assert.IsTrue(Driver.Url.Contains("/512916/"));
+            //Assert.IsTrue(page.ButtonBookmarkPost.Enabled);
 
             //CheckforBookmark();
 
@@ -482,6 +485,9 @@ namespace Habr.UI.Tests
             //Assert.IsTrue(langSettings.InputInterfaceRussian.Selected || langSettings.InputInterfaceEnglish.Selected);
             //Assert.AreEqual("true", langSettings.InputInterfaceEnglish.FindElement(By.("checked")));
         }
+
+
+
         [TestMethod]
         public void SetEnglishContentByBtnSettings()
         {
@@ -523,45 +529,44 @@ namespace Habr.UI.Tests
 
         //}
 
-        [TestMethod]
+
         public void SetALLOptionsContentByBtnSettings()
         {
             Home page = new Home(Driver);
             page.GoHomePage();
+
             page.ButtonSettings.Click();
-            Thread.Sleep(1000);
-
             LanguageSettings langSettings = new LanguageSettings(Driver);
-            //langSettings.SetRussianContentByBtnSettings();
-            Thread.Sleep(1000);
+            Thread.Sleep(2000);
 
+            //langSettings.InputContentEnglish.Click();
+            //if (!langSettings.InputContentEnglish.Selected)
+            //{
+            //    langSettings.InputContentEnglish.SendKeys("Enter");
+            //    Thread.Sleep(2000);
+            //}
             langSettings.InputContentRussian.Click();
-            if (!langSettings.InputContentRussian.Selected)
-            {
-                langSettings.InputContentRussian.SendKeys("Enter");
-                Thread.Sleep(2000);
-                //ButtonSaveSettings.Click();
-            }
-            else
-            {
-                langSettings.InputContentEnglish.Click();
-                //Driver.Manage().Timeouts().ImplicitWait.TotalSeconds;
-                Thread.Sleep(2000);
-            }
-
+            Thread.Sleep(1000);
+            //Driver.TakeScreenshot().SaveAsFile("ContentView");
             langSettings.ButtonSaveSettings.Click();
-            Driver.TakeScreenshot().SaveAsFile("ContentView");
 
+            //if (!langSettings.InputContentRussian.Selected)
+            //{
+            //    langSettings.InputContentRussian.SendKeys("Enter");
+            //    Thread.Sleep(2000);
+
+            //    //ButtonSaveSettings.Click();
+            //}
+
+            Home page2 = new Home(Driver);
             //проверка поиска по языкам
-            page.SeachFieldProcess("All");
+            page2.SeachFieldProcess("All");
             Thread.Sleep(2000);
 
-            page.SeachFieldProcess("Все");
+            page2.SeachFieldProcess("Все");
             Thread.Sleep(2000);
-            //Assert.IsTrue();
-
+            Driver.FindElement(By.Name("Все"));
         }
-
 
 
         //tests for UserProfile
@@ -604,22 +609,39 @@ namespace Habr.UI.Tests
         public void CheckSaveChangesAfterInput_Success()
         {
             Home page = new Home(Driver);
-            page.GoHomePage();
+            page.ButtonLogo.Click();
             page.Login();
 
+            //Base page1 = new Base(Driver);            
             page.ButtonGreenUser.Click();
-            CheckSaveChangesAfterInput_Success();
+
+            UserMenu page1 = new UserMenu(Driver);
+            page1.ClickSaveChangesAfterInput();
+            Thread.Sleep(2000);
             Driver.Navigate().Refresh();
 
             //check changes
-            page.ButtonLogo.Click();
-            page.ButtonGreenUser.Click();
-            UserMenu page1 = new UserMenu(Driver);
-            page1.ButtonProfileSettings.Click();
 
-            //observe changes
+            Home page2 = new Home(Driver);
+            page2.ButtonLogo.Click();
+            page2.ButtonGreenUser.Click();
+
+            UserMenu page3 = new UserMenu(Driver);
+            //page3.FieldName.Click();
+            page3.ButtonUserProfile.Click();
+            //page3.ButtonProfileSettings.Click();
+
+            //page.FieldName.Click();
+            //page3.ButtonProfileSettings.Click();
+            //y.XPath("//*['Profile settings']
+
             Thread.Sleep(2000);
-            Assert.AreEqual("Anna", page1.FieldName.Text);
+            var text = Driver.FindElement(By.XPath("//h1[@class='user-info__name']")).Text;
+
+            Assert.IsTrue(text.Contains("_Anna"));
+
+            //page3.ButtonSaveChanges.Click();
+
         }
 
 
