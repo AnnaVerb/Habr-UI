@@ -188,24 +188,28 @@ namespace Habr.UI.Tests
 
         }
 
-        public void ClickBtnWriteTopic()//поправить тест
+        [TestMethod]
+        public void ClickBtnCreatePost_Success()
         {
             Home page = new Home(Driver);
             page.GoHomePage();
             page.Login();
+            Thread.Sleep(2000);
+            page.ClickButtonCreateTopic();
 
-            page.ClickButtonWriteTopic();
-
-            ////IWebElement result = Driver.FindElement(By.XPath("/html/body/div[1]/div[2]/div/div/div[2]/a[1]"));
-            Thread.Sleep(5000);
-
-            //Assert.IsTrue(page..Displayed);
-            Assert.IsTrue(page.Title.Contains("Sandbox"));
+            Assert.IsTrue(Driver.Url.Equals("https://habr.com/en/sandbox/start/"));
 
         }
 
 
 
+
+
+        //cliclk button create post near how to
+
+
+        //Driver.FindElement(By.Name("Create post")).Click();
+        //Thread.Sleep(3000);
         //проверка элементов 
 
 
@@ -258,94 +262,31 @@ namespace Habr.UI.Tests
 
         }
 
-        public void ClickButtonWritePostFirstElementOnPage_Success()
+        [TestMethod]
+        public void ClickButtonCreatePost_FirstElementOnPage_Success()
         {
             Home page = new Home(Driver);
             page.GoHomePage();
             page.Login();
+            page.ButtonCreatePost.Click();
 
             SandboxPage page2 = new SandboxPage(Driver);
             WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(3));
-
-            page2.ClickButtonWritePostFirstElementOnPage();
+            page2.ButtonCreatePostFirstElement.Click();
 
             //check button. It should be on sandbox page
-            var a = page2.ButtonWritePostFirstElement.Enabled;
+            var a = page2.ButtonCreatePostFirstElement.Displayed;
 
             Assert.IsTrue(a);
-            Assert.IsTrue(page2.ButtonWritePostFirstElement.Displayed);
+            //Assert.IsTrue(page2.ButtonCreatePostFirstElement.Displayed);
             Assert.IsTrue(Driver.Url.Contains("sandbox/add/"));
-
             //"https://habr.com/ru/sandbox/add/");
 
         }
 
 
 
-        //public void WriteTopicProcess_Success()//check
-        //{
-        //    Home page = new Home(Driver);
-        //    page.GoHomePage();
-        //    Thread.Sleep(2000);
-
-        //    SandboxPage page1 = new SandboxPage(Driver);
-        //    //page1.WriteTopicProcess();
-
-        //    Assert.IsTrue(page1.ButtonWritePostFirstElement.Displayed);
-        //    page1.ButtonWritePostFirstElement.Click();
-        //    Thread.Sleep(2000);
-
-        //}
-
-
-
-        //public void CheckBookmarkCounter()
-
-        //{
-        //    //var newcounter = page.ButtonBookm arkPost512916Counter.Text;
-        //    //Assert.AreNotEqual(counterbeforeremove, newcounter);
-        //    //другой вариант проверки
-        //    ////check that bookmark is removed => ищем post
-        //    //UserMenu page1 = new UserMenu(Driver);
-        //    //page.ButtonGreenUser.Click();
-        //    //page1.ButtonZakladki.Click();
-        //    //Thread.Sleep(2000);
-
-        //    //if (!page.ElementPost_512916.Displayed)
-        //    //{
-        //    //    WebDriverWait wait2 = new WebDriverWait(Driver, TimeSpan.FromSeconds(2));
-
-        //    //    Assert.IsFalse(page.ElementPost_512916.Displayed);
-        //    //}
-
-        //    //else
-        //    //{
-        //    //    //post is not removed
-        //    //    //CodeThrowExceptionStatement()
-        //    //    page.GoToPostPage();
-
-        //    //}
-        //    //var counter = page.ButtonBookmarkPost512916Counter.Text.ToString();
-
-        //    //if (!counter.Equals("0"))
-        //    //{
-        //    //    page.ButtonBookmarkPost512916.Click();
-        //    //    Thread.Sleep(2000);
-
-        //    //    //Assert.IsFalse(counter.Equals("0"));
-        //    //}
-
-        //    //var counterbeforeremove = page.ButtonBookmarkPost512916Counter.Text;
-
-        //    //page.ButtonBookmarkPost512916.Click();
-        //    //Thread.Sleep(2000);
-        //    //Assert.AreNotEqual("add", a);
-        //    //page.ButtonBookmarkPost512916.Click();
-        //    //Assert.AreEqual("add", a);
-        //}
-
-
-
+        [TestMethod]
         public void PostAddtoFavoriteByLink()
         //вынести в константу
         //добавить проверку счетчика
@@ -416,7 +357,7 @@ namespace Habr.UI.Tests
             if (langSettings.InputInterfaceRussian.Selected)
             {
                 langSettings.ButtonSaveSettings.Click();
-                page.ButtonLogo.Click();
+                //page.ButtonLogo.Click();
             }
             else
             {
@@ -529,7 +470,7 @@ namespace Habr.UI.Tests
 
         //}
 
-
+        //new test
         public void SetALLOptionsContentByBtnSettings()
         {
             Home page = new Home(Driver);
@@ -627,17 +568,13 @@ namespace Habr.UI.Tests
             page2.ButtonGreenUser.Click();
 
             UserMenu page3 = new UserMenu(Driver);
-            //page3.FieldName.Click();
             page3.ButtonUserProfile.Click();
-            //page3.ButtonProfileSettings.Click();
 
-            //page.FieldName.Click();
             //page3.ButtonProfileSettings.Click();
             //y.XPath("//*['Profile settings']
 
             Thread.Sleep(2000);
             var text = Driver.FindElement(By.XPath("//h1[@class='user-info__name']")).Text;
-
             Assert.IsTrue(text.Contains("_Anna"));
 
             //page3.ButtonSaveChanges.Click();

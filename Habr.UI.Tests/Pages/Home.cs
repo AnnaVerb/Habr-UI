@@ -7,7 +7,7 @@ namespace Habr.UI.Tests.Pages
 {
     public class Home : BasePage
     {
-        internal readonly object ButtonWritePostFirstElement;
+        //internal readonly object ButtonWritePostFirstElement;
         public string Title => Driver.Title;
         public Home(IWebDriver driver) : base(driver)
         {

@@ -47,6 +47,71 @@ namespace Habr.UI.Tests.Other
         //    //Assert.AreEqual("https://habr.com/ru/sandbox/start/", page.Title);
         //}
 
+
+        //public void WriteTopicProcess_Success()//check
+        //{
+        //    Home page = new Home(Driver);
+        //    page.GoHomePage();
+        //    Thread.Sleep(2000);
+
+        //    SandboxPage page1 = new SandboxPage(Driver);
+        //    //page1.WriteTopicProcess();
+
+        //    Assert.IsTrue(page1.ButtonWritePostFirstElement.Displayed);
+        //    page1.ButtonWritePostFirstElement.Click();
+        //    Thread.Sleep(2000);
+
+        //}
+
+
+
+        //public void CheckBookmarkCounter()
+
+        //{
+        //    //var newcounter = page.ButtonBookm arkPost512916Counter.Text;
+        //    //Assert.AreNotEqual(counterbeforeremove, newcounter);
+        //    //другой вариант проверки
+        //    ////check that bookmark is removed => ищем post
+        //    //UserMenu page1 = new UserMenu(Driver);
+        //    //page.ButtonGreenUser.Click();
+        //    //page1.ButtonZakladki.Click();
+        //    //Thread.Sleep(2000);
+
+        //    //if (!page.ElementPost_512916.Displayed)
+        //    //{
+        //    //    WebDriverWait wait2 = new WebDriverWait(Driver, TimeSpan.FromSeconds(2));
+
+        //    //    Assert.IsFalse(page.ElementPost_512916.Displayed);
+        //    //}
+
+        //    //else
+        //    //{
+        //    //    //post is not removed
+        //    //    //CodeThrowExceptionStatement()
+        //    //    page.GoToPostPage();
+
+        //    //}
+        //    //var counter = page.ButtonBookmarkPost512916Counter.Text.ToString();
+
+        //    //if (!counter.Equals("0"))
+        //    //{
+        //    //    page.ButtonBookmarkPost512916.Click();
+        //    //    Thread.Sleep(2000);
+
+        //    //    //Assert.IsFalse(counter.Equals("0"));
+        //    //}
+
+        //    //var counterbeforeremove = page.ButtonBookmarkPost512916Counter.Text;
+
+        //    //page.ButtonBookmarkPost512916.Click();
+        //    //Thread.Sleep(2000);
+        //    //Assert.AreNotEqual("add", a);
+        //    //page.ButtonBookmarkPost512916.Click();
+        //    //Assert.AreEqual("add", a);
+        //}
+
+
+
         //public void CheckAddedPostByUserMenu_Success()
         //{
         //    Post page = new Post(Driver);
@@ -153,6 +218,58 @@ namespace Habr.UI.Tests.Other
         //[TestMethod]
         //add waits for visible btn
         //check xpaths
+
+        //public void ClickButtonWritePostFirstElementOnPage()//Как всё произойдет
+        //{
+        //    BasePage page = new Home(Driver);
+        //    page.ClickButtonCreateTopic();
+
+        //    SandboxPage pagesand = new SandboxPage(Driver);
+        //    WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(4));
+
+        //    Thread.Sleep(2000);
+
+        //    if (ButtonWritePostFirstElement.Displayed)
+        //    {
+        //        //this one will scroll the element into view for interactions
+
+        //        IJavaScriptExecutor js = (IJavaScriptExecutor)Driver;
+        //        js.ExecuteScript("arguments[0].scrollIntoView(true);", ButtonWritePostFirstElement);
+
+        //        //ButtonWritePostFirstElement.Click();//new button
+        //        Driver.FindElement(By.XPath("//a[@href ='https://habr.com/en/feed/']")).Click();
+
+
+        //        //          Message:
+        //        //              Test method Habr.UI.Tests.HabrTests.ClickButtonWritePostFirstElementOnPage_Success threw exception:
+        //        //              OpenQA.Selenium.ElementClickInterceptedException: element click intercepted: 
+        //        //Element < a href = "/en/sandbox/add/" class="btn btn_medium btn_blue">...</a> is not clickable at point(256, 16).
+        //        //Other element would receive the click: <a href = "https://habr.com/en/feed/" class="nav-links__item-link ">...</a>
+        //        //    
+        //        Thread.Sleep(2000);
+
+        //    }
+        //    else
+        //    {
+        //        page.ButtonLogo();
+        //    }
+
+        //    //Assert.AreEqual("https://habr.com/ru/sandbox/add/", Driver.Contains("https://habr.com/ru/sandbox/add/"));
+        //    //ButtonWritePostFirstElement.SendKeys("Enter");
+        //    //String tagname = Driver.FindElement(By.XPath("//*['Написать пост']//h2[text()='Как всё произойдет']")).GetAttribute("");
+        //    //Assert.AreEqual("1", tagname);
+        //    //element = driver.FindElement(By.LinkText("Click me using this link text!")); это наш батн
+        //    //this will scroll the element and center it for interaction
+        //    //var js = (IJavaScriptExecutor)Driver;
+        //    //js.ExecuteScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'})", element);
+
+        //    ////this one will scroll the element into view for interactions
+        //    //IJavaScriptExecutor je = (IJavaScriptExecutor)Driver;
+        //    //je.ExecuteScript("arguments[0].scrollIntoView(false);", ButtonWritePostFirstElement);
+        //    //wait.Until().ButtonWritePostFirstElement();
+        //    //WebDriverWait wait = new WebDriverWait(driver, timeOut);
+
+        //}
 
     }
 }

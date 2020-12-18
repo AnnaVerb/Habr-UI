@@ -39,8 +39,9 @@ namespace Habr.UI.Tests.Pages
         public IWebElement ButtonNotifications => Driver.FindElement(By.XPath("//a[contains(@href,'/tracker/') and contains(@class, 'btn_navbar_tracker')]"));
         //By.XPath("/html/body/div[1]/div[2]/div/div/div[2]/a[1]")
         //<a href = "https://habr.com/ru/tracker/" class="btn btn_medium btn_navbar_tracker" title="Трекер">
-        public IWebElement ButtonWriteTopic => Driver.FindElement(By.XPath("//a[@title='Create post']")); //"Написать пост"
+        public IWebElement ButtonCreatePost => Driver.FindElement(By.XPath("//a[@title='Create post']")); //"Написать пост"
         public IWebElement ElementTrackerNotifications => Driver.FindElement(By.XPath("//h1[@class ='page-header__title']"));
+
 
 
         //menu
@@ -48,6 +49,11 @@ namespace Habr.UI.Tests.Pages
         public IWebElement UpPanelMenuNavigationLinksAllStreams => Driver.FindElement(By.XPath("//a[text()='All streams']"));
         public IWebElement UpPanelMenuNavigationLinksDevelopment => Driver.FindElement(By.XPath("//a[text()='Development']"));
         public IWebElement UpPanelMenuNavigationLinksPopSi => Driver.FindElement(By.XPath("//a[text()='PopSi']"));
+
+        //internal void ButtonLogo()
+        //{
+        //    throw new NotImplementedException();
+        //}
 
 
 
@@ -101,11 +107,10 @@ namespace Habr.UI.Tests.Pages
             else
                 throw new Exception("User isn't loged in");
         }
-        public void ClickButtonWriteTopic()
+        public void ClickButtonCreateTopic()
         {
-
             if (IsLogedIn)
-                ButtonWriteTopic.Click();
+                ButtonCreatePost.Click();
             else
                 throw new Exception("User isn't loged in");
         }
