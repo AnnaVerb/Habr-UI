@@ -17,8 +17,9 @@ namespace Habr.UI.Tests.Pages
 
         }
 
-        public IWebElement ButtonCreatePostFirstElement => Driver.FindElement(By.ClassName("btn.btn_medium btn_blue"));
+        public IWebElement ButtonCreatePostFirstElement => Driver.FindElement(By.Name("Create post"));
         ////*['Create post']//[@class='nav - links__item - link']"));
+        ///body > div.layout > div.layout__row.layout__row_body > div > div > div.content_left.js-content_left > div.info_page.h-info.h-info_sandbox > a:nth-child(6)
         //btn btn_medium btn_blue
 
         public IWebElement FieldPostList//check

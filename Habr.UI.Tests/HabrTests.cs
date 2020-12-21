@@ -231,7 +231,7 @@ namespace Habr.UI.Tests
         //tests about posts
 
         [TestMethod]
-        public void PostYandexAddtoFavoriteBySearch_Success()
+        public void PostYandexAddBySearch_Success()
         {
             Home page = new Home(Driver);
             page.Login();
@@ -249,14 +249,8 @@ namespace Habr.UI.Tests
             Assert.IsTrue(page1.ButtonBookmarkPost.Enabled);
 
             //if (page1.ButtonBookmarkPost.GetAttribute("data - action").Contains("remove"))
-            //{
-            //    Assert.IsTrue(page1.ButtonBookmarkPost.GetAttribute("data - action").Contains("remove"));  //data-id="512916";
-            //}
-
-            //else
-            //{
+           
             page1.ButtonBookmarkPost.Click();
-
 
             Assert.IsTrue(page1.ElementPost.Displayed);
 
@@ -272,46 +266,56 @@ namespace Habr.UI.Tests
 
             SandboxPage page2 = new SandboxPage(Driver);
             WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(3));
-            page2.ButtonCreatePostFirstElement.Click();
+            //page2.ButtonCreatePostFirstElement.Click();
+            Thread.Sleep(4000);
 
-            //check button. It should be on sandbox page
-            var a = page2.ButtonCreatePostFirstElement.Displayed;
+            //check button. It should be on sandbox page, click on it
+            //var a = page2.ButtonCreatePostFirstElement.Displayed;
 
-            Assert.IsTrue(a);
-            //Assert.IsTrue(page2.ButtonCreatePostFirstElement.Displayed);
+            Assert.IsTrue(Driver.FindElement(By.XPath("//h1['Title']")).Displayed);
+
             Assert.IsTrue(Driver.Url.Contains("sandbox/add/"));
             //"https://habr.com/ru/sandbox/add/");
 
         }
 
 
-
         [TestMethod]
-        public void PostAddtoFavoriteByLink()
-        //вынести в константу
-        //добавить проверку счетчика
+        public void PostAddByLink()
+        //добавить проверку счетчика 
         {
-            Home page = new Home(Driver);
-            page.Login();
-
+      
             //string postlink = "https://habr.com/en/news/t/512916/";
-            //Post pagepost = new Post(Driver);
-            //page.GoToPostPage("512916");
-
+           
             Post pagepost = new Post(Driver);
             Driver.Navigate().GoToUrl("https://habr.com/en/news/t/512916/");
-
+            //pagepost.GoToPostPage("512916");
+            Thread.Sleep(2000);
+            pagepost.Login();
             WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(3));
+
+            //Assert.IsTrue(Driver.Url.Contains("512916"));
+
             pagepost.ButtonBookmarkPost.Click();
             Thread.Sleep(2000);
             Driver.TakeScreenshot();
 
-            Assert.IsTrue(Driver.Url.Contains("/512916/"));
-            //Assert.IsTrue(page.ButtonBookmarkPost.Enabled);
+            //check bookmark
 
-            //CheckforBookmark();
+            var text = pagepost.ButtonBookmarkPost.Text;
+            if (text.Equals("0"))
+            {
+                pagepost.ButtonBookmarkPost.Click();
+                Thread.Sleep(2000);
+                var text2 = pagepost.ButtonBookmarkPost.Text;
+
+                Assert.AreEqual("1", text2);
+            }
+
+            //var a = pagepost.ButtonBookmarkPost.GetAttribute("data-action");      
 
         }
+
 
 
 
