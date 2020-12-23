@@ -27,12 +27,11 @@ namespace Habr.UI.Tests.PopUpWindows
 
         public IWebElement InputInterfaceEnglish => Driver.FindElement(By.XPath("//fieldset[@data-section='2']/div[2]/span"));
 
-        public IWebElement InputContentRussian => Driver.FindElement(By.XPath("//*[@id='fl_langs_ru']"));
+        public IWebElement InputContentRussian => Driver.FindElement(By.XPath("//label[@for='fl_langs_ru']"));
         //*[@id="fl_langs_ru"]
-
+        //"//label[@for='fl_langs_en']"
         //form-field form-field_lang-settings
         //By.XPath("//*[@id='fl_langs_ru']")
-
         //("//fieldset[@data-section='2']/div[1]/span"));
 
         public IWebElement InputContentEnglish => Driver.FindElement(By.XPath("//label[@for='fl_langs_en']"));
@@ -89,3 +88,26 @@ namespace Habr.UI.Tests.PopUpWindows
 
     }
 }
+
+
+//else
+//{
+//    langSettings.InputContentEnglish.Click();
+//    Thread.Sleep(2000);
+//    langSettings.InputContentRussian.Click();
+//    Thread.Sleep(2000);
+//    Assert.IsTrue(langSettings.InputContentEnglish.Selected);
+//    Assert.IsTrue(langSettings.InputContentRussian.Selected);
+
+//}
+
+//langSettings.InputContentEnglish.Click();
+//if (!langSettings.InputContentRussian.Selected)
+//{
+//    langSettings.InputContentRussian.SendKeys("Enter");
+//    Thread.Sleep(2000);
+
+//    //ButtonSaveSettings.Click();
+//}
+
+

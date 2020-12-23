@@ -17,11 +17,9 @@ namespace Habr.UI.Tests.Pages
 
         }
 
-        public IWebElement ButtonCreatePostFirstElement => Driver.FindElement(By.Name("Create post"));
+        public IWebElement ButtonCreatePostFirstElement => Driver.FindElement(By.XPath("//a[@href='/en/sandbox/add/']"));
         ////*['Create post']//[@class='nav - links__item - link']"));
-        ///body > div.layout > div.layout__row.layout__row_body > div > div > div.content_left.js-content_left > div.info_page.h-info.h-info_sandbox > a:nth-child(6)
-        //btn btn_medium btn_blue
-
+      
         public IWebElement FieldPostList//check
         {
             get

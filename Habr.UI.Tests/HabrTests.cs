@@ -10,7 +10,7 @@ using System.CodeDom;
 using System.IO;
 using System.Reflection;
 using System.Threading;
-[assembly: Parallelize(Workers = 4, Scope = ExecutionScope.MethodLevel)]
+[assembly: Parallelize(Workers = 5, Scope = ExecutionScope.MethodLevel)]
 
 namespace Habr.UI.Tests
 {
@@ -47,6 +47,8 @@ namespace Habr.UI.Tests
         }
 
 
+        //Log In and Login OUT Tests
+
         [TestMethod]
         //[ExpectedException(typeof(NoSuchElementException), "Login button is not presented on the page.")]
         public void LoginIn_Success()
@@ -67,9 +69,7 @@ namespace Habr.UI.Tests
             page.LoginOutProcess();
 
             Assert.IsTrue(page.ButtonLogin.Displayed);
-
         }
-
 
 
         //проверка панелей меню
@@ -83,7 +83,7 @@ namespace Habr.UI.Tests
             page.UpPanelMenuNavigationLinksAllStreams.Click();
             Thread.Sleep(2000);
 
-            //WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(5));
+            WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(5));
             //bool result = Driver.Url.Contains("habr.com/en/top/");
             var resultword = Driver.FindElement(By.XPath("//*[text()='All streams']")).Text;
 
@@ -158,7 +158,8 @@ namespace Habr.UI.Tests
         }
 
 
-        //проверка кнопок
+
+        //проверка кнопок и элементов
 
         [TestMethod]
         public void CheckNotifications_Success()
@@ -187,7 +188,6 @@ namespace Habr.UI.Tests
             Assert.IsTrue(result);
 
         }
-
         [TestMethod]
         public void ClickBtnCreatePost_Success()
         {
@@ -201,17 +201,9 @@ namespace Habr.UI.Tests
 
         }
 
-
-
-
-
         //cliclk button create post near how to
-
-
         //Driver.FindElement(By.Name("Create post")).Click();
         //Thread.Sleep(3000);
-        //проверка элементов 
-
 
         [TestMethod]
         //проверка поисковой строки или поля
@@ -226,12 +218,10 @@ namespace Habr.UI.Tests
         }
 
 
-
-
         //tests about posts
 
         [TestMethod]
-        public void PostYandexAddBySearch_Success()
+        public void PostYandexAddBySearch()
         {
             Home page = new Home(Driver);
             page.Login();
@@ -249,44 +239,54 @@ namespace Habr.UI.Tests
             Assert.IsTrue(page1.ButtonBookmarkPost.Enabled);
 
             //if (page1.ButtonBookmarkPost.GetAttribute("data - action").Contains("remove"))
-           
-            page1.ButtonBookmarkPost.Click();
 
+            page1.ButtonBookmarkPost.Click();
+            //check bookmark
+
+            var text = page1.ButtonBookmarkPost.Text;
+            if (text.Equals("0"))
+            {
+                page1.ButtonBookmarkPost.Click();
+                Thread.Sleep(2000);
+                var text2 = page1.ButtonBookmarkPost.Text;
+
+                Assert.AreEqual("1", text2);
+            }
             Assert.IsTrue(page1.ElementPost.Displayed);
 
         }
 
         [TestMethod]
-        public void ClickButtonCreatePost_FirstElementOnPage_Success()
+        [Obsolete]
+        public void ClickButtonCreatePost_FirstElementOnPage()
         {
             Home page = new Home(Driver);
             page.GoHomePage();
             page.Login();
+
             page.ButtonCreatePost.Click();
 
             SandboxPage page2 = new SandboxPage(Driver);
-            WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(3));
-            //page2.ButtonCreatePostFirstElement.Click();
-            Thread.Sleep(4000);
+
+            //WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(3));
+            //wait.Until(IWebDriver driver, page2.ButtonCreatePostFirstElement.Displayed);
+
+            WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(5000));
+            _ = wait.Until(ExpectedConditions.ElementToBeClickable(page2.ButtonCreatePostFirstElement));
 
             //check button. It should be on sandbox page, click on it
-            //var a = page2.ButtonCreatePostFirstElement.Displayed;
+            page2.ButtonCreatePostFirstElement.Click();
 
-            Assert.IsTrue(Driver.FindElement(By.XPath("//h1['Title']")).Displayed);
-
-            Assert.IsTrue(Driver.Url.Contains("sandbox/add/"));
-            //"https://habr.com/ru/sandbox/add/");
+            Assert.IsTrue(Driver.Url.Contains("sandbox/add/")); //"https://habr.com/ru/sandbox/add/");
 
         }
-
-
         [TestMethod]
         public void PostAddByLink()
         //добавить проверку счетчика 
         {
-      
+
             //string postlink = "https://habr.com/en/news/t/512916/";
-           
+
             Post pagepost = new Post(Driver);
             Driver.Navigate().GoToUrl("https://habr.com/en/news/t/512916/");
             //pagepost.GoToPostPage("512916");
@@ -318,12 +318,10 @@ namespace Habr.UI.Tests
 
 
 
-
-
-        //test language Settings
+        //test language settings
 
         [TestMethod]
-        public void SetEnglishByBtnSettings_Success()
+        public void SetEnglishByBtnSettings()
         {
             Home page = new Home(Driver);
             page.GoHomePage();
@@ -346,7 +344,6 @@ namespace Habr.UI.Tests
             }
 
         }
-
         [TestMethod]
         public void SetRussianByBtnSettings()
         {
@@ -390,7 +387,7 @@ namespace Habr.UI.Tests
         //    };
 
         [TestMethod]
-        //Negative test
+        //Negative test, should be selected one button
         public void SetALLOptionsInterfaceByBtnSettings()
         {
             Home page = new Home(Driver);
@@ -402,6 +399,11 @@ namespace Habr.UI.Tests
             Thread.Sleep(1000);
             langSettings.InputInterfaceEnglish.Click();
             Thread.Sleep(1000);
+
+            Assert.IsFalse(langSettings.InputInterfaceRussian.Selected);
+            //Assert.IsTrue(langSettings.InputInterfaceEnglish.Selected);
+            Assert.AreEqual(null, langSettings.InputInterfaceEnglish.GetAttribute("checked"));
+
             langSettings.ButtonSaveSettings.Click();
 
             page.GoHomePage();
@@ -410,108 +412,150 @@ namespace Habr.UI.Tests
             Driver.TakeScreenshot();
 
             //checked attribute for radio btn  
-            var check = langSettings.InputInterfaceEnglish.GetCssValue("checked");
-
+            //var check = langSettings.InputInterfaceEnglish.GetCssValue("checked");
 
             //var RussianOption = langSettings.InputInterfaceRussian.FindElement(By.Name("checked"));
             //var EnglishOption = langSettings.InputInterfaceEnglish.GetAttribute("checked");
 
-
             // CSS selector, for all checkboxes which are checked
-
-
             //input: checked[type='checkbox']
-
-
-
-
             //Assert.IsFalse(RussianOption.Equals(EnglishOption));
-
             //Assert.IsTrue(langSettings.InputInterfaceRussian.Selected || langSettings.InputInterfaceEnglish.Selected);
             //Assert.AreEqual("true", langSettings.InputInterfaceEnglish.FindElement(By.("checked")));
         }
 
 
 
+        //content settings
+
         [TestMethod]
         public void SetEnglishContentByBtnSettings()
         {
             Home page = new Home(Driver);
-            page.GoHomePage();
-            Thread.Sleep(1000);
+            page.ButtonLogo.Click();
             page.ButtonSettings.Click();
 
             LanguageSettings langSettings = new LanguageSettings(Driver);
-            langSettings.SetEnglishContentByBtnSettings();
             Thread.Sleep(2000);
+            langSettings.InputContentEnglish.Click();
 
-            //page.ButtonSettings.Click();
-            Assert.IsTrue(langSettings.InputContentEnglish.Displayed);
-            //Assert.IsTrue(langSettings.InputContentEnglish.Selected);
-            Assert.IsTrue(langSettings.InputContentEnglish.Enabled);
+            //проверка чекбокса
+            Thread.Sleep(2000);
+            if (langSettings.InputContentEnglish.Selected)
+            {
+                langSettings.ButtonSaveSettings.Click();
+            }
+
+            else
+            {
+                langSettings.InputContentEnglish.Click();
+                Thread.Sleep(2000);
+                langSettings.ButtonSaveSettings.Click();
+            }
 
         }
 
-
-        //public void SetRussianContentPlusSearch_Success()
-        //{
-        //    Home page = new Home(Driver);
-        //    page.GoHomePage();
-        //    Thread.Sleep(2000);
-        //    page.ButtonSettings.Click();
-        //    Thread.Sleep(2000);
-
-        //    LanguageSettings langSettings = new LanguageSettings(Driver);
-        //    langSettings.SetRussianContentByBtnSettings();
-        //    Thread.Sleep(2000);
-
-        //    //Assert.IsTrue(langSettings.InputContentRussian.Displayed);
-        //    Assert.IsTrue(langSettings.InputContentRussian.Selected);
-
-        //    page.SeachFieldProcess("График");
-        //    Driver.TakeScreenshot();
-        //    Thread.Sleep(2000);
-
-        //}
-
-        //new test
-        public void SetALLOptionsContentByBtnSettings()
+        [TestMethod]
+        [Obsolete]
+        //[Obsolete]
+        public void SetRussianContentPlusSearch_Success()
         {
             Home page = new Home(Driver);
             page.GoHomePage();
+            page.ButtonSettings.Click();
+            Thread.Sleep(2000);
+
+            LanguageSettings langSettings = new LanguageSettings(Driver);
+
+            langSettings.InputContentEnglish.Click();
+            Thread.Sleep(2000);
+
+            WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(4000));
+            _ = wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//label[@for='fl_langs_ru']")));
+
+            langSettings.InputContentRussian.Click();
+            Thread.Sleep(2000);
+
+            Assert.IsTrue(langSettings.InputContentRussian.Enabled);
+
+
+            langSettings.ButtonSaveSettings.Click();
+
+            CheckLanguagebySearch("График");
+
+            var a = Driver.FindElement(By.XPath("//*[contains(text(),'График')]"));
+            a.ToString();
+            Assert.IsNotNull(a);
+
+            ////fix with waits
+            //WebDriverWait wait2 = new WebDriverWait(Driver, TimeSpan.FromSeconds(4000));
+            ////IWebElement element1 = wait1.Until(IWebDriver, langSettings.InputContentRussian.Selected);
+            //wait2.Until(ExpectedConditions.ElementToBeSelected(langSettings.InputContentRussian));
+            //можно выбрать разные свойства                     
+            //*[@id="fl_langs_ru"]));
+            //WebDriverWait wait = new WebDriverWait(driver, 120);
+            //ElementToBeClickable);            
+
+        }
+        public void CheckLanguagebySearch(string text)
+        {
+
+            //проверка языка
+            Home page2 = new Home(Driver);
+            page2.GoHomePage();
+            page2.SeachFieldProcess(text);
+
+            Driver.TakeScreenshot();
+            Thread.Sleep(2000);
+
+
+            //private Func<IWebDriver, IWebElement> ElementToBeClickable()
+            //{
+            //    throw new NotImplementedException();
+            //}
+            ////проверка поиска по языкам
+
+            //////var a = Driver.FindElement(By.Name("All")).ToString();
+            ////var a = Driver.FindElement(By.XPath("//*[contains(text(),'All Все')]"));
+            ////a.ToString();
+            ////Assert.IsNotNull(a);
+
+        }
+
+
+        [TestMethod]
+        public void SetALLOptionsContent()
+        {
+            Home page = new Home(Driver);
+            page.GoHomePage();
+            //English is selected by default in english version
 
             page.ButtonSettings.Click();
             LanguageSettings langSettings = new LanguageSettings(Driver);
+            Thread.Sleep(4000);
+
+            //clear checkbox
+            langSettings.InputContentEnglish.Click();
+            Thread.Sleep(2000);
+            langSettings.InputContentEnglish.Click();
             Thread.Sleep(2000);
 
-            //langSettings.InputContentEnglish.Click();
-            //if (!langSettings.InputContentEnglish.Selected)
-            //{
-            //    langSettings.InputContentEnglish.SendKeys("Enter");
-            //    Thread.Sleep(2000);
-            //}
             langSettings.InputContentRussian.Click();
-            Thread.Sleep(1000);
-            //Driver.TakeScreenshot().SaveAsFile("ContentView");
+            Thread.Sleep(2000);
             langSettings.ButtonSaveSettings.Click();
-
-            //if (!langSettings.InputContentRussian.Selected)
-            //{
-            //    langSettings.InputContentRussian.SendKeys("Enter");
-            //    Thread.Sleep(2000);
-
-            //    //ButtonSaveSettings.Click();
-            //}
+            Thread.Sleep(4000);
 
             Home page2 = new Home(Driver);
-            //проверка поиска по языкам
-            page2.SeachFieldProcess("All");
-            Thread.Sleep(2000);
+            //page2.ButtonSearch.Click();
 
-            page2.SeachFieldProcess("Все");
-            Thread.Sleep(2000);
-            Driver.FindElement(By.Name("Все"));
+            CheckLanguagebySearch("All все");
+
+            var a = Driver.FindElements(By.XPath("//*[contains(text(),'All все')]"));
+            a.ToString();
+            Assert.IsNotNull(a);
+            //Assert.IsNotNull(Driver);
         }
+
 
 
         //tests for UserProfile
