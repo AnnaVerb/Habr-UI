@@ -33,14 +33,20 @@ namespace Habr.UI.Tests.Pages
         public IWebElement ButtonGreenUser => Driver.FindElement(By.XPath("//div[@class='main-navbar']//button[contains(@class,'btn_navbar_user-dropdown')]"));
         public IWebElement ButtonSearch => Driver.FindElement(By.XPath("//button[@id='search-form-btn']"));
         //fix and use english words
-        //By.XPath("/html/body/div[1]/div[2]/div/div/div[1]/form/button"));
-        // <button type = "button" class="btn btn_navbar_search icon-svg_search" id="search-form-btn" title="Поиск по сайту">
+        //button" class="btn btn_navbar_search icon-svg_search" id="search-form-btn" title="Поиск по сайту">
+
         public IWebElement ButtonSettings => Driver.FindElement(By.XPath("//div[@class='main-navbar__section main-navbar__section_right']//button[1]"));
         public IWebElement ButtonNotifications => Driver.FindElement(By.XPath("//a[contains(@href,'/tracker/') and contains(@class, 'btn_navbar_tracker')]"));
         //By.XPath("/html/body/div[1]/div[2]/div/div/div[2]/a[1]")
         //<a href = "https://habr.com/ru/tracker/" class="btn btn_medium btn_navbar_tracker" title="Трекер">
         public IWebElement ButtonCreatePost => Driver.FindElement(By.XPath("//a[@title='Create post']")); //"Написать пост"
         public IWebElement ElementTrackerNotifications => Driver.FindElement(By.XPath("//h1[@class ='page-header__title']"));
+
+        public IWebElement FooterAccount => Driver.FindElement(By.XPath("//h3[text()='Your account']"));
+        public IWebElement FooterSections => Driver.FindElement(By.XPath("//h3[text()='Sections']"));
+        public IWebElement FooterInfo => Driver.FindElement(By.XPath("//h3[text()='Info']"));
+
+        public IWebElement LinkSupportFooter => Driver.FindElement(By.XPath("//a[@href='https://habr.com/en/feedback/' and text()='Support']"));
 
 
 
@@ -60,6 +66,9 @@ namespace Habr.UI.Tests.Pages
         //methods
 
         public void Login() => Login(_defaultLogInEmail, _defaultLogInPassword);
+
+
+        //methods
         public void Login(string email, string password)
         {
             ButtonLogin.Click();

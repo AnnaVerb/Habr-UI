@@ -17,6 +17,9 @@ namespace Habr.UI.Tests
     [TestClass]
     public class HabrTests
     {
+        //private readonly string email;
+        //private readonly string password;
+
         private IWebDriver Driver { get; set; }
         private IWebDriver GetChromeDriver()
         {
@@ -26,7 +29,8 @@ namespace Habr.UI.Tests
 
             return new ChromeDriver(outputDirectory, new ChromeOptions());
         }
-
+        IWebElement BtnFollowTwitterPage => Driver.FindElement(By.XPath("//*[text()='Follow']"));
+        IWebElement BtnLoginTwitterPage => Driver.FindElement(By.XPath("//*[@href ='/login']"));
 
         [TestInitialize]
         //запускается перед каждым тестом 
@@ -118,6 +122,22 @@ namespace Habr.UI.Tests
             //https://habr.com/ru/sandbox/start/
 
         }
+
+        [TestMethod]
+        public void ClickUpPanelMenuNavigationLinksMyFeed_Success()
+        {
+            Home page = new Home(Driver);
+            page.GoHomePage();
+            page.Login();
+
+            page.UpPanelMenuNavigationLinksMyFeed.Click();
+            Thread.Sleep(2000);
+            WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(5));
+
+            bool result = Driver.Url.Contains("habr.com/en/feed");
+            Assert.IsTrue(result);
+        }
+
         [TestMethod]
         public void LogoMenuQA_Success()
         {
@@ -628,6 +648,122 @@ namespace Habr.UI.Tests
             //page3.ButtonSaveChanges.Click();
 
         }
+
+
+
+        //tests for footer checking buttons
+
+        [TestMethod]
+        [Obsolete]
+        public void ClickLinkSupportFooter()
+        {
+            Home page = new Home(Driver);
+            page.GoHomePage();
+
+            //adding waits to scroll 
+
+            WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(4000));
+            _ = wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//*[text()='Support']")));
+
+            page.LinkSupportFooter.Click();
+            Thread.Sleep(2000);
+            Driver.Navigate().Refresh();
+
+            Assert.IsTrue(Driver.Url.Contains("habr.com/en/feedback/"));
+        }
+        [TestMethod]
+        public void ClickBtnLoginInAccountFooter()
+        {
+            Home page = new Home(Driver);
+            page.GoHomePage();
+
+
+            ((IJavaScriptExecutor)Driver).ExecuteScript("window.scrollTo(0, document.body.scrollHeight)");
+            Driver.FindElement(By.XPath("//a[@class='footer-menu__item-link'][text()='Log in']")).Click();
+            // class="footer-menu__item-link">Log in</a>
+
+            Thread.Sleep(4000);
+
+            LoginPopUp pagelogin = new LoginPopUp(Driver);
+            Thread.Sleep(2000);
+
+            Assert.IsTrue(pagelogin.ButtonLoginPopupPage.Displayed);
+        }
+        [TestMethod]
+        [Obsolete]
+        public void ClickPostsSectionsFooter()
+        {
+            Home page = new Home(Driver);
+            page.GoHomePage();
+
+            //adding waits to scroll 
+            //this will scroll the element and center it for interaction
+            // Javascript executor
+            ((IJavaScriptExecutor)Driver).ExecuteScript("window.scrollTo(0, document.body.scrollHeight)");
+            Thread.Sleep(2000);
+
+            WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(4000));
+            _ = wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//*[text()='Posts']")));
+
+            Driver.FindElement(By.XPath("//*[text()='Posts']")).Click();
+            Thread.Sleep(2000);
+            Driver.Navigate().Refresh();
+
+            Assert.IsTrue(Driver.Url.Contains("habr.com/en/all/"));
+        }
+        [TestMethod]
+        public void ClickHubsSectionsFooter()
+        {
+            Home page = new Home(Driver);
+            page.GoHomePage();
+
+            ((IJavaScriptExecutor)Driver).ExecuteScript("window.scrollTo(0, document.body.scrollHeight)");
+
+            page.FooterSections.FindElement(By.XPath("//*[text()='Hubs']")).Click();
+            Thread.Sleep(2000);
+
+            Assert.IsTrue(Driver.Url.Equals("https://habr.com/en/hubs/"));
+        }
+        [TestMethod]
+        public void ClickTwitterLinkFooter()
+        {
+            Home page = new Home(Driver);
+            page.GoHomePage();
+
+            ((IJavaScriptExecutor)Driver).ExecuteScript("window.scrollTo(0, document.body.scrollHeight)");
+            Thread.Sleep(2000);
+
+            page.FooterSections.FindElement(By.XPath("//*[@href='https://twitter.com/habr_eng']")).Click();
+            Thread.Sleep(2000);
+
+            var results = Driver.FindElements(By.XPath("//*[text()='Habr.com']")).ToString();
+            Assert.IsNotNull(results);
+
+        }
+
+        //fix
+        public void ClickLogInTwitterPage()
+        {
+            Home page = new Home(Driver);
+            page.GoHomePage();
+
+            ClickTwitterLinkFooter();
+
+            Thread.Sleep(4000);
+            //Driver.SwitchTo().Window("twitter.com");
+
+            //проверка кнопки Follow, ее присутствие и кликабельность
+            //span[text()='Follow']
+            Assert.IsTrue(BtnFollowTwitterPage.Displayed);
+            BtnFollowTwitterPage.Click();
+            Thread.Sleep(2000);
+
+            //проверка кнопки логина в всплывающем окне
+            Assert.IsTrue(BtnLoginTwitterPage.Displayed);
+            BtnLoginTwitterPage.Click();
+
+        }
+
 
 
     }

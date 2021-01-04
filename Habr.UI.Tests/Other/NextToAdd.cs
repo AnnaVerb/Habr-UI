@@ -10,22 +10,6 @@ namespace Habr.UI.Tests.Other
     {
 
 
-        //public void ClickUpPanelMenuNavigationLinksMyFeed_Success()
-        //{
-        //    Home page = new Home(Driver);
-        //    page.GoHomePage();
-        //    page.Login();
-
-        //    //SetEnglishByBtnSettings();
-
-        //    page.UpPanelMenuNavigationLinksMyFeed.Click();
-        //    Thread.Sleep(2000);
-        //    //WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(5));
-        //    bool result = Driver.Url.Contains("habr.com/en/feed");
-        //    Assert.IsTrue(result);
-
-        //}
-
         ////public void WriteTopicProcessComplex_Success()//fix
         //{
         //    Home page = new Home(Driver);
@@ -38,7 +22,6 @@ namespace Habr.UI.Tests.Other
         //    var result = page1.FieldPostList.Text;
         //    Thread.Sleep(2000);
 
-
         //    Assert.IsNotNull(result);
         //    Assert.IsTrue(page1.ButtonWritePostFirstElement.Displayed);
         //    Assert.IsTrue(page1.ButtonWritePostFirstElement.Enabled);
@@ -47,23 +30,7 @@ namespace Habr.UI.Tests.Other
         //    //Assert.AreEqual("https://habr.com/ru/sandbox/start/", page.Title);
         //}
 
-
-        //public void WriteTopicProcess_Success()//check
-        //{
-        //    Home page = new Home(Driver);
-        //    page.GoHomePage();
-        //    Thread.Sleep(2000);
-
-        //    SandboxPage page1 = new SandboxPage(Driver);
-        //    //page1.WriteTopicProcess();
-
-        //    Assert.IsTrue(page1.ButtonWritePostFirstElement.Displayed);
-        //    page1.ButtonWritePostFirstElement.Click();
-        //    Thread.Sleep(2000);
-
-        //}
-
-
+              
 
         //public void CheckBookmarkCounter()
 
@@ -180,6 +147,10 @@ namespace Habr.UI.Tests.Other
 
         //}
         //
+
+
+
+
         //[TestMethod]
         //дополнить тест
 
@@ -188,16 +159,6 @@ namespace Habr.UI.Tests.Other
         //    Home page = new Home(Driver);
         //    page.GoHomePage();
         //    page.Login();
-
-        //    page.ButtonWriteTopic.Click();
-        //    Thread.Sleep(2000);
-        //    SandboxPage page1 = new SandboxPage(Driver);
-        //    WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(4));
-
-        //    //page1.ClickButtonWritePostFirstElement();
-
-
-        //    Assert.IsTrue(Driver.Url.Contains("https://habr.com/ru/sandbox/add/"));
 
 
         //    //bool result = page.ButtonWritePostFirstElement.Displayed;
@@ -253,6 +214,8 @@ namespace Habr.UI.Tests.Other
         //    {
         //        page.ButtonLogo();
         //    }
+
+
 
         //    //Assert.AreEqual("https://habr.com/ru/sandbox/add/", Driver.Contains("https://habr.com/ru/sandbox/add/"));
         //    //ButtonWritePostFirstElement.SendKeys("Enter");
