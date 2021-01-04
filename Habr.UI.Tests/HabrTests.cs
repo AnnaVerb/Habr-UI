@@ -542,7 +542,6 @@ namespace Habr.UI.Tests
 
         }
 
-
         [TestMethod]
         public void SetALLOptionsContent()
         {
@@ -740,9 +739,6 @@ namespace Habr.UI.Tests
             Assert.IsNotNull(results);
 
         }
-                
-        
-        
 
     }
 
