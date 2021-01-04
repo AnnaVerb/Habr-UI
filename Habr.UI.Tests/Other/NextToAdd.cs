@@ -30,7 +30,7 @@ namespace Habr.UI.Tests.Other
         //    //Assert.AreEqual("https://habr.com/ru/sandbox/start/", page.Title);
         //}
 
-              
+
 
         //public void CheckBookmarkCounter()
 
@@ -234,5 +234,37 @@ namespace Habr.UI.Tests.Other
 
         //}
 
+        //[Obsolete]
+        //public void ClickLogInTwitterPage()
+        //{
+        //    Home page = new Home(Driver);
+        //    //page.GoHomePage();
+
+        //    ClickTwitterLinkFooter();
+
+        //    Thread.Sleep(4000);
+        //    //Driver.SwitchTo().Window("twitter.com");
+
+        //    //проверка кнопки Follow, ее присутствие и кликабельность
+        //    //span[text()='Follow']
+        //    //Assert.IsTrue(BtnFollowTwitterPage.Displayed);
+        //    //BtnFollowTwitterPage.Click();
+
+        //    //click button Follow
+        //    Thread.Sleep(2000);
+
+
+        //    //проверка кнопки логина в всплывающем окне
+
+        //    WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(4000));
+        //    _ = wait.Until(ExpectedConditions.ElementIsVisible((By)BtnLoginTwitterPage));
+
+        //    BtnLoginTwitterPage.Click();
+        //    Assert.IsTrue(Driver.Url.Equals("https://twitter.com/login"));
+
+
+        }
+
+
     }
-}
+

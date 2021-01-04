@@ -740,31 +740,9 @@ namespace Habr.UI.Tests
             Assert.IsNotNull(results);
 
         }
-
-        //fix
-        public void ClickLogInTwitterPage()
-        {
-            Home page = new Home(Driver);
-            page.GoHomePage();
-
-            ClickTwitterLinkFooter();
-
-            Thread.Sleep(4000);
-            //Driver.SwitchTo().Window("twitter.com");
-
-            //проверка кнопки Follow, ее присутствие и кликабельность
-            //span[text()='Follow']
-            Assert.IsTrue(BtnFollowTwitterPage.Displayed);
-            BtnFollowTwitterPage.Click();
-            Thread.Sleep(2000);
-
-            //проверка кнопки логина в всплывающем окне
-            Assert.IsTrue(BtnLoginTwitterPage.Displayed);
-            BtnLoginTwitterPage.Click();
-
-        }
-
-
+                
+        
+        
 
     }
 
