@@ -240,7 +240,7 @@ namespace Habr.UI.Tests
 
         //tests about posts
 
-        [TestMethod]
+
         public void PostYandexAddBySearch()
         {
             Home page = new Home(Driver);
@@ -740,6 +740,9 @@ namespace Habr.UI.Tests
 
         }
 
+
+
+      
     }
 
 }
